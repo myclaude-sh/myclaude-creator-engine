@@ -161,6 +161,29 @@ This does not modify any files.
 ═══════════════════════════════════════════════
 ```
 
+### GUIDED ITERATION (when failures exist)
+
+After reporting failures, don't just list them — offer to help fix content issues.
+This turns the validator from a reporter into a coach.
+
+For each failed content check, generate a **domain-aware remediation draft**:
+
+| Failed Check | Guided Fix |
+|---|---|
+| Missing anti-patterns section | Draft 3 anti-patterns based on the product's domain (read from .engine-meta.yaml category + the product's content) |
+| Fewer than 3 exemplars | Draft example scenarios based on the skill's "When to Use" section |
+| No quality gate | Draft a quality gate based on the product's Core Instructions (what output should look like) |
+| No edge case handling | Suggest 2 edge cases based on the product's scope boundaries |
+| Placeholder content found | Show the specific placeholder and suggest domain-specific replacement |
+
+Present as: "I found {N} content issues I can help draft fixes for. Want me to proceed?"
+
+Rules:
+- Only write to files if creator explicitly approves
+- Show the draft before writing (creator can edit)
+- This extends --fix behavior to content, not just structure
+- Preserves CE-D13: non-destructive by default, creator controls what gets written
+
 ### BATCH VALIDATION (/validate --batch)
 
 When `--batch` is invoked:

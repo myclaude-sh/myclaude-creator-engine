@@ -23,10 +23,12 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 
 1. Read `creator.yaml` from project root — load defaults (`default_category`, `default_license`, `quality_target`)
 2. Identify which category was requested (from sub-command or by asking)
-3. Load discovery questions from `${CLAUDE_SKILL_DIR}/references/discovery-questions.md` for that category
-4. Load the product spec for that category from `references/product-specs/{category}-spec.md` (if it exists — project root)
-5. Load the scaffold template from `templates/{category}/` (project root) — this is the structural source of truth for the generated files
-6. Generate scaffold in `workspace/{product-slug}/` using the loaded template as base structure
+3. **Show the destination first** — Load the exemplar for this category from `references/exemplars/{category}-exemplar.md`. Show a condensed preview (title, structure, key sections) so the creator understands what "great" looks like before building. "Here's what an MCS-3 {category} looks like. Yours will follow this structure."
+4. Load discovery questions from `${CLAUDE_SKILL_DIR}/references/discovery-questions.md` for that category
+5. Load the product spec for that category from `references/product-specs/{category}-spec.md` (if it exists — project root)
+6. Load the scaffold template from `templates/{category}/` (project root) — this is the structural source of truth for the generated files
+7. Generate scaffold in `workspace/{product-slug}/` using the loaded template as base structure
+8. After scaffold is generated, suggest: "Run `/create-content` to fill in the sections with your expertise, or start editing directly."
 
 ---
 

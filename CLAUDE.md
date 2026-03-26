@@ -45,6 +45,7 @@ Anthropic frontmatter. They appear automatically in the `/` autocomplete menu.
 | `/validate [flags]` | `.claude/skills/validate/` | Run MCS validation (--level=1\|2\|3, --fix, --batch) |
 | `/package` | `.claude/skills/package/` | Strip guidance, generate vault.yaml, stage .publish/ |
 | `/publish` | `.claude/skills/publish/` | Full publish workflow to myclaude.sh |
+| `/create-content` | `.claude/skills/create-content/` | Guide content filling after scaffold |
 | `/test` | `.claude/skills/test/` | Sandbox test product against sample inputs |
 
 ### P0 — Quality & Coaching
@@ -80,7 +81,7 @@ Anthropic frontmatter. They appear automatically in the `/` autocomplete menu.
 
 | Command | Status |
 |---------|--------|
-| `/create-content` | FUTURE — P1 |
+| `/create-content` | AVAILABLE — `.claude/skills/create-content/` |
 | `/generate-docs` | FUTURE — P1 |
 | `/upgrade` | FUTURE — P1 |
 

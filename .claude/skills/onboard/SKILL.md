@@ -93,18 +93,19 @@ Infer from answers. Do not ask directly. Classification rules:
 **Step 7 — Environment Scan**
 
 Silently scan local environment:
-- Check `.claude/skills/` — count installed skills
-- Check `.claude/commands/` — count slash commands
-- Check `workspace/` — count product drafts
-- Note any existing products that could be published
+- Check `workspace/` — count product drafts and their statuses
+- Check `workspace/*/.engine-meta.yaml` — identify products by category and status
+- Note any products that could be published (status: validated)
 
 Report findings:
 ```
 Environment scan complete:
-  - Installed skills: 3
-  - Slash commands: 7
-  - Drafts in workspace/: 2
+  Engine tools: 15 skills ready (type /engine-help to see all)
+  Your workspace: {N} product(s) in progress
+    - {slug}: {category}, {status}
 ```
+
+Note: Do NOT count the Engine's own skills in `.claude/skills/` as "installed products" — those are the Engine's tools, not the creator's products.
 
 **Step 8 — Preferences**
 

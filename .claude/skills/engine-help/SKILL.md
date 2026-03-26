@@ -17,6 +17,7 @@ Display all available Creator Engine commands, organized by function.
 |---------|-------------|
 | `/onboard` | Set up your creator profile (~3 min guided conversation) |
 | `/create [type]` | Scaffold new product (skill, agent, squad, workflow, ds, prompt, claude-md, app, system) |
+| `/create-content` | Guide content filling after scaffold — extracts your expertise section by section |
 
 ### Quality
 | Command | Description |

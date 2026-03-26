@@ -139,7 +139,17 @@ Package ready at: workspace/{product-slug}/.publish/
 If `.publish/` directory does not exist or is stale (not from today):
 → Run `/package` first.
 
-**Step 2 — Collect Publish Metadata**
+**Step 2 — Optimize Description for Discoverability**
+
+Before finalizing metadata, review the product's description:
+1. Read the description from vault.yaml
+2. Generate 5 sample search queries a buyer might use to find this product
+3. Check: would this description surface for those queries?
+4. If description is vague or missing trigger keywords, suggest improvements:
+   "Your description says '{current}'. A buyer searching for '{query}' might not find it. Consider: '{improved}'"
+5. Let the creator accept or edit — this is coaching, not blocking
+
+**Step 3 — Collect Publish Metadata**
 
 Ask the creator for any fields not already confirmed in `vault.yaml`:
 ```
@@ -147,9 +157,12 @@ Price (USD, 0 = free): [default: 0]
 Tags (comma-separated, 3-5 recommended):
 ```
 
+For pricing, provide context from `references/market/pricing-guide.md`:
+"Products in {category} at MCS-{level} typically range from ${low} to ${high}."
+
 Update `vault.yaml` in `.publish/` with provided values.
 
-**Step 3 — Show Summary and Require Confirmation**
+**Step 4 — Show Summary and Require Confirmation**
 
 ```
 Ready to publish:
@@ -166,7 +179,7 @@ Publish to myclaude.sh? [y/n]
 
 Do NOT proceed unless the creator types `y` or `yes`. Exact confirmation is required.
 
-**Step 4 — Invoke CLI**
+**Step 5 — Invoke CLI**
 
 Execute from the `.publish/` directory:
 ```bash
@@ -191,7 +204,7 @@ Then run:
 
 Do not fail silently. Inform the creator clearly.
 
-**Step 5 — Record Result**
+**Step 6 — Record Result**
 
 On success, update `.engine-meta.yaml`:
 ```yaml
