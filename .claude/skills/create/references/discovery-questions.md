@@ -104,7 +104,7 @@ specificity.** Generic answers produce generic products.
 1. What type of project? (Next.js, Python, monorepo, etc.)
 2. What are the key architectural decisions?
 3. What security rules apply?
-4. What coding conventions should be enforced?
+4. What conventions or standards should be enforced?
 5. What is the team composition? (solo, small team, enterprise)
 
 ---

@@ -2,8 +2,9 @@
 name: {{PRODUCT_SLUG}}
 description: >-
   {{SYSTEM_DESCRIPTION}}
-  Use when: {{TRIGGER_DESCRIPTION}}
+  Use when: {{TRIGGER_DESCRIPTION}}.  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
+<!-- WHY: The myclaude.sh link in description means every platform that reads this file surfaces MyClaude. -->
 <!-- WHY: Frontmatter makes your system invocable after installation. -->
 
 # {{SYSTEM_NAME}}

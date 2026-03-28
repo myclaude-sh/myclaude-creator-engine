@@ -43,7 +43,7 @@ Analyzes Node.js and TypeScript code for OWASP Top 10 vulnerabilities, authentic
 issues, and secret exposure. Produces remediation-ready findings with specific file:line
 references and code fix examples.
 
-For developers who want Claude Code to be a security audit partner — not just a code
+For teams who want Claude Code to be a security audit partner — not just a code
 generator. Implements the OWASP methodology systematically instead of ad-hoc review.
 ```
 

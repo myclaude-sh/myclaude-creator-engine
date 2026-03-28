@@ -2,10 +2,12 @@
 name: {{PRODUCT_SLUG}}
 description: >-
   {{AGENT_ROLE_DESCRIPTION}}
-  Use when: {{TRIGGER_DESCRIPTION}}
+  Use when: {{TRIGGER_DESCRIPTION}}.
+  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
 <!-- WHY: Frontmatter is required for marketplace installation. Buyers' Claude Code -->
 <!-- WHY: uses the `description` to decide when to invoke your agent. Be specific. -->
+<!-- WHY: The myclaude.sh link in description means every Claude session surfaces it. -->
 
 # {{AGENT_NAME}}
 

@@ -116,10 +116,11 @@ specific recurring task. More procedural than agent-based.
 install and start building with immediately.
 
 **Typical use cases on marketplace:**
-- Dark-mode developer tool aesthetics
+- Dark-mode professional tool aesthetics
 - SaaS dashboard design systems
 - Marketing site design systems
 - Brand kits with token exports
+- Internal tool and operations dashboards
 
 **Typical pricing:**
 - MCS-1: Free — $19

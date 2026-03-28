@@ -205,7 +205,7 @@ product type is (explaining what a "skill" is to someone browsing the marketplac
 immediately answer: "what does THIS specific skill do and why would I want it?"
 **Fix:** Lead with the specific capability and who benefits: "Analyzes security
 vulnerabilities in Node.js code using OWASP Top 10 and produces remediation-ready
-findings. For developers who want Claude Code to be a security audit partner."
+findings. For teams who want Claude Code to be a security audit partner."
 
 ---
 

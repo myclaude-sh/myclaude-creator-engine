@@ -4,13 +4,11 @@ product: MyClaude Studio Engine
 version: 2.0.1
 status: APPROVED FOR BUILD
 date: 2026-03-28
-base: [UEMF Deep Map (89.7%), Kairo Cognitive Audit, DNA Extraction (4 systems + Genesis + ECC), Official Anthropic Docs (8/73 pages scraped in full), CONDUIT Wiring Protocol (28 decisions), v1.1.0 Codebase Audit, CLI Codebase Audit]
+base: [Ecosystem Deep Map (89.7%), Cognitive Audit, DNA Extraction (4 systems + Genesis + ECC), Official Anthropic Docs (8/73 pages scraped), Wiring Protocol (28 decisions), v1.1.0 Codebase Audit, CLI Codebase Audit]
 decisions: 27 (SE-D1 → SE-D27)
 phases: 10 sprints (S0 → S10)
-audit: "ATHENA OP-5 (M-1→M-5) + 51-gap audit + Blind-Spot Checklist (26 items)"
-forged_by: ATHENA
-validated_by: "Kairo (Rota C: System Diagnosis + Rota A: Argument Audit)"
-archetype: "Forja da Criação + Painel de Governança + Colmeia Coerente"
+audit: "51-gap audit + Blind-Spot Checklist (26 items)"
+validated_by: "Multi-pillar cognitive audit (System Diagnosis + Argument Audit)"
 ---
 
 # MyClaude Studio Engine — PRD v2.0
@@ -1054,7 +1052,7 @@ Compare: quality (MCS score), time, completeness, DNA compliance. If LITE doesn'
 | Creator abandons mid-creation | UX | Medium | State persistence + /status shows progress |
 | Manual creation is faster | Adoption | High | SE-AXIOM-2: every skill must add measurable value |
 
-### 12 Blind Spots (from UEMF map)
+### 12 Blind Spots (from ecosystem deep map)
 
 | # | Blind Spot | Status in v2.0 | Resolution |
 |---|-----------|---------------|-----------|
@@ -1155,9 +1153,9 @@ Persona inferred from creator.yaml during /onboard. Recommendations adapt per pe
 
 | Source | What | Status |
 |--------|------|--------|
-| UEMF Deep Map | 89.7% completude, 12 blind spots | Complete |
-| Kairo Cognitive Audit | Full Rota C + Rota A | Complete |
-| DNA Extraction | 4 systems (Kairo, CE, $0→1, La Bottega) | Complete |
+| Ecosystem Deep Map | 89.7% completude, 12 blind spots | Complete |
+| Cognitive Audit | System Diagnosis + Argument Audit | Complete |
+| DNA Extraction | 4 production systems + Genesis framework + ECC | Complete |
 | Genesis Analysis | Pipeline, 20 principles, 17 generated systems | Complete |
 | ECC Analysis | 113K stars, 125 skills, patterns absorbed | Complete |
 | Official: Skills spec | Frontmatter, context:fork, paths, hooks, args | Scraped |
@@ -1174,7 +1172,7 @@ Persona inferred from creator.yaml during /onboard. Recommendations adapt per pe
 ---
 
 *MyClaude Studio Engine PRD v2.0.1*
-*Forged by ATHENA | Validated by Kairo | Mapped by UEMF*
+*Multi-framework architecture | Multi-pillar cognitive audit | Ecosystem deep map*
 *51 gaps identified and closed in audit pass*
 *27 decisions | 18 DNA patterns | 10 sprints | 13-stage lifecycle*
 *Made in Brazil with the ambition of marking the global AI community*

@@ -178,6 +178,23 @@ vault_defaults:
   price: 0
   compatibility:
     claude_code: ">=1.0.0"
+  engine: "myclaude-studio-engine"  # Viral: identifies product origin
+  marketplace_base: "https://myclaude.sh"
+  badges:
+    mcs: "https://myclaude.sh/badge/mcs/{level}.svg"
+    available: "https://myclaude.sh/badge/available.svg"
+
+# ---------------------------------------------------------------------------
+# DISTRIBUTION CHANNELS
+# Products created with Studio Engine target multiple platforms
+# ---------------------------------------------------------------------------
+distribution:
+  primary: "myclaude.sh"                    # MyClaude Marketplace
+  secondary: "anthropic-plugin"             # Anthropic Plugin Marketplace
+  universal: "agentskills"                  # Agent Skills spec (33+ platforms)
+  attribution_comment: true                 # Inject <!-- Published on MyClaude --> in primary file
+  readme_badges: true                       # Add MCS + Available badges to README footer
+  multi_channel_prompt: true                # Suggest GitHub, Reddit, awesome lists after publish
 
 # ---------------------------------------------------------------------------
 # VALIDATION PIPELINE STAGES

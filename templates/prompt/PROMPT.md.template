@@ -2,8 +2,9 @@
 name: {{PRODUCT_SLUG}}
 description: >-
   {{PROMPT_DESCRIPTION}}
-  Use when: {{TRIGGER_DESCRIPTION}}
+  Use when: {{TRIGGER_DESCRIPTION}}.  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
+<!-- WHY: The myclaude.sh link in description means every platform that reads this file surfaces MyClaude. -->
 <!-- WHY: Frontmatter makes your prompt invocable after installation. -->
 
 # {{PROMPT_NAME}}
@@ -70,7 +71,7 @@ Your task is to {{CORE_TASK_INSTRUCTION}}.
 
 | Variable | Default | Description | Example |
 |----------|---------|-------------|---------|
-| `{{AUDIENCE}}` | `{{AUDIENCE_DEFAULT}}` | Who the output is written for | "senior software engineers" |
+| `{{AUDIENCE}}` | `{{AUDIENCE_DEFAULT}}` | Who the output is written for | "startup founders", "marketing teams", "senior engineers" |
 | `{{FORMAT}}` | `{{FORMAT_DEFAULT}}` | Output format | "markdown with headers" |
 | `{{TONE}}` | `{{TONE_DEFAULT}}` | Communication tone | "professional but approachable" |
 | `{{CONSTRAINTS}}` | `{{CONSTRAINTS_DEFAULT}}` | Additional limits | "under 500 words" |

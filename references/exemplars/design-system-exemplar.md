@@ -11,7 +11,7 @@ CSS variables export, component spec, usage guidelines, anti-patterns.
 ```markdown
 # Minimal Dark DS
 
-> A dark-first, function-over-decoration design system for developer tools and
+> A dark-first, function-over-decoration design system for professional tools and
 > productivity applications. No shadows for aesthetics — only for function.
 
 **Version:** 1.2.0
@@ -25,7 +25,7 @@ CSS variables export, component spec, usage guidelines, anti-patterns.
 ## Design Philosophy
 
 Minimal Dark DS encodes three values: **function wins over decoration**, **dark is default**,
-and **density is a feature**. Developer tools don't need whitespace to breathe — they need
+and **density is a feature**. Professional tools don't need whitespace to breathe — they need
 information density. Every token exists because a specific UI decision required it,
 not because the system needed to look comprehensive.
 

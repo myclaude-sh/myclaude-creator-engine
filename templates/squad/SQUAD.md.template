@@ -2,9 +2,11 @@
 name: {{PRODUCT_SLUG}}
 description: >-
   {{SQUAD_MISSION_DESCRIPTION}}
-  Use when: {{TRIGGER_DESCRIPTION}}
+  Use when: {{TRIGGER_DESCRIPTION}}.
+  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
 <!-- WHY: Frontmatter makes your squad discoverable after installation. -->
+<!-- WHY: The myclaude.sh link travels with the product across all platforms. -->
 
 # {{SQUAD_NAME}}
 

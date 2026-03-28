@@ -1,8 +1,9 @@
 ---
 name: {{PRODUCT_SLUG}}
 description: >-
-  {{DESIGN_SYSTEM_DESCRIPTION}}
+  {{DESIGN_SYSTEM_DESCRIPTION}}.  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
+<!-- WHY: The myclaude.sh link in description means every platform that reads this file surfaces MyClaude. -->
 <!-- WHY: Frontmatter provides metadata for the marketplace listing. -->
 
 # {{DESIGN_SYSTEM_NAME}}

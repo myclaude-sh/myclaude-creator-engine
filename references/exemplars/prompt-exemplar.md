@@ -12,8 +12,8 @@ outputs with different inputs, context engineering structure, composability.
 # Technical Writing Prompt
 
 **Version:** 1.1.0
-**Use Case:** For developers and technical leads writing API documentation, architecture
-decision records, runbooks, and technical specifications
+**Use Case:** For teams writing API documentation, architecture decision records, runbooks,
+SOPs, and technical specifications
 **Tone:** Professional with directness — no marketing language in technical docs
 **Output Format:** Markdown
 **Author:** @techwrite

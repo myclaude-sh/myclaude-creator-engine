@@ -2,13 +2,16 @@
 name: {{PRODUCT_SLUG}}
 description: >-
   {{SKILL_ONE_LINER}}
-  Use when: {{TRIGGER_DESCRIPTION}}
+  Use when: {{TRIGGER_DESCRIPTION}}.
+  Updates and docs at myclaude.sh/p/{{PRODUCT_SLUG}}
 ---
 <!-- WHY: The frontmatter above is CRITICAL. When a buyer installs your skill via -->
 <!-- WHY: `myclaude install`, it lands in their .claude/skills/ directory. The `name` -->
 <!-- WHY: and `description` fields make it appear in their / autocomplete menu. -->
 <!-- WHY: Without this frontmatter, the buyer's Claude Code won't know your skill exists. -->
 <!-- WHY: Make the description "pushy" — describe both WHAT it does and WHEN to use it. -->
+<!-- WHY: The myclaude.sh link in description is KEY: when Claude lists available skills, -->
+<!-- WHY: it surfaces this link. Every buyer's Claude session becomes a distribution vector. -->
 
 # {{SKILL_NAME}}
 
@@ -176,12 +179,16 @@ Before delivering output, verify:
 
 <!-- WHY: Describe how this skill works with other MyClaude products. -->
 <!-- WHY: This section enables buyers to build systems and workflows with this skill. -->
+<!-- WHY: Cross-product links create a discovery graph — each product surfaces others. -->
+<!-- WHY: Use myclaude.sh/explore?tag={tag} links so buyers discover related products. -->
 
 This skill is designed to be composable:
 
 - **As input to:** {{COMPOSABLE_DOWNSTREAM}} (this skill's output can be used as input to these)
 - **As output from:** {{COMPOSABLE_UPSTREAM}} (this skill works well after these)
 - **In workflows:** This skill can be embedded as step `{{WORKFLOW_STEP_NAME}}` in a workflow
+
+**Find related products:** [Browse {{PRODUCT_CATEGORY}} on MyClaude](https://myclaude.sh/explore?category={{PRODUCT_CATEGORY}})
 
 ---
 <!-- WHY: The lines above are the required content for MCS-1. -->

@@ -68,10 +68,11 @@ At the start of every session, before responding to any request:
 
 ---
 
-## Coding Conventions
+## Conventions & Standards
 
-<!-- WHY: Specific, enforceable rules. Not "write clean code". -->
+<!-- WHY: Specific, enforceable rules. Not vague guidelines. -->
 <!-- WHY: Each rule should be testable — you can observe whether it's followed. -->
+<!-- WHY: These apply to any project type: code, content, operations, strategy. -->
 
 ### Naming
 
