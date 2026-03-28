@@ -1,11 +1,9 @@
 ---
 name: map
 description: >-
-  Extract and structure domain knowledge for product creation. Asks targeted
-  questions about the creator's expertise domain, maps knowledge into structured
-  domain-map.md that feeds /create and /fill. Use when the creator wants to
-  "map my knowledge", "explore a domain", "what should I build", or before
-  /create for complex products.
+  Extract and structure domain knowledge into domain-map.md for product creation.
+  Asks targeted questions, maps expertise for /create and /fill. Use when the creator
+  says 'map', 'map my knowledge', 'extract expertise', or before complex products.
 argument-hint: "[domain-topic]"
 ---
 
@@ -21,7 +19,7 @@ Extract domain expertise from conversation and structure it for product creation
 
 ## Activation Protocol
 
-1. Read `creator.yaml` — load creator expertise domains and technical level
+1. Read `creator.yaml` — load creator expertise domains and technical level. If missing → "Creator profile not found. Run `/onboard` first." and stop.
 2. If `$ARGUMENTS` provided, use as domain topic seed
 3. If previous `domain-map.md` exists in workspace, load as context
 4. Begin structured knowledge extraction

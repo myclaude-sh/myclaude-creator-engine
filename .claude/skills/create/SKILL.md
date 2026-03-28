@@ -1,11 +1,9 @@
 ---
 name: create
 description: >-
-  Scaffold a new product for the myClaude marketplace with MCS-1 valid structure
-  and guidance comments. Supports all 9 product categories: skills, agents, squads,
-  workflows, design systems, prompts, CLAUDE.md configs, applications, and systems.
-  Use when the creator wants to start a new product, build something, or says
-  "new skill", "new agent", "create", "scaffold", or "start building".
+  Scaffold a new product with MCS-1 valid structure and WHY comments. Supports all
+  9 categories. Use when the creator says 'new skill', 'create', 'scaffold', 'start
+  building', or wants to start a new product.
 argument-hint: "[product-type]"
 ---
 
@@ -21,7 +19,7 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 
 ## Activation Protocol
 
-1. Read `creator.yaml` from project root — load defaults (`default_category`, `default_license`, `quality_target`)
+1. Read `creator.yaml` from project root — load defaults (`default_category`, `default_license`, `quality_target`). If `creator.yaml` is missing → respond: "Profile not found. Run `/onboard` first (~3 min)." and stop.
 2. Identify which category was requested (from sub-command or by asking)
 3. **Show the destination first** — Load the exemplar for this category from `references/exemplars/{category}-exemplar.md`. Show a condensed preview (title, structure, key sections) so the creator understands what "great" looks like before building. "Here's what an MCS-3 {category} looks like. Yours will follow this structure."
 4. Load DNA requirements from `product-dna/{category}.yaml` — inject required DNA patterns into scaffold
@@ -40,7 +38,9 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 
 ### ROUTER LOGIC
 
-When invoked as `/create` with no argument, ask:
+When invoked as `/create` with no argument, determine creator's comfort level first.
+
+**If creator.yaml exists AND technical_level is advanced/expert**, show the direct menu:
 
 ```
 What do you want to create?
@@ -57,6 +57,35 @@ What do you want to create?
 
 Enter number or name:
 ```
+
+**If creator is beginner/intermediate OR type is domain-expert/operator/marketer**, use need-based routing:
+
+```
+Tell me what you want to build — in your own words.
+
+Examples:
+  "I want Claude to analyze my financial reports every week"
+  "I need a team that handles content creation for my brand"
+  "I want to automate my client onboarding process"
+  "I want a reusable prompt for writing sales emails"
+  "I need a set of rules for how Claude works on my projects"
+```
+
+Then map the need to a product type using these rules:
+
+| Need Pattern | Recommended Type | Reasoning |
+|---|---|---|
+| "I want Claude to do X" (single task) | **skill** | One focused capability |
+| "I want a specialist that knows about X" | **agent** | Persistent persona + domain knowledge |
+| "I need a team that handles X" | **squad** | Multiple agents coordinating |
+| "I want to automate X step by step" | **workflow** | Sequential process automation |
+| "I want a reusable prompt for X" | **prompt** | Structured template |
+| "I need rules/standards for my project" | **claude-md** | Project configuration |
+| "I need a complete solution for X" | **system** | Multi-type composite |
+| "I want a tool/app that does X" | **application** | Deployable software |
+| "I need consistent visual patterns" | **design-system** | Tokens + components |
+
+After recommending, explain in one sentence why that type fits, then proceed to the standard flow (exemplar preview → discovery questions → scaffold).
 
 Direct sub-commands skip this menu and go straight to the category flow:
 - `/create skill` → Skill creation flow
@@ -81,6 +110,12 @@ One-line description: (what does it do?)
 ```
 
 Derive `{product-slug}` from name: lowercase, hyphens, no spaces.
+
+Validate slug against regex `^[a-z0-9][a-z0-9-]{2,39}$` (see `references/best-practices/naming-guide.md`). If invalid, explain the format rules and ask for a corrected name.
+
+If `workspace/{product-slug}/` already exists → respond: "Product `{slug}` already exists. Use `/fill` to continue working on it, or `/create --force` to reset the scaffold." Do not overwrite without `--force`.
+
+**Tip:** If the creator hasn't run `/map` yet and the product involves deep domain knowledge, suggest: "Consider running `/map` first to structure your domain expertise — `/create` will use that knowledge automatically."
 
 **Step 2 — Discovery Questions**
 
@@ -126,6 +161,9 @@ state:
     tier2: null
     tier3: null
   overall_score: null
+  last_tested: null
+  test_result: null              # "pass" | "fail" | null
+  test_scenarios: null           # "{passed}/{total}" | null
 
 history:
   created_at: "{YYYY-MM-DD}"
@@ -211,6 +249,7 @@ workspace/{slug}/
 **ds (design system):**
 ```
 workspace/{slug}/
+├── DESIGN-SYSTEM.md      # Design system definition
 ├── tokens/               # Design tokens
 │   └── .gitkeep
 ├── components/           # Component definitions
@@ -243,6 +282,7 @@ workspace/{slug}/
 **app:**
 ```
 workspace/{slug}/
+├── APPLICATION.md        # Application definition
 ├── src/                  # Application source
 │   └── .gitkeep
 ├── CLAUDE.md             # AI pair-programming instructions

@@ -1,10 +1,9 @@
 ---
 name: status
 description: >-
-  Display Studio Engine status dashboard. Shows engine version, edition, creator
-  profile, active products with state/scores, and stale product warnings.
-  Use when the creator asks "status", "what's going on", "dashboard",
-  "show my products", or at session start.
+  Display Studio Engine status dashboard. Shows version, edition, creator profile,
+  products with scores, and stale warnings. Use when: 'status', 'dashboard', 'show my
+  products', or at session start.
 ---
 
 # Status Dashboard
@@ -18,7 +17,7 @@ Display comprehensive engine status in a compact terminal-style dashboard.
 ## Activation Protocol
 
 1. Read `STATE.yaml` — engine version, edition, last session, workspace state
-2. Read `creator.yaml` — creator name, type, expertise domains
+2. Read `creator.yaml` — creator name, type, expertise domains. If missing, show "Creator: not configured — run /onboard" in dashboard and continue with available data.
 3. Glob `workspace/*/` — list all product directories
 4. For each product, read `.meta.yaml` — slug, type, state, scores, timestamps
 5. Detect edition: glob `.claude/skills/forge-master/SKILL.md`

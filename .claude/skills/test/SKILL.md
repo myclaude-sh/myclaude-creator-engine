@@ -1,11 +1,9 @@
 ---
 name: test
 description: >-
-  Sandbox test a product against sample inputs in an isolated worktree.
-  Creates a temporary copy, installs the product, runs 3 test scenarios
-  (happy path, edge case, adversarial), verifies activation protocol works,
-  and reports results. Use when the creator says "test", "try it", "does it work",
-  or before publishing.
+  Sandbox test a product in an isolated worktree. Runs 3 scenarios (happy path, edge
+  case, adversarial), verifies activation protocol, reports results. Use when the creator
+  says 'test', 'try it', 'does it work', or before publishing.
 argument-hint: "[product-slug]"
 context: fork
 isolation: worktree
@@ -92,6 +90,19 @@ FAILURES:
   Suggested fix: {recommendation}
 {/if}
 ```
+
+**Step 5 — Update State**
+
+On test completion, update `.meta.yaml`:
+```yaml
+# .meta.yaml updates
+state:
+  last_tested: "{ISO timestamp}"
+  test_result: "pass"          # "pass" if all 5 checks pass, "fail" otherwise
+  test_scenarios: "{passed}/{total}"
+```
+
+If any test fails, record `test_result: "fail"` but do NOT change `state.phase` — testing does not regress product state.
 
 ---
 

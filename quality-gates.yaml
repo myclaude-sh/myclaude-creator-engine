@@ -96,6 +96,9 @@ regression:
     from_packaged: "regress to content, delete .publish/, clear scores"
     from_published: "stay published (versioned), new edits tracked as next version"
   hook: "PostToolUse matcher on Write|Edit for workspace/ paths"
+  # To enable automatic regression detection, add to .claude/settings.json:
+  # "hooks": { "PostToolUse": [{ "matcher": "Write|Edit", "path": "workspace/", "run": "check-regression" }] }
+  # Without this hook, regression is detected at /validate or /status time.
   notification: "State regressed: {slug} moved from {old} → content. Run /validate when ready."
 
 # ---------------------------------------------------------------------------

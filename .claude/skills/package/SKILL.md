@@ -1,16 +1,15 @@
 ---
 name: package
 description: >-
-  Package a product for distribution. Strips WHY comments, generates vault.yaml
-  + plugin.json dual manifests, calculates checksum, and stages .publish/ directory.
-  Use when preparing a product for publishing, or when the creator says "package",
-  "prepare for publish", "bundle it", or "stage it".
+  Package a product for distribution across 33+ platforms. Strips WHY comments, generates
+  triple manifests (vault.yaml + plugin.json + agentskills.yaml), stages .publish/. Use
+  when: 'package', 'prepare for publish', or 'bundle it'.
 argument-hint: "[product-slug]"
 ---
 
 # Packager
 
-Stage a product for distribution with dual manifests (MyClaude + Anthropic).
+Stage a product for distribution with triple manifests (MyClaude + Anthropic Plugin + Agent Skills universal).
 
 **When to use:** After /validate passes. Before /publish.
 
@@ -22,7 +21,7 @@ Stage a product for distribution with dual manifests (MyClaude + Anthropic).
 
 1. Identify product: `$ARGUMENTS` as slug → `workspace/{slug}/`
 2. Read `.meta.yaml` → verify state is "validated" and MCS score >= 75%
-3. Read `creator.yaml` → load author metadata for manifests
+3. Read `creator.yaml` → load author metadata for manifests. If missing → "Creator profile not found. Run `/onboard` first." and stop.
 4. Load `product-dna/{type}.yaml` → get install_target
 5. Load `config.yaml` → vault_defaults for missing fields
 
@@ -38,13 +37,29 @@ Read `.meta.yaml` for validation state:
 - If state != "validated": "Product not validated. Run /validate first."
 - If MCS score < 75%: "Product below MCS-1 threshold. Run /validate --fix."
 
-**Step 2 — Strip WHY Comments** (SE-D17)
+**Step 2 — Strip WHY Comments + Inject Attribution** (SE-D17)
 
-Create a clean copy of all product files. Remove:
+Create a clean copy of all product files.
+
+**REMOVE:**
 - `<!-- WHY: ... -->` (HTML comment blocks — may span multiple lines)
 - Lines matching `# WHY:` pattern (markdown comment format)
 
+**INJECT** at the very end of the primary product file (SKILL.md, AGENT.md, etc.):
+```html
+<!-- Published on MyClaude (myclaude.sh) | Quality: MCS-{level} ({score}%) | Engine: Studio v2 -->
+```
+This attribution comment is:
+- Invisible to Claude (HTML comment, does not affect behavior)
+- Visible in source code (GitHub renders it in raw view)
+- Indexable by search engines (creates discoverable MyClaude references)
+- A quality signal (MCS score travels with the product)
+
 Never modify originals — work on the copy in `.publish/`.
+
+**Step 2b — Verify WHY Removal**
+
+Grep all files in `.publish/` for the pattern `WHY:`. If match count > 0, re-run stripping on the matched files. If still > 0 after second pass, report error with file paths and line numbers — do not proceed to manifest generation with unstripped WHY comments.
 
 **Step 3 — Generate vault.yaml**
 
@@ -68,9 +83,16 @@ readme: "README.md"
 installTarget: "{from product-dna/{type}.yaml}"
 compatibility:
   claudeCode: ">=1.0.0"
+
+# DISTRIBUTION DNA (viral growth layer — links back to MyClaude ecosystem)
+engine: "myclaude-studio-engine"
+marketplace: "https://myclaude.sh/p/{slug}"
+badges:
+  mcs: "https://myclaude.sh/badge/mcs/{mcs_level_number}.svg"
+  available: "https://myclaude.sh/badge/available.svg"
 ```
 
-**Step 4 — Generate plugin.json** (SE-D14)
+**Step 4 — Generate plugin.json** (Anthropic Plugin Marketplace)
 
 ```json
 {
@@ -83,6 +105,41 @@ compatibility:
 }
 ```
 
+**Step 4b — Generate agentskills.yaml** (Agent Skills Universal — 33+ platforms)
+
+The Agent Skills spec (agentskills.io) is the open standard adopted by Claude Code, Cursor,
+GitHub Copilot, VS Code, Gemini CLI, OpenAI Codex, Kiro, JetBrains, and 25+ more platforms.
+Generate this manifest so the product is installable everywhere.
+
+```yaml
+# Agent Skills Universal Manifest
+name: "{slug}"
+version: "{version}"
+description: "{description}"
+type: "{product type}"
+author: "{from creator.yaml}"
+license: "{license}"
+entry: "{primary file}"
+platforms:
+  - claude-code
+  - cursor
+  - codex
+  - gemini-cli
+  - copilot
+  - "*"  # Compatible with any Agent Skills-compliant platform
+install:
+  target: "{from product-dna install_target}"
+  files:
+    - "{list all files in .publish/ relative paths}"
+metadata:
+  mcs_level: "{from validation}"
+  mcs_score: "{from validation}"
+  marketplace: "https://myclaude.sh/p/{slug}"
+```
+
+Only generate for types that map to Agent Skills format (skill, agent, prompt, workflow).
+For types that don't map cleanly (design-system, application), generate only vault.yaml + plugin.json.
+
 **Step 5 — Calculate Checksum**
 
 SHA-256 of the entire .publish/ directory contents.
@@ -91,8 +148,9 @@ SHA-256 of the entire .publish/ directory contents.
 
 Create `workspace/{slug}/.publish/` with:
 - Cleaned product files (WHY comments stripped)
-- vault.yaml
-- plugin.json
+- vault.yaml (MyClaude marketplace)
+- plugin.json (Anthropic plugin marketplace)
+- agentskills.yaml (Agent Skills universal — if applicable type)
 - CHANGELOG.md (generate if missing)
 - LICENSE file (generate from license field)
 
@@ -129,7 +187,8 @@ Package ready: workspace/{slug}/.publish/
   Checksum: {sha256 first 12 chars}...
 
   WHY comments stripped: {N} occurrences
-  Manifests: vault.yaml + plugin.json
+  Manifests: vault.yaml + plugin.json [+ agentskills.yaml]
+  Platforms: MyClaude + Anthropic Plugin [+ 33 Agent Skills platforms]
 
 Next: /publish to ship to myclaude.sh
 ```
@@ -140,6 +199,6 @@ Next: /publish to ship to myclaude.sh
 
 1. **Packaging unvalidated product** — Always check .meta.yaml state first.
 2. **Modifying originals** — Work on copies in .publish/. Never touch workspace/{slug}/ source files.
-3. **Missing manifests** — Both vault.yaml AND plugin.json must be generated. Dual distribution.
+3. **Missing manifests** — vault.yaml + plugin.json required. agentskills.yaml for compatible types. Triple distribution.
 4. **Stale checksum** — Recalculate if any file changes after initial staging.
 5. **Silent failures** — If WHY stripping breaks markdown structure, detect and report.

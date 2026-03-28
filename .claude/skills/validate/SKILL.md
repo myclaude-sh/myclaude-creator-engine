@@ -1,12 +1,9 @@
 ---
 name: validate
 description: >-
-  Run MCS quality validation on products in workspace/. Three-tier system:
-  MCS-1 checks structure and metadata, MCS-2 checks quality and anti-commodity,
-  MCS-3 runs agent-assisted deep review with stress tests. Returns scored reports
-  with specific fix instructions. Use after building or modifying a product,
-  before publishing, when the creator asks to "check quality", "validate",
-  "run checks", or "is this ready to publish".
+  Run MCS quality validation on products in workspace/. Three-tier system: MCS-1
+  structure, MCS-2 quality + anti-commodity, MCS-3 deep review. Returns scored reports
+  with fix instructions. Use when: 'validate', 'check quality', or before publishing.
 argument-hint: "[--level=1|2|3] [--fix] [--batch]"
 ---
 
@@ -57,10 +54,13 @@ Glob: do all required files for the product type exist?
 Load `product-dna/{type}.yaml` → `required_files` and `config.yaml` → `routing.{type}.required_files`.
 Score: `files_found / files_expected`
 
+Frontmatter check: read the primary file's YAML frontmatter. Verify `description` field is <= 250 characters. If over, report as warning with character count: "Frontmatter description is {N} chars (recommended: <= 250). Trim for marketplace compatibility."
+
 **Stage 2 — INTEGRITY** (blocking)
 
 Grep: no placeholder content (`config.yaml` → `placeholder_patterns`: TODO, PLACEHOLDER, lorem ipsum, etc.)
 Ref check: every file path referenced in .md files actually exists on disk.
+Circular reference check: build a directed graph of file references (file A references file B). If any cycle is detected (e.g., A→B→A), report as integrity failure: "Circular reference detected: {cycle path}. Break the cycle by removing one reference."
 YAML/JSON parse: no syntax errors in metadata files.
 Score: `valid_refs / total_refs`
 
@@ -184,7 +184,7 @@ The `/validate` skill focuses on structural + DNA checks; `/test` focuses on run
 After reporting failures, don't just list them — offer to help fix content issues.
 This turns the validator from a reporter into a coach.
 
-For each failed content check, generate a **domain-aware remediation draft**:
+For each failed content check, generate a **domain-aware remediation draft** (presented as suggestion only — never auto-fill without explicit creator confirmation):
 
 | Failed Check | Guided Fix |
 |---|---|

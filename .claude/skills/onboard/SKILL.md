@@ -1,11 +1,9 @@
 ---
 name: onboard
 description: >-
-  Set up or update your myClaude creator profile through guided conversation.
-  Builds creator.yaml with expertise domains, goals, technical level, and publishing
-  preferences. Use when first opening the Creator Engine, when asked to set up a profile,
-  or when the creator says their info is outdated. Also triggers on "who am I", "my profile",
-  "get started", or "configure".
+  Set up or update your myClaude creator profile. Builds creator.yaml with expertise,
+  goals, technical level, and preferences. Use on first run, 'set up profile', 'who am I',
+  'my profile', 'get started', or 'configure'.
 argument-hint: "[update]"
 ---
 
@@ -84,10 +82,11 @@ How would you describe your technical level?
 **Step 6 — Profile Type Classification**
 
 Infer from answers. Do not ask directly. Classification rules:
-- Has coding expertise + advanced/expert → `developer`
-- Strong domain knowledge + no coding → `domain-expert`
-- Marketing/sales goals + copywriting skills → `marketer`
-- Heavy prompt work, intermediate level → `prompt-engineer`
+- Builds software, automates infrastructure, writes code → `developer`
+- Deep knowledge in a field (finance, law, health, ops) + uses Claude Code to systematize it → `domain-expert`
+- Marketing/sales goals + persuasion/copy/growth focus → `marketer`
+- Heavy prompt work, frameworks, cognitive systems → `prompt-engineer`
+- Runs a business or team using Claude Code as orchestration layer → `operator`
 - Spans multiple categories → `hybrid`
 
 **Step 7 — Environment Scan**

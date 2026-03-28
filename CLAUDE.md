@@ -22,8 +22,8 @@
 1. READ STATE.yaml → version, edition, workspace. Missing → defaults.
 2. READ creator.yaml → name, type, level. Missing → "Run /onboard (~3 min)."
 3. DETECT EDITION → Glob .claude/skills/forge-master/SKILL.md → PRO or LITE
-4. SCAN WORKSPACE → Glob workspace/*/.meta.yaml → read phase, flag stale (>30d)
-5. DASHBOARD → Engine v{ver} [{ed}] | Creator: {name} | Products: {N}
+4. SCAN WORKSPACE → Glob workspace/*/.meta.yaml → read phase, flag stale (>30d). If 0 products found → note: "Workspace empty."
+5. DASHBOARD → Engine v{ver} [{ed}] | Creator: {name} | Products: {N}. If 0 → append: "Run /create to start."
 ```
 
 ## SKILLS (10)
@@ -88,11 +88,12 @@ LITE → PRO message: "Requires MyClaude Studio Pro. Install from myclaude.sh."
 
 | Creator Type | Behavior |
 |---|---|
-| developer | scaffolding, CLI, architecture |
-| prompt-engineer | prompt structure, exemplars |
-| domain-expert | AI-assisted creation, packaging |
-| marketer | market opportunities, pricing |
-| agency | batch ops, multi-product |
+| developer | scaffolding, CLI, architecture, code patterns |
+| prompt-engineer | prompt structure, exemplars, cognitive design |
+| domain-expert | AI-assisted creation, knowledge systematization |
+| marketer | market opportunities, pricing, copy, funnels |
+| operator | business orchestration, team workflows, process automation |
+| agency | batch ops, multi-product, client delivery |
 | hybrid | ask per session |
 
 Calibrate: `technical_level`, `preferred_categories`, `pricing_strategy`.
@@ -126,7 +127,7 @@ references/
   product-specs/         ← 9 canonical file structures
   exemplars/             ← 9 gold-standard examples
   quality/               ← MCS spec, anti-patterns, anti-commodity
-  best-practices/        ← Naming, licensing, versioning
+  best-practices/        ← Naming, licensing, versioning, distribution
   market/                ← Pricing, categories
 templates/               ← 9 scaffold templates with WHY comments
 workspace/               ← Active builds (gitignored)
@@ -139,7 +140,9 @@ workspace/               ← Active builds (gitignored)
 | /create | product-dna/{type}.yaml, product-specs/{type}, templates/{type}/ |
 | /validate | product-dna/{type}.yaml, config.yaml, quality-gates.yaml |
 | /fill | product-dna/{type}.yaml, product-specs/{type} |
-| /package | config.yaml (vault_defaults), product-dna/{type}.yaml |
+| /package | config.yaml (vault_defaults + distribution), product-dna/{type}.yaml |
+| /publish | config.yaml (distribution channels) |
+| distribution question | references/best-practices/distribution-guide.md |
 | quality question | references/quality/mcs-spec.md |
 | pricing question | references/market/pricing-guide.md |
 | DNA question | structural-dna.md |

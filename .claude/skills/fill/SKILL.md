@@ -1,11 +1,9 @@
 ---
 name: fill
 description: >-
-  Guide content filling for scaffolded products. Walks each section of a product,
-  asks domain questions, and writes the creator's expertise into the product files.
-  Replaces the old /create-content. Use after /create when the product is in
-  "scaffold" state, or when the creator says "fill", "add content", "write the
-  sections", or "help me complete this".
+  Guide content filling for scaffolded products. Walks sections, asks domain questions,
+  writes expertise into files. Use after /create in 'scaffold' state, or when the creator
+  says 'fill', 'add content', or 'help me complete this'.
 argument-hint: "[product-slug]"
 ---
 
@@ -76,7 +74,7 @@ Fill sections in this order (most important first):
    state:
      phase: "content"  # promote from scaffold
    ```
-2. Run quick structural check (Stage 1 of /validate — just file existence)
+2. Run quick structural check (Stage 1 of /validate — just file existence). If check fails, continue with warning — still promote to "content" state so the creator can fix structural issues via `/validate --fix`.
 3. Report:
    ```
    Content filled! {slug} promoted to "content" state.
