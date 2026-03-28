@@ -1,0 +1,37 @@
+# Domain Knowledge: {{DOMAIN_NAME}}
+
+<!-- WHY: D3 (Progressive Disclosure) — Domain knowledge lives here, not in the
+     primary file. Keeps SKILL.md under 500 lines while giving deep expertise. -->
+
+## Core Concepts
+
+{{CORE_CONCEPTS}}
+
+## Decision Framework
+
+<!-- WHY: D5 (Question System) — Define how the skill decides between approaches.
+     This framework is loaded during activation and applied to ambiguous inputs. -->
+
+{{DECISION_FRAMEWORK}}
+
+## Common Patterns
+
+{{COMMON_PATTERNS}}
+
+## Anti-Patterns
+
+<!-- WHY: D2 (Anti-Pattern Guard) — At least 5 things that seem right but cause
+     problems. Prevents domain-specific mistakes a generic AI would make. -->
+
+1. {{ANTI_PATTERN_1}}: {{WHY_WRONG}} → {{CORRECT_APPROACH}}
+2. {{ANTI_PATTERN_2}}: {{WHY_WRONG}} → {{CORRECT_APPROACH}}
+3. {{ANTI_PATTERN_3}}: {{WHY_WRONG}} → {{CORRECT_APPROACH}}
+4. {{ANTI_PATTERN_4}}: {{WHY_WRONG}} → {{CORRECT_APPROACH}}
+5. {{ANTI_PATTERN_5}}: {{WHY_WRONG}} → {{CORRECT_APPROACH}}
+
+## Vocabulary
+
+| Term | Definition | Context |
+|------|-----------|---------|
+| {{TERM_1}} | {{DEFINITION}} | {{WHEN_USED}} |
+| {{TERM_2}} | {{DEFINITION}} | {{WHEN_USED}} |

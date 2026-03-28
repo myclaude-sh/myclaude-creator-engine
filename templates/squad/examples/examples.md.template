@@ -1,0 +1,46 @@
+# Examples
+
+<!-- WHY: D15 (Testability) — Examples serve dual purpose: help buyers understand
+     what the product does AND serve as test cases during /validate and /test. -->
+
+## Example 1: {{HAPPY_PATH_TITLE}}
+
+**Scenario:** {{SCENARIO_DESCRIPTION}}
+
+**Input:**
+```
+{{EXAMPLE_INPUT}}
+```
+
+**Expected Output:**
+```
+{{EXAMPLE_OUTPUT}}
+```
+
+## Example 2: {{EDGE_CASE_TITLE}}
+
+**Scenario:** {{EDGE_CASE_DESCRIPTION}}
+
+**Input:**
+```
+{{EDGE_CASE_INPUT}}
+```
+
+**Expected Output:**
+```
+{{EDGE_CASE_OUTPUT}}
+```
+
+## Example 3: {{ADVERSARIAL_TITLE}}
+
+**Scenario:** {{ADVERSARIAL_DESCRIPTION}}
+
+**Input:**
+```
+{{ADVERSARIAL_INPUT}}
+```
+
+**Expected Behavior:**
+```
+{{EXPECTED_GRACEFUL_HANDLING}}
+```

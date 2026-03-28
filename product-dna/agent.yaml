@@ -1,0 +1,68 @@
+# product-dna/agent.yaml — DNA requirements for Agents
+# Read by /create, /validate, /package when type=agent
+
+type: agent
+primary_file: AGENT.md
+install_target: ".claude/skills/{slug}/"
+template: "templates/agent/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "grep activation/protocol section + references/ ref" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "grep anti-pattern section with >=5 items" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "references/ exists + primary <500 lines" }
+    D4:  { required: true,  name: "Quality Gate",            check: "grep quality gate with >=3 criteria" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with what/install/usage/requirements" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "grep 'when not to use' or error handling" }
+  tier2:
+    D5:  { required: true,  name: "Question System",         check: "grep question/input table" }
+    D6:  { required: true,  name: "Confidence Signaling",    check: "grep confidence levels or certainty markers" }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "grep precondition checks" }
+    D8:  { required: true,  name: "State Persistence",       check: "memory config in frontmatter or state section" }
+    D15: { required: true,  name: "Testability",             check: "test scenarios or expected outputs" }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths, no common names" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks section" }
+  tier3:
+    D9:  { required: false, name: "Orchestrate Don't Execute", applicable: false }
+    D10: { required: false, name: "Handoff Spec",              applicable: false }
+    D11: { required: true,  name: "Socratic Pressure",         check: "self-challenge or falsification pattern" }
+    D12: { required: false, name: "Compound Memory",           check: "memory config with project scope" }
+    D18: { required: false, name: "Subagent Isolation",        applicable: false }
+
+mcs_expectations:
+  mcs1: "All Tier 1 PASS. Score >= 75%."
+  mcs2: "Tier 1+2 required PASS (D5-D8, D15-D16). Score >= 85%."
+  mcs3: "D11 required. D12 recommended. Score >= 92%."
+
+template_files:
+  - source: "AGENT.md.template"
+    target: "AGENT.md"
+    dna_injected: [D1, D2, D4, D5, D6, D7, D8, D11, D14]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+  - source: "references/domain-knowledge.md.template"
+    target: "references/domain-knowledge.md"
+    dna_injected: [D3]
+
+frontmatter:
+  required:
+    - name
+    - description
+    - tools          # minimal tool list
+    - model          # sonnet|opus|inherit
+  optional:
+    - memory         # user|project|local
+    - permissionMode # default|plan|dontAsk
+    - maxTurns
+    - context        # fork for isolation
+    - skills         # preloaded skill knowledge
+
+discovery_questions:
+  - "What persona should this agent embody (expertise, voice, personality)?"
+  - "What decisions will this agent make autonomously vs escalate?"
+  - "What tools does this agent need (Read, Write, Bash, etc.)?"
+  - "What domain knowledge must the agent carry?"
+  - "How should this agent handle uncertainty or conflicting information?"
+  - "What should this agent NEVER do (destructive actions, assumptions)?"
+  - "Should this agent remember across sessions (memory scope)?"

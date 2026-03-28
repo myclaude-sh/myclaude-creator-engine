@@ -1,0 +1,8 @@
+system:
+  name: documentation-engine
+  version: 1.0.0
+  components:
+    skills: [quick-doc]
+    agents: [doc-analyst]
+    workflows: [full-suite]
+  entry: SYSTEM.md

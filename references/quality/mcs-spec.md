@@ -1,187 +1,173 @@
-# MCS Specification — MyClaude Creator Spec
+# MCS v2.0 Specification — MyClaude Creator Spec
 
-## Overview
+> The quality system for MyClaude marketplace. Three tiers of ascending quality
+> mapped to DNA pattern compliance. Products must pass lower tiers to reach higher.
 
-MCS (MyClaude Creator Spec) is the quality system for the MyClaude marketplace.
-Three tiers define ascending quality levels. Products must pass lower tiers to reach
-higher ones — MCS-3 requirements include all MCS-1 and MCS-2 requirements.
-
-**CE-D7:** MCS is the "App Store Review Guidelines" of MyClaude.
+**SE-D4:** MCS v2 = DNA compliance. Not structural checklists.
 
 ---
 
-## MCS-1: Publishable
-
-The minimum bar for marketplace listing. Validates automatically via `/validate`.
-
-### Universal Requirements (All Product Types)
-
-- [ ] Valid structure for product type (correct files in correct locations)
-- [ ] Required primary file exists: SKILL.md | AGENT.md | SQUAD.md | WORKFLOW.md |
-      DESIGN-SYSTEM.md | PROMPT.md | CLAUDE.md | README.md (apps) | SYSTEM.md
-- [ ] Has required metadata: name, description, category, version, license
-- [ ] README.md present with: what it does, how to install, how to use, requirements
-- [ ] No broken file references (all referenced files exist on disk)
-- [ ] No syntax errors in markdown, yaml, or json files
-- [ ] File size under 50MB total
-- [ ] License declared from approved list (CE-D40):
-      MIT | Apache-2.0 | GPL-3.0 | BSD-3-Clause | ISC |
-      CC-BY-4.0 | CC-BY-SA-4.0 | CC0-1.0 | Proprietary | Custom
-- [ ] No hardcoded secrets, API keys, passwords, or tokens
-- [ ] No malicious code patterns: eval(), exec(), network calls to unknown hosts
-
-### Automated Checks
+## Scoring Formula
 
 ```
-/validate → runs MCS-1 suite:
-  ├── structure-check:   correct files for product type?
-  ├── metadata-check:    all required fields present?
-  ├── reference-check:   all file references resolve?
-  ├── syntax-check:      valid markdown/yaml/json?
-  ├── size-check:        under 50MB?
-  ├── security-scan:     no secrets or malicious patterns?
-  └── readme-check:      required sections present?
+For each applicable DNA pattern (from product-dna/{type}.yaml):
+  PASS    = 1.0  (pattern fully present and functional)
+  PARTIAL = 0.5  (pattern present but incomplete)
+  FAIL    = 0.0  (pattern absent or broken)
+
+DNA_SCORE        = (sum of pattern_scores / applicable_patterns_count) x 100
+STRUCTURAL_SCORE = (files_found / files_expected) x 100
+INTEGRITY_SCORE  = (valid_refs / total_refs) x 100  [0 broken refs = 100]
+
+OVERALL = (DNA_SCORE x 0.50) + (STRUCTURAL_SCORE x 0.30) + (INTEGRITY_SCORE x 0.20)
 ```
 
-### Per-Type MCS-1 Requirements
-
-| Type | Required Files | Additional Requirements |
-|------|---------------|------------------------|
-| Skill | SKILL.md + README | Activation Protocol section, 1+ trigger conditions |
-| Agent | AGENT.md + README | Identity section, tool list |
-| Squad | SQUAD.md + agents/ (2+ agent definitions) + README | Routing logic, 1+ workflow defined |
-| Workflow | WORKFLOW.md + README | Step dependencies, inputs/outputs |
-| Design System | tokens/ (1+ token file) + README | Brand identity, platform targets |
-| Prompt | PROMPT.md + README | Variables documented |
-| CLAUDE.md | CLAUDE.md + README | Boot sequence (2+ steps), 3+ conventions |
-| Application | src/ (1+ source file) + README + package manifest | App actually runs |
-| System | SYSTEM.md + 1+ subdirectory (skills/, agents/, or workflows/) + README | Component references resolve |
+Weights are configured in `config.yaml` → `scoring.weights`.
 
 ---
 
-## MCS-2: Quality
+## MCS Thresholds
 
-Products demonstrating craft and thoroughness. Semi-automated — requires creator
-self-attestation for manual checks.
+| Level | DNA Requirement | Overall Score | What It Proves | Badge |
+|-------|----------------|--------------|----------------|-------|
+| **MCS-1** | Tier 1 ALL PASS (D1,D2,D3,D4,D13,D14) | >= 75% | Functional, documented, no broken refs | muted |
+| **MCS-2** | Tier 1+2 ALL PASS (adds D5-D8,D15-D17) | >= 85% | Demonstrates craft and professionalism | cyan |
+| **MCS-3** | Tier 1+2+3 ALL PASS (adds D9-D12,D18) | >= 92% | State-of-the-art structural DNA | gold |
 
-### Universal Requirements (Beyond MCS-1)
-
-- [ ] At least 3 exemplars/examples covering different use cases
-- [ ] Anti-patterns section (what NOT to do)
-- [ ] Tested with at least 5 different user intents/scenarios
-- [ ] Quality gate defined (creator's own verification method)
-- [ ] Error handling for edge cases
-- [ ] No placeholder content (no "TODO", "lorem ipsum", "[placeholder]", "coming soon")
-- [ ] Consistent naming and terminology throughout
-- [ ] Version follows semver (MAJOR.MINOR.PATCH)
-
-### Semi-Automated Checks
-
-```
-/validate --level=2 → runs MCS-2 suite:
-  ├── [All MCS-1 checks]
-  ├── exemplar-count:      >= 3 exemplars found?
-  ├── anti-pattern-check:  anti-patterns section exists?
-  ├── placeholder-scan:    no TODO/lorem/placeholder content?
-  ├── consistency-check:   naming consistent throughout?
-  ├── completeness-score:  % of optional sections filled
-  └── [MANUAL] intent-test: tested with 5 intents? (creator self-reports)
-```
-
-### Per-Type MCS-2 Requirements
-
-| Type | Additional Requirements |
-|------|------------------------|
-| Skill | references/exemplars.md (3+ examples), 1+ anti-pattern documented, 1+ optional directory (agents/, tasks/, config/, or workflows/) |
-| Agent | architecture.md, examples/ (3+ interactions including edge case), identity.md with full persona, decision protocol covers act vs. ask |
-| Squad | handoff-protocol.md with format specs, 3+ workflow examples, capability-index.yaml, all agents at MCS-1+ |
-| Workflow | config/variables.yaml, error handling per step, 2+ execution examples, retry/abort conditions |
-| Design System | 3+ component specs in components/, guidelines/usage.md, 2+ export formats |
-| Prompt | variants/ (2+), 3+ examples, config/variables.yaml |
-| CLAUDE.md | rules/ directory with modular rule files, architecture.md with WHY, tested in real project (5+ sessions) |
-| Application | CLAUDE.md, docs/architecture.md, tested on clean install, no security vulnerabilities in deps |
-| System | config/routing.yaml, all components at MCS-1+, 2+ integration tests, 3+ component types |
+Not all patterns apply to all types. See `product-dna/{type}.yaml` for type-specific applicability.
 
 ---
 
-## MCS-3: State-of-the-Art
-
-The gold standard. Requires agent review. Products that set the bar for the marketplace.
-
-### Universal Requirements (Beyond MCS-2)
-
-- [ ] Deep knowledge base in references/ (domain expertise encoded — not AI-generatable alone)
-- [ ] Adaptive modes (works in different contexts/constraints)
-- [ ] Composable (works well with other MyClaude products)
-- [ ] Stress-tested: ambiguity test, edge case test, adversarial test — all passed
-- [ ] Cognitive architecture documented (WHY it's designed this way)
-- [ ] Versioning strategy with CHANGELOG
-- [ ] At least 5 exemplars covering edge cases
-- [ ] Performance-optimized (minimal token usage for maximum value)
-- [ ] Differentiation statement (what makes THIS product unique vs. alternatives)
-
-### Agent-Assisted Review
+## 7-Stage Validation Pipeline
 
 ```
-/validate --level=3 → runs MCS-3 suite:
-  ├── [All MCS-2 checks]
-  ├── [AGENT] depth-review:          references contain real domain expertise?
-  ├── [AGENT] composability-test:    works with standard products?
-  ├── [AGENT] stress-test:           handles ambiguity/adversarial input?
-  ├── [AGENT] differentiation-check: not a commodity product?
-  ├── [AGENT] architecture-review:   design decisions justified?
-  └── [AGENT] token-efficiency:      reasonable context usage?
+Stage 1: STRUCTURAL (automated — glob, stat)
+  Check: all required files for product type exist
+  Score: files_found / files_expected
+  Blocking: YES
+
+Stage 2: INTEGRITY (automated — grep, read)
+  Check: file refs resolve, no placeholders, YAML/JSON valid
+  Score: valid_refs / total_refs
+  Blocking: YES
+
+Stage 3: DNA TIER 1 (automated — grep, glob)
+  D1:  Activation protocol section + references/ ref
+  D2:  Anti-pattern section >= 5 items
+  D3:  references/ dir exists + primary file < 500 lines
+  D4:  Quality gate section >= 3 verifiable criteria
+  D13: README.md with what/install/usage/requirements
+  D14: "When not to use" or degradation section
+  Blocking: YES (gates MCS-1)
+
+Stage 4: DNA TIER 2 (automated + semi-automated — MCS-2)
+  D5:  Question/input table or "if missing, ask" pattern
+  D6:  Confidence levels or certainty markers
+  D7:  Precondition checks
+  D8:  State file or persistence section
+  D15: Test scenarios or expected outputs
+  D16: No hardcoded paths, no common command names
+  D17: Hooks section in frontmatter or docs
+  Blocking: NO (advisory for MCS-1, gates MCS-2)
+  Editions: lite + pro
+
+Stage 5: DNA TIER 3 (agent-assisted — MCS-3, PRO only)
+  D9:  Routing table, no domain instructions in orchestrator
+  D10: Handoff specs between agents
+  D11: Self-challenge or falsification pattern
+  D12: Memory configuration with project scope
+  D18: context:fork or subagent isolation
+  Blocking: NO (advisory for MCS-2, gates MCS-3)
+  Editions: pro only
+
+Stage 6: CLI PREFLIGHT (delegates to myclaude validate)
+  Check: vault.yaml valid, no secrets, file sizes OK
+  Blocking: YES
+
+Stage 7: ANTI-COMMODITY (coaching, never blocking)
+  Q1: "What domain expertise did the creator inject?"
+  Q2: "If we removed all AI-generated content, what remains?"
+  Q3: "Does this solve a specific problem < 5 products address?"
+  Blocking: NEVER (feedback only, SE-D4)
+  Editions: lite + pro (MCS-2+)
 ```
-
-### Per-Type MCS-3 Requirements
-
-| Type | Additional Requirements |
-|------|------------------------|
-| Skill | Progressive depth modes (surface/dive/radical), question system, full references/ knowledge base, standalone + composable |
-| Agent | 7-layer cognitive architecture, tested standalone + as squad component, stress test results documented |
-| Squad | All agents at MCS-2+, routing tested adversarially, agent failure handling, tested standalone + as system component |
-| Workflow | Composable (can be nested/chained), adaptive modes, failure recovery procedures, performance metrics |
-| Design System | Motion tokens, 10+ component specs, 3+ export formats, theming system, WCAG 2.1 AA contrast verified |
-| Prompt | Context engineering structure, composability pattern, anti-injection safeguards |
-| CLAUDE.md | Hook configurations, MCP integration patterns, permission model, tested across team members |
-| Application | CI/CD config, meaningful test coverage, production-ready (logging, error tracking), deployment guide |
-| System | All components at MCS-2+, stress-tested routing, adaptive modes, full architecture docs |
 
 ---
 
-## MCS Badge Display
+## DNA Applicability Matrix
 
-CE-D8: MCS level is visible on every marketplace listing.
+Patterns marked **R** are required for MCS at that tier. `o` = optional bonus. `—` = not applicable.
 
-```
-┌──────────────────────────────────────┐
-│  ★ SKILL: Kairo Synthetic Reasoning  │
-│  MCS-3 ████████████ State-of-the-Art │
-│  by @darwim · v2.1.0 · $49          │
-└──────────────────────────────────────┘
-
-┌──────────────────────────────────────┐
-│  PROMPT: Sales Email Generator       │
-│  MCS-1 ████░░░░░░░░ Publishable     │
-│  by @creator · v1.0.0 · Free        │
-└──────────────────────────────────────┘
-```
-
-Badge levels:
-- MCS-1: `████░░░░░░░░ Publishable`
-- MCS-2: `████████░░░░ Quality`
-- MCS-3: `████████████ State-of-the-Art`
+| Pattern | skill | agent | squad | workflow | ds | prompt | claude-md | app | system |
+|---------|-------|-------|-------|----------|-----|--------|-----------|-----|--------|
+| D1  Activation Protocol      | **R** | **R** | **R** | **R** | — | **R** | **R** | o | **R** |
+| D2  Anti-Pattern Guard       | **R** | **R** | **R** | **R** | **R** | o | **R** | **R** | **R** |
+| D3  Progressive Disclosure   | **R** | **R** | **R** | o | — | — | **R** | o | **R** |
+| D4  Quality Gate             | **R** | **R** | **R** | **R** | **R** | **R** | — | **R** | **R** |
+| D5  Question System          | **R** | **R** | **R** | — | — | o | — | o | **R** |
+| D6  Confidence Signaling     | o | **R** | **R** | o | — | o | — | o | **R** |
+| D7  Pre-Execution Gate       | **R** | **R** | **R** | **R** | — | — | o | **R** | **R** |
+| D8  State Persistence        | o | **R** | **R** | o | — | — | — | o | **R** |
+| D9  Orchestrate Don't Execute| — | — | **R** | — | — | — | — | — | **R** |
+| D10 Handoff Spec             | — | — | **R** | o | — | — | — | — | **R** |
+| D11 Socratic Pressure        | o | **R** | **R** | — | — | — | — | — | **R** |
+| D12 Compound Memory          | — | o | **R** | — | — | — | — | — | **R** |
+| D13 Self-Documentation       | **R** | **R** | **R** | **R** | **R** | **R** | **R** | **R** | **R** |
+| D14 Graceful Degradation     | **R** | **R** | **R** | **R** | o | o | o | **R** | **R** |
+| D15 Testability              | o | **R** | **R** | o | — | o | — | o | **R** |
+| D16 Composability            | **R** | **R** | **R** | **R** | **R** | **R** | **R** | **R** | **R** |
+| D17 Hook Integration         | o | o | o | o | — | — | o | o | o |
+| D18 Subagent Isolation       | — | — | **R** | — | — | — | — | — | **R** |
 
 ---
 
-## Anti-Commodity Gate (CE-D9)
+## Badge Display
 
-Applied before publishing at MCS-2 or MCS-3. See `references/quality/anti-commodity.md`
-for full specification.
+| Level | Visual | Label |
+|-------|--------|-------|
+| MCS-1 | `muted` color | Publishable |
+| MCS-2 | `cyan` color | Quality |
+| MCS-3 | `gold` color | State-of-the-Art |
 
-**Three questions:**
-1. "What domain expertise did the creator inject that AI alone couldn't generate?"
-2. "If we removed all AI-generated content, what would remain?"
-3. "Does this product solve a specific problem that <5 other products address?"
+Badges render on marketplace product cards via the MCS Badge atom component.
 
-If all three answers are weak → feedback, not rejection (CE-D26).
+---
+
+## Score Report Format
+
+```
+MCS VALIDATION REPORT — {product_name}
+Target: MCS-{level} | Type: {type}
+
+STRUCTURAL  ████████░░  80%  (4/5 files found)
+INTEGRITY   ██████████  100% (12/12 refs valid)
+DNA TIER 1  ██████████  100% (6/6 pass)
+DNA TIER 2  ████████░░  86%  (6/7 pass — D17 missing)
+DNA TIER 3  ░░░░░░░░░░  N/A  (not targeted)
+CLI         ██████████  PASS
+
+OVERALL: 88% → MCS-2 ACHIEVED
+
+Findings:
+  D17 (Hook Integration): PARTIAL — hooks documented but not in frontmatter
+
+Recommendation: Add hooks to SKILL.md frontmatter for D17 PASS
+```
+
+---
+
+## Type-Specific Expectations
+
+For detailed DNA requirements per type, see: `product-dna/{type}.yaml`
+
+| Type | Max Practical MCS | Notes |
+|------|------------------|-------|
+| skill | MCS-2 | Few Tier 3 patterns apply |
+| agent | MCS-3 | D11 required at Tier 3 |
+| squad | MCS-3 | ALL 18 patterns required |
+| workflow | MCS-2 | Limited Tier 2/3 applicability |
+| design-system | MCS-2 | No Tier 3 patterns |
+| prompt | MCS-2 | No Tier 3 patterns |
+| claude-md | MCS-2 | No Tier 3 patterns |
+| application | MCS-2 | Limited DNA applicability |
+| system | MCS-3 | ALL 18 patterns required |

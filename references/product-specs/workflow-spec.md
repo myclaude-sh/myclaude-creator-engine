@@ -202,3 +202,18 @@ When creating a workflow, answer these before scaffolding:
 5. What happens when a step fails? (retry? fallback? abort? alert?)
 6. What tools or external services does it need? (file system, web, code execution, APIs)
 7. Should this workflow be used standalone or as a component in a larger system?
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/workflow.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

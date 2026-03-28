@@ -1,0 +1,145 @@
+---
+# quality-gates.yaml — Product State Transitions
+# Defines the state machine for product lifecycle in the Studio Engine
+# Read by /validate, /package, /publish, /status skills
+# Schema version: 2.0.0
+# Reference: PRD v2.0 §7 (Product Lifecycle)
+
+# ---------------------------------------------------------------------------
+# STATE MACHINE
+# Valid states: scaffold → content → validated → packaged → published
+# ---------------------------------------------------------------------------
+states:
+  scaffold:
+    description: "Product structure created by /create. Files exist but contain template content."
+    entry_action: "/create {type}"
+    allowed_transitions:
+      - target: content
+        trigger: "manual_edit OR /fill"
+        condition: "at least one template section modified"
+      - target: scaffold
+        trigger: "/create --force"
+        condition: "user confirms destructive reset"
+    exit_criteria:
+      - "Primary file exists for product type"
+      - "README.md exists"
+      - ".meta.yaml created with type+slug+mcs_target"
+
+  content:
+    description: "Creator has filled product content. Ready for validation."
+    entry_action: "/fill OR manual editing"
+    allowed_transitions:
+      - target: validated
+        trigger: "/validate"
+        condition: "MCS target score met"
+      - target: scaffold
+        trigger: "/create --force"
+        condition: "user confirms destructive reset"
+    exit_criteria:
+      - "All required sections non-empty"
+      - "No placeholder patterns remaining (TODO, PLACEHOLDER, etc.)"
+      - "Domain knowledge injected (not just template boilerplate)"
+
+  validated:
+    description: "Product passed /validate at target MCS level."
+    entry_action: "/validate passes"
+    allowed_transitions:
+      - target: packaged
+        trigger: "/package"
+        condition: "validation still current (not stale)"
+      - target: content
+        trigger: "file_modified"
+        condition: "any product file edited after validation (auto-regress)"
+    exit_criteria:
+      - "MCS score >= target threshold"
+      - "All blocking stages passed"
+      - ".meta.yaml updated with scores and timestamp"
+
+  packaged:
+    description: "Product bundled with vault.yaml + plugin.json in .publish/"
+    entry_action: "/package succeeds"
+    allowed_transitions:
+      - target: published
+        trigger: "/publish"
+        condition: "creator confirms + CLI pre-flight passes"
+      - target: content
+        trigger: "file_modified"
+        condition: "any product file edited after packaging (auto-regress)"
+    exit_criteria:
+      - "vault.yaml generated and valid"
+      - "plugin.json generated and valid"
+      - "WHY comments stripped from published content"
+      - "SHA-256 checksum calculated"
+      - ".publish/ directory staged"
+
+  published:
+    description: "Product live on marketplace and/or Anthropic plugin system."
+    entry_action: "/publish succeeds"
+    allowed_transitions:
+      - target: content
+        trigger: "version_bump"
+        condition: "creator starts new version (auto-bumps semver)"
+    exit_criteria:
+      - "CLI reports successful publish"
+      - "Product accessible on marketplace"
+      - ".meta.yaml updated with published_at + version"
+
+# ---------------------------------------------------------------------------
+# STATE REGRESSION RULES
+# When a validated/packaged product's files change, state regresses
+# ---------------------------------------------------------------------------
+regression:
+  trigger: "any file in workspace/{slug}/ modified after validation/packaging"
+  detection_method: "file mtime vs .meta.yaml.last_validated timestamp"
+  behavior:
+    from_validated: "regress to content, clear validation scores"
+    from_packaged: "regress to content, delete .publish/, clear scores"
+    from_published: "stay published (versioned), new edits tracked as next version"
+  hook: "PostToolUse matcher on Write|Edit for workspace/ paths"
+  notification: "State regressed: {slug} moved from {old} → content. Run /validate when ready."
+
+# ---------------------------------------------------------------------------
+# VALIDATION GATES PER MCS LEVEL
+# Maps MCS level to required validation stages
+# ---------------------------------------------------------------------------
+mcs_gates:
+  mcs1:
+    required_stages: [1, 2, 3, 6]  # structural, integrity, dna_tier1, cli_preflight
+    description: "Functional and documented. Tier 1 DNA patterns present."
+    badge: "muted"
+    badge_label: "MCS-1"
+
+  mcs2:
+    required_stages: [1, 2, 3, 4, 6, 7]  # adds dna_tier2, anti_commodity
+    description: "Demonstrates craft and professionalism. Advanced patterns."
+    badge: "cyan"
+    badge_label: "MCS-2"
+
+  mcs3:
+    required_stages: [1, 2, 3, 4, 5, 6, 7]  # adds dna_tier3
+    description: "State-of-the-art structural DNA. Expert patterns."
+    badge: "gold"
+    badge_label: "MCS-3"
+    editions: ["pro"]  # Tier 3 validation requires PRO agents
+
+# ---------------------------------------------------------------------------
+# PUBLISH PREREQUISITES
+# Conditions that MUST be true before /publish can proceed
+# ---------------------------------------------------------------------------
+publish_prerequisites:
+  - "Product state == packaged"
+  - "MCS score >= MCS-1 threshold (75%)"
+  - ".publish/ directory exists with vault.yaml"
+  - "No secrets detected in bundle (CLI pre-flight)"
+  - "Creator has confirmed publish intent"
+  - "creator.yaml exists (has onboarded)"
+
+# ---------------------------------------------------------------------------
+# STATE DISPLAY FORMAT (for /status)
+# ---------------------------------------------------------------------------
+status_display:
+  format: |
+    {slug} [{type}] — {state}
+      MCS target: {mcs_target} | Score: {score}% | Last validated: {date}
+  stale_warning: "not validated in {days} days"
+  stale_threshold_days: 30

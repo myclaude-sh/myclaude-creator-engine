@@ -4,16 +4,16 @@ description: >-
   {{WORKFLOW_DESCRIPTION}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter makes your workflow invocable after installation. -->
+<!-- WHY: Frontmatter makes your workflow invocable after installation. -->
 
 # {{WORKFLOW_NAME}}
 
-<!-- GUIDANCE: Name should describe the process, not the output. -->
-<!-- GUIDANCE: "Code Review Workflow" (process) > "Code Quality Checker" (output-oriented) -->
+<!-- WHY: Name should describe the process, not the output. -->
+<!-- WHY: "Code Review Workflow" (process) > "Code Quality Checker" (output-oriented) -->
 
 **Purpose:** {{WORKFLOW_PURPOSE}}
 **Trigger:** {{WORKFLOW_TRIGGER}}
-<!-- GUIDANCE: Trigger options: Manual | On file change | On schedule | On completion of [other workflow] -->
+<!-- WHY: Trigger options: Manual | On file change | On schedule | On completion of [other workflow] -->
 **Duration:** {{ESTIMATED_DURATION}}
 **Tools Required:** {{TOOLS_REQUIRED}}
 **Version:** {{VERSION}}
@@ -23,8 +23,8 @@ description: >-
 
 ## Trigger Conditions
 
-<!-- GUIDANCE: What must be true before this workflow can run? -->
-<!-- GUIDANCE: Include both when to run AND preconditions that must hold. -->
+<!-- WHY: What must be true before this workflow can run? -->
+<!-- WHY: Include both when to run AND preconditions that must hold. -->
 
 **Run when:**
 - {{WHEN_TO_RUN_1}}
@@ -41,8 +41,8 @@ description: >-
 
 ## Input Requirements
 
-<!-- GUIDANCE: Every required input must be listed. Missing inputs = failed workflow. -->
-<!-- GUIDANCE: Include format specifications — not just "provide a file" but "provide a .ts file". -->
+<!-- WHY: Every required input must be listed. Missing inputs = failed workflow. -->
+<!-- WHY: Include format specifications — not just "provide a file" but "provide a .ts file". -->
 
 | Input | Required | Format | Description |
 |-------|----------|--------|-------------|
@@ -60,9 +60,9 @@ If validation fails: {{VALIDATION_FAILURE_ACTION}}
 
 ## Step Sequence
 
-<!-- GUIDANCE: Use zero-padded numbers: 01, 02, 03... -->
-<!-- GUIDANCE: Each step has ONE responsibility. Break compound steps into multiple. -->
-<!-- GUIDANCE: Dependencies must be explicit — don't assume sequential unless declared. -->
+<!-- WHY: Use zero-padded numbers: 01, 02, 03... -->
+<!-- WHY: Each step has ONE responsibility. Break compound steps into multiple. -->
+<!-- WHY: Dependencies must be explicit — don't assume sequential unless declared. -->
 
 | Step | Name | Depends On | Input | Output | File |
 |------|------|-----------|-------|--------|------|
@@ -71,11 +71,11 @@ If validation fails: {{VALIDATION_FAILURE_ACTION}}
 | 03 | {{STEP_3_NAME}} | 01 | {{STEP_3_INPUT}} | {{STEP_3_OUTPUT}} | `steps/03-{{step-3-slug}}.md` |
 | 04 | {{STEP_4_NAME}} | 02, 03 | {{STEP_4_INPUT}} | {{STEP_4_OUTPUT}} | `steps/04-{{step-4-slug}}.md` |
 
-<!-- GUIDANCE: Add steps as needed. Minimum 3 for MCS-1. -->
+<!-- WHY: Add steps as needed. Minimum 3 for MCS-1. -->
 
 ### Step 01: {{STEP_1_NAME}}
 
-<!-- GUIDANCE: Inline summary of each step. Full details live in steps/0N-*.md -->
+<!-- WHY: Inline summary of each step. Full details live in steps/0N-*.md -->
 
 **What it does:** {{STEP_1_DESCRIPTION}}
 **Skill/Tool used:** {{STEP_1_SKILL_OR_TOOL}}
@@ -97,8 +97,8 @@ If validation fails: {{VALIDATION_FAILURE_ACTION}}
 
 ## Output / Deliverables
 
-<!-- GUIDANCE: List every artifact the workflow produces. -->
-<!-- GUIDANCE: Include format, location, and what each artifact is for. -->
+<!-- WHY: List every artifact the workflow produces. -->
+<!-- WHY: Include format, location, and what each artifact is for. -->
 
 | Artifact | Format | Location | Purpose |
 |----------|--------|----------|---------|
@@ -109,8 +109,8 @@ If validation fails: {{VALIDATION_FAILURE_ACTION}}
 
 ## Error Handling
 
-<!-- GUIDANCE: Every failure mode needs a defined response. -->
-<!-- GUIDANCE: Three types: retry (transient), fallback (alternative path), abort (irrecoverable). -->
+<!-- WHY: Every failure mode needs a defined response. -->
+<!-- WHY: Three types: retry (transient), fallback (alternative path), abort (irrecoverable). -->
 
 ### Step-Level Errors
 
@@ -136,8 +136,8 @@ To resume after fixing the issue: {{HOW_TO_RESUME}}
 
 ## Completion Criteria
 
-<!-- GUIDANCE: Define what "done" means specifically. -->
-<!-- GUIDANCE: Include both functional criteria and quality criteria. -->
+<!-- WHY: Define what "done" means specifically. -->
+<!-- WHY: Include both functional criteria and quality criteria. -->
 
 The workflow is complete when:
 
@@ -153,8 +153,8 @@ The workflow is complete when:
 
 ## Configuration
 
-<!-- GUIDANCE: All configurable parameters must be documented here AND in config/variables.yaml -->
-<!-- GUIDANCE: Parameters allow the workflow to be reused across different contexts. -->
+<!-- WHY: All configurable parameters must be documented here AND in config/variables.yaml -->
+<!-- WHY: Parameters allow the workflow to be reused across different contexts. -->
 
 See `config/variables.yaml` for all configurable parameters.
 
@@ -169,13 +169,13 @@ See `config/variables.yaml` for all configurable parameters.
 
 ## Composability
 
-<!-- GUIDANCE: How does this workflow combine with other products? -->
+<!-- WHY: How does this workflow combine with other products? -->
 
 - **Can be triggered by:** {{UPSTREAM_TRIGGER_CONDITIONS}}
 - **Output feeds into:** {{DOWNSTREAM_WORKFLOWS_OR_SKILLS}}
 - **Used as step in:** {{LARGER_SYSTEM_CONTEXT}}
 
 ---
-<!-- GUIDANCE: Required content above covers MCS-1. -->
-<!-- GUIDANCE: For MCS-2: complete variables.yaml, add error handling for each step, 2 execution examples -->
-<!-- GUIDANCE: For MCS-3: add adaptive modes, composability patterns, performance metrics -->
+<!-- WHY: Required content above covers MCS-1. -->
+<!-- WHY: For MCS-2: complete variables.yaml, add error handling for each step, 2 execution examples -->
+<!-- WHY: For MCS-3: add adaptive modes, composability patterns, performance metrics -->

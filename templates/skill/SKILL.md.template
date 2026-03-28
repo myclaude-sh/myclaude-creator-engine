@@ -4,17 +4,17 @@ description: >-
   {{SKILL_ONE_LINER}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: The frontmatter above is CRITICAL. When a buyer installs your skill via -->
-<!-- GUIDANCE: `myclaude install`, it lands in their .claude/skills/ directory. The `name` -->
-<!-- GUIDANCE: and `description` fields make it appear in their / autocomplete menu. -->
-<!-- GUIDANCE: Without this frontmatter, the buyer's Claude Code won't know your skill exists. -->
-<!-- GUIDANCE: Make the description "pushy" — describe both WHAT it does and WHEN to use it. -->
+<!-- WHY: The frontmatter above is CRITICAL. When a buyer installs your skill via -->
+<!-- WHY: `myclaude install`, it lands in their .claude/skills/ directory. The `name` -->
+<!-- WHY: and `description` fields make it appear in their / autocomplete menu. -->
+<!-- WHY: Without this frontmatter, the buyer's Claude Code won't know your skill exists. -->
+<!-- WHY: Make the description "pushy" — describe both WHAT it does and WHEN to use it. -->
 
 # {{SKILL_NAME}}
 
-<!-- GUIDANCE: The title should match the file slug exactly. Use Title Case. -->
-<!-- GUIDANCE: The one-liner is the first thing buyers and Claude Code read. -->
-<!-- GUIDANCE: Be specific: "Analyzes security vulnerabilities in Node.js code" > "Helps with security" -->
+<!-- WHY: The title should match the file slug exactly. Use Title Case. -->
+<!-- WHY: The one-liner is the first thing buyers and Claude Code read. -->
+<!-- WHY: Be specific: "Analyzes security vulnerabilities in Node.js code" > "Helps with security" -->
 
 > {{SKILL_ONE_LINER}}
 
@@ -26,9 +26,9 @@ description: >-
 
 ## When to Use
 
-<!-- GUIDANCE: List specific trigger conditions — not general use cases. -->
-<!-- GUIDANCE: Each bullet should be a concrete scenario a user would recognize. -->
-<!-- GUIDANCE: 3-5 bullets is the sweet spot. -->
+<!-- WHY: List specific trigger conditions — not general use cases. -->
+<!-- WHY: Each bullet should be a concrete scenario a user would recognize. -->
+<!-- WHY: 3-5 bullets is the sweet spot. -->
 
 - {{TRIGGER_CONDITION_1}}
 - {{TRIGGER_CONDITION_2}}
@@ -36,8 +36,8 @@ description: >-
 
 ## When NOT to Use
 
-<!-- GUIDANCE: Explicit anti-use cases prevent misuse and support confusion. -->
-<!-- GUIDANCE: Think about what adjacent skill does the job better in these cases. -->
+<!-- WHY: Explicit anti-use cases prevent misuse and support confusion. -->
+<!-- WHY: Think about what adjacent skill does the job better in these cases. -->
 
 - {{ANTI_USE_CASE_1}} (use {{ALTERNATIVE_INSTEAD}} instead)
 - {{ANTI_USE_CASE_2}}
@@ -46,10 +46,10 @@ description: >-
 
 ## Activation Protocol
 
-<!-- GUIDANCE: CE-D34 — this section is MANDATORY. It defines what Claude Code loads -->
-<!-- GUIDANCE: before producing any output. Without this, the knowledge base is unused. -->
-<!-- GUIDANCE: Order matters: load general context first, specific context second. -->
-<!-- GUIDANCE: The protocol runs ONCE per invocation, before any other processing. -->
+<!-- WHY: D1 (Activation Protocol) — this section is MANDATORY. It defines what Claude Code loads -->
+<!-- WHY: before producing any output. Without this, the knowledge base is unused. -->
+<!-- WHY: Order matters: load general context first, specific context second. -->
+<!-- WHY: The protocol runs ONCE per invocation, before any other processing. -->
 
 Before responding to any invocation of this skill, execute in this order:
 
@@ -69,10 +69,10 @@ Before responding to any invocation of this skill, execute in this order:
 
 ## Question System
 
-<!-- GUIDANCE: CE-D36 / H11 — "Best products are question systems, not answer systems" -->
-<!-- GUIDANCE: Before generating output, ask structured questions to clarify ambiguous input. -->
-<!-- GUIDANCE: Define EXACTLY which inputs require questions vs. which can be assumed. -->
-<!-- GUIDANCE: Maximum 3 questions at once — more is friction, not quality. -->
+<!-- WHY: D5 (Question System) — "Best products are question systems, not answer systems" -->
+<!-- WHY: Before generating output, ask structured questions to clarify ambiguous input. -->
+<!-- WHY: Define EXACTLY which inputs require questions vs. which can be assumed. -->
+<!-- WHY: Maximum 3 questions at once — more is friction, not quality. -->
 
 When invoked, check for the following required inputs:
 
@@ -90,10 +90,10 @@ indicated they want to customize.
 
 ## Core Instructions
 
-<!-- GUIDANCE: This is the actual skill logic. Be specific and behavioral. -->
-<!-- GUIDANCE: Use imperative voice ("Analyze the...", "Generate a...", "Check that...") -->
-<!-- GUIDANCE: Structure as a decision tree if there are multiple paths. -->
-<!-- GUIDANCE: Reference files from references/ explicitly — don't repeat the content here. -->
+<!-- WHY: This is the actual skill logic. Be specific and behavioral. -->
+<!-- WHY: Use imperative voice ("Analyze the...", "Generate a...", "Check that...") -->
+<!-- WHY: Structure as a decision tree if there are multiple paths. -->
+<!-- WHY: Reference files from references/ explicitly — don't repeat the content here. -->
 
 ### Processing Logic
 
@@ -105,7 +105,7 @@ indicated they want to customize.
 
 ### Handling Ambiguity
 
-<!-- GUIDANCE: Document how to handle unclear inputs BEFORE they become support questions. -->
+<!-- WHY: Document how to handle unclear inputs BEFORE they become support questions. -->
 
 If input is ambiguous:
 - {{AMBIGUITY_CASE_1}} → {{HOW_TO_HANDLE_1}}
@@ -114,8 +114,8 @@ If input is ambiguous:
 
 ### Modes
 
-<!-- GUIDANCE: Progressive depth modes are required for MCS-3 (CE-D36). -->
-<!-- GUIDANCE: Even at MCS-1, defining modes sets the foundation for upgrading. -->
+<!-- WHY: D3 (Progressive Disclosure) — depth modes keep primary file lean while enabling deep execution. -->
+<!-- WHY: Even at MCS-1, defining modes sets the foundation for upgrading. -->
 
 | Mode | When to Use | What Changes |
 |------|------------|-------------|
@@ -129,9 +129,9 @@ Default mode: `dive` unless user specifies otherwise or context implies urgency.
 
 ## Output Structure
 
-<!-- GUIDANCE: Define the exact format output must take. -->
-<!-- GUIDANCE: If output can vary, define each variant. -->
-<!-- GUIDANCE: Include structural templates where helpful. -->
+<!-- WHY: Define the exact format output must take. -->
+<!-- WHY: If output can vary, define each variant. -->
+<!-- WHY: Include structural templates where helpful. -->
 
 ```
 {{OUTPUT_STRUCTURE_TEMPLATE}}
@@ -145,9 +145,9 @@ Default mode: `dive` unless user specifies otherwise or context implies urgency.
 
 ## Quality Gate
 
-<!-- GUIDANCE: This checklist runs AFTER generating output, BEFORE delivering it. -->
-<!-- GUIDANCE: Each check should be specific enough to actually pass or fail. -->
-<!-- GUIDANCE: Include a failure action (what to do if the check fails). -->
+<!-- WHY: This checklist runs AFTER generating output, BEFORE delivering it. -->
+<!-- WHY: Each check should be specific enough to actually pass or fail. -->
+<!-- WHY: Include a failure action (what to do if the check fails). -->
 
 Before delivering output, verify:
 
@@ -163,8 +163,8 @@ Before delivering output, verify:
 
 ## Anti-Patterns
 
-<!-- GUIDANCE: Document what this skill should NOT do. Saves support questions (H6). -->
-<!-- GUIDANCE: 3-5 anti-patterns is standard for MCS-2. -->
+<!-- WHY: D14 (Graceful Degradation) — Document what this skill should NOT do and how it handles limits. -->
+<!-- WHY: 3-5 anti-patterns is standard for MCS-2. -->
 
 - **{{ANTI_PATTERN_1_NAME}}:** {{ANTI_PATTERN_1_DESCRIPTION}}
 - **{{ANTI_PATTERN_2_NAME}}:** {{ANTI_PATTERN_2_DESCRIPTION}}
@@ -174,8 +174,8 @@ Before delivering output, verify:
 
 ## Composability
 
-<!-- GUIDANCE: Describe how this skill works with other MyClaude products. -->
-<!-- GUIDANCE: This section enables buyers to build systems and workflows with this skill. -->
+<!-- WHY: Describe how this skill works with other MyClaude products. -->
+<!-- WHY: This section enables buyers to build systems and workflows with this skill. -->
 
 This skill is designed to be composable:
 
@@ -184,6 +184,6 @@ This skill is designed to be composable:
 - **In workflows:** This skill can be embedded as step `{{WORKFLOW_STEP_NAME}}` in a workflow
 
 ---
-<!-- GUIDANCE: The lines above are the required content for MCS-1. -->
-<!-- GUIDANCE: For MCS-2, ensure exemplars.md has 3+ concrete examples. -->
-<!-- GUIDANCE: For MCS-3, add cognitive architecture rationale and differentiation. -->
+<!-- WHY: The lines above are the required content for MCS-1. -->
+<!-- WHY: For MCS-2, ensure exemplars.md has 3+ concrete examples. -->
+<!-- WHY: For MCS-3, add cognitive architecture rationale and differentiation. -->

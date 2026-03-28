@@ -1,0 +1,60 @@
+# product-dna/prompt.yaml — DNA requirements for Prompts
+# Read by /create, /validate, /package when type=prompt
+
+type: prompt
+primary_file: PROMPT.md
+install_target: ".claude/skills/{slug}/"
+template: "templates/prompt/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "context loading instructions present" }
+    D2:  { required: false, name: "Anti-Pattern Guard",     check: "anti-pattern guidance" }
+    D3:  { required: false, name: "Progressive Disclosure",  applicable: false }
+    D4:  { required: true,  name: "Quality Gate",            check: "output quality criteria" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md complete" }
+    D14: { required: false, name: "Graceful Degradation",    check: "missing context handling" }
+  tier2:
+    D5:  { required: false, name: "Question System",         check: "input clarification pattern" }
+    D6:  { required: false, name: "Confidence Signaling",    check: "certainty markers in output" }
+    D7:  { required: false, name: "Pre-Execution Gate",      applicable: false }
+    D8:  { required: false, applicable: false }
+    D15: { required: false, name: "Testability",             check: "example inputs with expected outputs" }
+    D16: { required: true,  name: "Composability",           check: "standalone, no conflicts" }
+    D17: { required: false, applicable: false }
+  tier3:
+    D9:  { applicable: false }
+    D10: { applicable: false }
+    D11: { applicable: false }
+    D12: { applicable: false }
+    D18: { applicable: false }
+
+mcs_expectations:
+  mcs1: "D1+D4+D13 PASS. Score >= 75%."
+  mcs2: "D16 required. Score >= 85%."
+  mcs3: "Not typical for prompts — max MCS-2."
+
+template_files:
+  - source: "PROMPT.md.template"
+    target: "PROMPT.md"
+    dna_injected: [D1, D4]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+
+frontmatter:
+  required:
+    - name
+    - description
+    - "argument-hint"  # prompts always take input
+  optional:
+    - "allowed-tools"
+    - "user-invocable"
+
+discovery_questions:
+  - "What specific output does this prompt produce?"
+  - "What input/context does it need to work well?"
+  - "What makes this prompt better than asking Claude directly?"
+  - "What are 3 example use cases with expected outputs?"
+  - "What quality criteria define a good output from this prompt?"
+  - "How should the prompt handle ambiguous or insufficient input?"

@@ -1,0 +1,77 @@
+# product-dna/skill.yaml — DNA requirements for Skills
+# Read by /create, /validate, /package when type=skill
+
+type: skill
+primary_file: SKILL.md
+install_target: ".claude/skills/{slug}/"
+template: "templates/skill/"
+
+# DNA pattern requirements (from PRD §3 Applicability Matrix)
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "grep activation/protocol section + references/ ref" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "grep anti-pattern section with >=5 items" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "references/ exists + primary <500 lines" }
+    D4:  { required: true,  name: "Quality Gate",            check: "grep quality gate with >=3 criteria" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with what/install/usage/requirements" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "grep 'when not to use' or error handling" }
+  tier2:
+    D5:  { required: true,  name: "Question System",         check: "grep question/input table or 'if missing, ask'" }
+    D6:  { required: false, name: "Confidence Signaling",    check: "grep confidence levels or certainty markers" }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "grep precondition checks" }
+    D8:  { required: false, name: "State Persistence",       check: "state file or persistence section" }
+    D15: { required: false, name: "Testability",             check: "test scenarios or expected outputs" }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths, no common command names" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks section in frontmatter or docs" }
+  tier3:
+    D9:  { required: false, name: "Orchestrate Don't Execute", applicable: false }
+    D10: { required: false, name: "Handoff Spec",              applicable: false }
+    D11: { required: false, name: "Socratic Pressure",         check: "self-challenge pattern" }
+    D12: { required: false, name: "Compound Memory",           applicable: false }
+    D18: { required: false, name: "Subagent Isolation",        applicable: false }
+
+# MCS scoring expectations
+mcs_expectations:
+  mcs1: "All Tier 1 PASS. Score >= 75%."
+  mcs2: "Tier 1+2 required PASS. Score >= 85%."
+  mcs3: "Not typical for skills (no D9/D10/D12/D18). Score >= 92% if applicable patterns covered."
+
+# Template file mapping
+# NOTE: If a .template file doesn't exist yet, /create generates the target
+# from defaults (README skeleton, empty references/). S3 sprint adds rich templates.
+template_files:
+  - source: "SKILL.md.template"
+    target: "SKILL.md"
+    dna_injected: [D1, D2, D4, D5, D7, D14]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+  - source: "references/domain-knowledge.md.template"
+    target: "references/domain-knowledge.md"
+    dna_injected: [D3]
+
+# Frontmatter fields for SKILL.md (Anthropic Agent Skills spec)
+frontmatter:
+  required:
+    - name          # skill slug
+    - description   # when Claude should use this skill
+  optional:
+    - "allowed-tools"    # restrict tool access
+    - "argument-hint"    # help text for arguments
+    - paths              # conditional activation paths
+    - hooks              # inline automation
+    - model              # force specific model
+    - effort             # force effort level
+    - context            # fork for isolation
+    - "user-invocable"   # false for background skills
+    - "disable-model-invocation"  # manual-only trigger
+
+# Discovery questions for /create skill
+discovery_questions:
+  - "What specific problem does this skill solve?"
+  - "Who is the target user (developer type, experience level)?"
+  - "What domain knowledge does the skill need to work well?"
+  - "What inputs does the skill expect (files, arguments, context)?"
+  - "What output does it produce (files, analysis, recommendations)?"
+  - "What are the top 3 things this skill should NEVER do?"
+  - "What existing tools/approaches does this compete with?"

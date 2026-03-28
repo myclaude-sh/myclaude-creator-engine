@@ -1,0 +1,235 @@
+---
+# config.yaml — MyClaude Studio Engine quality configuration
+# Read by /validate, /create, /package skills
+# Schema version: 2.0.0
+
+# ---------------------------------------------------------------------------
+# MCS SCORING WEIGHTS
+# Overall = (dna × 0.50) + (structural × 0.30) + (integrity × 0.20)
+# ---------------------------------------------------------------------------
+scoring:
+  weights:
+    dna: 0.50
+    structural: 0.30
+    integrity: 0.20
+  pattern_scores:
+    pass: 1.0
+    partial: 0.5
+    fail: 0.0
+
+# ---------------------------------------------------------------------------
+# MCS QUALITY THRESHOLDS
+# ---------------------------------------------------------------------------
+thresholds:
+  mcs1:
+    overall_minimum: 75       # percent
+    dna_tiers_required: [1]   # Tier 1 patterns must all PASS
+    blocks_publish: true      # failing MCS-1 blocks /publish
+  mcs2:
+    overall_minimum: 85
+    dna_tiers_required: [1, 2]
+    anti_commodity_required: true   # coaching gate, not blocking
+    blocks_publish: false           # creator can override
+  mcs3:
+    overall_minimum: 92
+    dna_tiers_required: [1, 2, 3]
+    exemplar_comparison: true       # requires PRO (Quality Sentinel)
+    blocks_publish: false
+
+# Stale threshold: days since last validation before warning
+stale_days: 30
+
+# Placeholder content patterns that fail integrity check
+placeholder_patterns:
+  - "TODO"
+  - "PLACEHOLDER"
+  - "lorem ipsum"
+  - "coming soon"
+  - "GUIDANCE:"
+  - "FILL THIS"
+  - "YOUR_"
+  - "[INSERT"
+
+# ---------------------------------------------------------------------------
+# PRODUCT TYPE ROUTING
+# Maps product type → template path + primary file + required files
+# ---------------------------------------------------------------------------
+routing:
+  skill:
+    template: "templates/skill/"
+    primary_file: "SKILL.md"
+    required_files:
+      - "SKILL.md"
+      - "README.md"
+      - "references/"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 3, 4, 5, 7, 13, 14, 16]   # Tier 1+2 required
+
+  agent:
+    template: "templates/agent/"
+    primary_file: "AGENT.md"
+    required_files:
+      - "AGENT.md"
+      - "README.md"
+      - "references/"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 3, 4, 5, 6, 7, 8, 11, 13, 14, 15, 16]
+
+  squad:
+    template: "templates/squad/"
+    primary_file: "SQUAD.md"
+    required_files:
+      - "SQUAD.md"
+      - "README.md"
+      - "references/"
+      - "agents/"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+
+  workflow:
+    template: "templates/workflow/"
+    primary_file: "WORKFLOW.md"
+    required_files:
+      - "WORKFLOW.md"
+      - "README.md"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 4, 7, 13, 14, 16]
+
+  design-system:
+    template: "templates/design-system/"
+    primary_file: "DESIGN-SYSTEM.md"
+    required_files:
+      - "DESIGN-SYSTEM.md"
+      - "README.md"
+      - "tokens/"
+    install_target: "myclaude-products/{slug}/"
+    dna_required: [2, 4, 13, 16]
+
+  prompt:
+    template: "templates/prompt/"
+    primary_file: "PROMPT.md"
+    required_files:
+      - "PROMPT.md"
+      - "README.md"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 4, 13, 16]
+
+  claude-md:
+    template: "templates/claude-md/"
+    primary_file: "CLAUDE.md"
+    required_files:
+      - "CLAUDE.md"
+      - "README.md"
+    install_target: ".claude/rules/{slug}.md"
+    dna_required: [1, 2, 3, 13, 16]
+
+  application:
+    template: "templates/application/"
+    primary_file: "APPLICATION.md"
+    required_files:
+      - "APPLICATION.md"
+      - "README.md"
+    install_target: "myclaude-products/{slug}/"
+    dna_required: [2, 4, 7, 13, 14, 16]
+
+  system:
+    template: "templates/system/"
+    primary_file: "SYSTEM.md"
+    required_files:
+      - "SYSTEM.md"
+      - "README.md"
+      - "references/"
+      - "agents/"
+    install_target: ".claude/skills/{slug}/"
+    dna_required: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
+
+# ---------------------------------------------------------------------------
+# FEATURE FLAGS
+# Edition-based feature gating
+# ---------------------------------------------------------------------------
+features:
+  lite:
+    validation_tiers: [1, 2]     # Tier 3 requires PRO
+    cli_preflight: true          # Stage 6 myclaude validate
+    anti_commodity_coaching: true
+    exemplar_comparison: false   # PRO only
+    agent_routing: false         # PRO only
+    market_intelligence: false   # PRO only
+    decisions_log: false         # PRO only
+
+  pro:
+    validation_tiers: [1, 2, 3]
+    cli_preflight: true
+    anti_commodity_coaching: true
+    exemplar_comparison: true    # Quality Sentinel compares against references/exemplars/
+    agent_routing: true          # Forge Master + 4 specialist agents
+    market_intelligence: true    # Market Scout
+    decisions_log: true          # .decisions.log append-only
+
+# ---------------------------------------------------------------------------
+# VAULT.YAML GENERATION DEFAULTS
+# Applied by /package when fields are missing from .meta.yaml
+# ---------------------------------------------------------------------------
+vault_defaults:
+  version: "1.0.0"
+  license: "MIT"
+  language: "en"
+  mcs_level: 1
+  price: 0
+  compatibility:
+    claude_code: ">=1.0.0"
+
+# ---------------------------------------------------------------------------
+# VALIDATION PIPELINE STAGES
+# Order is fixed: each stage must pass before the next runs
+# (except Stage 7 anti-commodity which is always advisory)
+# ---------------------------------------------------------------------------
+validation_pipeline:
+  - stage: 1
+    name: "structural"
+    method: "glob"
+    description: "Required files exist for product type"
+    blocking: true
+
+  - stage: 2
+    name: "integrity"
+    method: "grep + read"
+    description: "No broken refs, no placeholders, YAML/JSON valid"
+    blocking: true
+
+  - stage: 3
+    name: "dna_tier1"
+    method: "grep + glob"
+    description: "D1 D2 D3 D4 D13 D14 — universal patterns"
+    blocking: true
+    mcs_gate: 1
+
+  - stage: 4
+    name: "dna_tier2"
+    method: "grep + parse"
+    description: "D5 D6 D7 D8 D15 D16 D17 — advanced patterns"
+    blocking: false
+    mcs_gate: 2
+    editions: ["lite", "pro"]
+
+  - stage: 5
+    name: "dna_tier3"
+    method: "agent_assisted"
+    description: "D9 D10 D11 D12 D18 — expert patterns"
+    blocking: false
+    mcs_gate: 3
+    editions: ["pro"]
+
+  - stage: 6
+    name: "cli_preflight"
+    method: "bash"
+    description: "myclaude validate — manifest, secrets, file sizes"
+    blocking: true
+    command: "myclaude validate"
+
+  - stage: 7
+    name: "anti_commodity"
+    method: "coaching"
+    description: "Domain expertise check — coaching only, never blocks"
+    blocking: false
+    mcs_gate: 2

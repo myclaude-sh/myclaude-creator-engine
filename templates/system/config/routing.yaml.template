@@ -1,0 +1,19 @@
+# System Routing Configuration
+# Defines which component handles which request type
+
+routes:
+  - pattern: "{{PATTERN_1}}"
+    component: "skills/{{SKILL_SLUG}}"
+    description: "{{ROUTE_DESCRIPTION}}"
+
+  - pattern: "{{PATTERN_2}}"
+    component: "agents/{{AGENT_SLUG}}"
+    description: "{{ROUTE_DESCRIPTION}}"
+
+  - pattern: "{{PATTERN_3}}"
+    component: "workflows/{{WORKFLOW_SLUG}}"
+    description: "{{ROUTE_DESCRIPTION}}"
+
+fallback:
+  component: "skills/{{DEFAULT_SKILL}}"
+  description: "Default handler for unmatched requests"

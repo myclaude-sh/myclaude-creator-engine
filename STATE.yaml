@@ -1,0 +1,56 @@
+---
+# STATE.yaml — MyClaude Studio Engine session state
+# Updated automatically at session end (Stop hook)
+# Schema version: 2.0.0
+
+engine:
+  version: "2.0.0"
+  edition: "lite"            # auto-detected: "pro" if forge-master/ present
+  last_session: null         # ISO date: "2026-03-28"
+  last_command: null         # last skill invoked: "/create skill"
+  sessions_total: 0          # running count across all sessions
+
+creator:
+  loaded: false              # true if creator.yaml successfully read
+  name: null                 # from creator.yaml
+  type: null                 # developer | prompt-engineer | domain-expert | marketer | agency | hybrid
+
+workspace:
+  active_products: 0         # count of products in workspace/
+  published: 0               # count of products published (phase: published)
+  stale: 0                   # count with last_validated >30 days ago
+  products: []               # list — see product entry schema below
+
+# Product entry schema (each item in workspace.products):
+# - slug: "my-skill"
+#   type: "skill"            # skill|agent|squad|workflow|design-system|prompt|claude-md|application|system
+#   state: "scaffold"        # scaffold | content | validated | packaged | published
+#   mcs_target: "MCS-1"     # MCS-1 | MCS-2 | MCS-3
+#   last_validated: null     # ISO date or null
+#   last_validation_score: null  # 0-100 overall score or null
+#   dna_compliance:
+#     tier1: null            # 0-100 or null
+#     tier2: null
+#     tier3: null
+
+current_task:
+  skill: null                # active skill being executed: "/create"
+  product_slug: null         # which product this task targets
+  started_at: null           # ISO datetime
+  phase: null                # pipeline phase: P0-P7
+
+mcs_results:
+  # Last validation results per product (keyed by slug)
+  # Updated by /validate skill
+  # Schema per entry:
+  # {slug}:
+  #   level: 1               # MCS level attempted
+  #   overall_score: 82      # 0-100
+  #   structural_score: 90   # 0-100
+  #   integrity_score: 95    # 0-100
+  #   dna_score: 73          # 0-100
+  #   tier1_pass: true
+  #   tier2_pass: false
+  #   tier3_pass: null        # null = not checked
+  #   failures: []           # list of {pattern: "D2", check: "anti-patterns count <5"}
+  #   validated_at: "2026-03-28T14:30:00Z"

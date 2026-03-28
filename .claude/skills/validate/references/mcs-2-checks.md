@@ -1,10 +1,14 @@
 # MCS-2 Checks — Quality
 
+> **v2.0 alignment:** These checks map to Stage 4 (DNA Tier 2) + Stage 7 (Anti-Commodity).
+> DNA Tier 2 patterns: D5,D6,D7,D8,D15,D16,D17 — check `product-dna/{type}.yaml` for which are required per type.
+> Scoring: OVERALL = (DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20). Threshold: >= 85%.
+
 Products that demonstrate craft and thoroughness. Builds on all MCS-1 requirements.
 
 **Prerequisite:** All MCS-1 checks must pass before MCS-2 checks are evaluated.
 
-**Total additional checks in this tier:** 8
+**Total additional checks in this tier:** 7 DNA Tier 2 patterns + Anti-Commodity gate
 
 ---
 
@@ -110,7 +114,7 @@ Scan all files for patterns:
 - `coming soon` (case-insensitive)
 - `PLACEHOLDER`
 - `{fill this in}`, `[add here]`, `[describe here]`
-- `<!-- GUIDANCE:` — guidance comments should have been stripped before MCS-2 target is declared
+- `<!-- WHY:` — guidance comments should have been stripped before MCS-2 target is declared
 
 Flag exact file and line number for each occurrence.
 
@@ -118,7 +122,7 @@ Flag exact file and line number for each occurrence.
 
 Extract product name/slug from:
 1. Primary definition file title
-2. `.engine-meta.yaml` `product_slug`
+2. `.meta.yaml` `product.slug`
 3. `vault.yaml` `name` (if exists)
 4. Directory name in `workspace/`
 

@@ -1,0 +1,43 @@
+---
+name: {{AGENT_SLUG}}
+description: >-
+  {{AGENT_DESCRIPTION}}
+tools: [Read, Glob, Grep]
+model: sonnet
+---
+
+<!-- WHY: D18 (Subagent Isolation) — Each agent runs in its own context.
+     This prevents context bleeding between specialists. -->
+
+# {{AGENT_NAME}}
+
+> {{AGENT_ROLE_DESCRIPTION}}
+
+<!-- WHY: D8 (State Persistence) — Agent tracks decisions made during review. -->
+
+## Expertise
+
+{{AGENT_EXPERTISE}}
+
+## Protocol
+
+1. {{STEP_1}}
+2. {{STEP_2}}
+3. {{STEP_3}}
+
+## Handoff Output
+
+<!-- WHY: D10 (Handoff Spec) — Every handoff must specify what was done,
+     what was decided, and what the next agent needs. -->
+
+```
+WHAT_DONE: {{SUMMARY}}
+WHAT_DECIDED: {{DECISIONS}}
+WHAT_NEXT_NEEDS: {{CONTEXT_FOR_NEXT}}
+FILES_MODIFIED: {{LIST}}
+```
+
+## Anti-Patterns
+
+- NEVER {{AGENT_ANTIPATTERN_1}}
+- NEVER {{AGENT_ANTIPATTERN_2}}

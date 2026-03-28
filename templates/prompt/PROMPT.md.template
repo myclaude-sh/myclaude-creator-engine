@@ -4,31 +4,31 @@ description: >-
   {{PROMPT_DESCRIPTION}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter makes your prompt invocable after installation. -->
+<!-- WHY: Frontmatter makes your prompt invocable after installation. -->
 
 # {{PROMPT_NAME}}
 
-<!-- GUIDANCE: Name the prompt by its task, not its output. "Technical Writing Prompt" (task) -->
-<!-- GUIDANCE: not "Technical Writer" (persona). Personas belong in agents. -->
+<!-- WHY: Name the prompt by its task, not its output. "Technical Writing Prompt" (task) -->
+<!-- WHY: not "Technical Writer" (persona). Personas belong in agents. -->
 
 **Version:** {{VERSION}}
 **Use Case:** {{PROMPT_USE_CASE}}
-<!-- GUIDANCE: Who uses this and for what. "For software developers writing API documentation" -->
+<!-- WHY: Who uses this and for what. "For software developers writing API documentation" -->
 **Tone:** {{PROMPT_TONE}}
-<!-- GUIDANCE: formal | professional | conversational | technical | creative -->
+<!-- WHY: formal | professional | conversational | technical | creative -->
 **Output Format:** {{OUTPUT_FORMAT}}
-<!-- GUIDANCE: markdown | JSON | prose | structured text | code | mixed -->
+<!-- WHY: markdown | JSON | prose | structured text | code | mixed -->
 **Author:** {{AUTHOR_USERNAME}}
 
 ---
 
 ## System Prompt
 
-<!-- GUIDANCE: This is the core product. Everything else is documentation around it. -->
-<!-- GUIDANCE: Use explicit constraints: "always", "never", "when X do Y" -->
-<!-- GUIDANCE: Establish context before giving instructions. -->
-<!-- GUIDANCE: Handle the most common edge cases inline. -->
-<!-- GUIDANCE: Variables use {{VARIABLE_NAME}} syntax and are documented below. -->
+<!-- WHY: This is the core product. Everything else is documentation around it. -->
+<!-- WHY: Use explicit constraints: "always", "never", "when X do Y" -->
+<!-- WHY: Establish context before giving instructions. -->
+<!-- WHY: Handle the most common edge cases inline. -->
+<!-- WHY: Variables use {{VARIABLE_NAME}} syntax and are documented below. -->
 
 You are a {{CONTEXT_ROLE_DESCRIPTION}}.
 
@@ -64,9 +64,9 @@ Your task is to {{CORE_TASK_INSTRUCTION}}.
 
 ## Variables
 
-<!-- GUIDANCE: Every {{VARIABLE}} in the prompt must be documented here. -->
-<!-- GUIDANCE: Include the default value — many users will use the prompt as-is. -->
-<!-- GUIDANCE: Keep variables to the minimum needed. Each one adds complexity. -->
+<!-- WHY: Every {{VARIABLE}} in the prompt must be documented here. -->
+<!-- WHY: Include the default value — many users will use the prompt as-is. -->
+<!-- WHY: Keep variables to the minimum needed. Each one adds complexity. -->
 
 | Variable | Default | Description | Example |
 |----------|---------|-------------|---------|
@@ -79,7 +79,7 @@ Your task is to {{CORE_TASK_INSTRUCTION}}.
 
 ## Usage
 
-<!-- GUIDANCE: Show exactly how to use this prompt. Concrete is better than general. -->
+<!-- WHY: Show exactly how to use this prompt. Concrete is better than general. -->
 
 ### As a System Prompt
 
@@ -113,8 +113,8 @@ To customize for your use case, replace variables before pasting:
 
 ## Limitations
 
-<!-- GUIDANCE: Be honest about where the prompt breaks down. -->
-<!-- GUIDANCE: This prevents buyer disappointment and support questions. -->
+<!-- WHY: Be honest about where the prompt breaks down. -->
+<!-- WHY: This prevents buyer disappointment and support questions. -->
 
 This prompt works well for:
 - {{GOOD_USE_CASE_1}}
@@ -129,13 +129,13 @@ This prompt degrades when:
 
 ## Anti-Patterns
 
-<!-- GUIDANCE: Misuse patterns that will lead to poor outputs. -->
+<!-- WHY: Misuse patterns that will lead to poor outputs. -->
 
 - **{{ANTI_PATTERN_1}}:** {{ANTI_PATTERN_1_DESCRIPTION}}
 - **{{ANTI_PATTERN_2}}:** {{ANTI_PATTERN_2_DESCRIPTION}}
 - **Using without context substitution:** Using the raw template with {{VARIABLE}} placeholders as literals produces garbage output. Always substitute variables.
 
 ---
-<!-- GUIDANCE: Above covers MCS-1 (core prompt + 1 example + README). -->
-<!-- GUIDANCE: For MCS-2: add variants/, 3+ examples/, variables.yaml -->
-<!-- GUIDANCE: For MCS-3: add context engineering docs, composability patterns -->
+<!-- WHY: Above covers MCS-1 (core prompt + 1 example + README). -->
+<!-- WHY: For MCS-2: add variants/, 3+ examples/, variables.yaml -->
+<!-- WHY: For MCS-3: add context engineering docs, composability patterns -->

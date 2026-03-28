@@ -4,12 +4,12 @@ description: >-
   {{SQUAD_MISSION_DESCRIPTION}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter makes your squad discoverable after installation. -->
+<!-- WHY: Frontmatter makes your squad discoverable after installation. -->
 
 # {{SQUAD_NAME}}
 
-<!-- GUIDANCE: Squad name describes the team's collective mission, not just listing agent types. -->
-<!-- GUIDANCE: "Content Production Squad" > "Writer + Editor Squad" -->
+<!-- WHY: Squad name describes the team's collective mission, not just listing agent types. -->
+<!-- WHY: "Content Production Squad" > "Writer + Editor Squad" -->
 
 **Purpose:** {{SQUAD_PURPOSE}}
 **Composition:** {{AGENT_COUNT}} agents — {{AGENT_NAMES_AND_ROLES}}
@@ -21,8 +21,8 @@ description: >-
 
 ## Agent Roster
 
-<!-- GUIDANCE: Every agent must have a distinct, non-overlapping role. -->
-<!-- GUIDANCE: If two agents have similar roles, merge them or make the boundary explicit. -->
+<!-- WHY: Every agent must have a distinct, non-overlapping role. -->
+<!-- WHY: If two agents have similar roles, merge them or make the boundary explicit. -->
 
 | Agent | File | Role | Handles |
 |-------|------|------|---------|
@@ -30,15 +30,15 @@ description: >-
 | {{AGENT_2_NAME}} | `agents/{{AGENT_2_FILE}}` | {{AGENT_2_ROLE}} | {{AGENT_2_HANDLES}} |
 | {{AGENT_3_NAME}} | `agents/{{AGENT_3_FILE}}` | {{AGENT_3_ROLE}} | {{AGENT_3_HANDLES}} |
 
-<!-- GUIDANCE: Add rows for each agent. Minimum 2 agents for MCS-1. -->
+<!-- WHY: Add rows for each agent. Minimum 2 agents for MCS-1. -->
 
 ---
 
 ## Routing Logic
 
-<!-- GUIDANCE: This is the cognitive core of the squad. -->
-<!-- GUIDANCE: Every input type must map to exactly one agent or routing path. -->
-<!-- GUIDANCE: Start with intent detection, then route to the responsible agent. -->
+<!-- WHY: This is the cognitive core of the squad. -->
+<!-- WHY: Every input type must map to exactly one agent or routing path. -->
+<!-- WHY: Start with intent detection, then route to the responsible agent. -->
 
 ### Intent Detection
 
@@ -67,8 +67,8 @@ IF intent cannot be determined:
 
 ## Handoff Protocols
 
-<!-- GUIDANCE: Defines the exact format agents use to pass work to each other. -->
-<!-- GUIDANCE: Without this, each handoff is ad-hoc and quality is unpredictable. -->
+<!-- WHY: Defines the exact format agents use to pass work to each other. -->
+<!-- WHY: Without this, each handoff is ad-hoc and quality is unpredictable. -->
 
 ### Standard Handoff Format
 
@@ -85,7 +85,7 @@ When any agent hands off to another, it must include:
 
 ### Agent-Specific Handoffs
 
-<!-- GUIDANCE: Define the specific handoffs between agents in this squad. -->
+<!-- WHY: Define the specific handoffs between agents in this squad. -->
 
 **{{AGENT_1_NAME}} → {{AGENT_2_NAME}}:**
 - Triggers when: {{TRIGGER_FOR_THIS_HANDOFF}}
@@ -101,8 +101,8 @@ When any agent hands off to another, it must include:
 
 ## Workflows
 
-<!-- GUIDANCE: Define the multi-agent sequences this squad executes. -->
-<!-- GUIDANCE: Each workflow shows how agents collaborate, not just what each agent does. -->
+<!-- WHY: Define the multi-agent sequences this squad executes. -->
+<!-- WHY: Each workflow shows how agents collaborate, not just what each agent does. -->
 
 ### Workflow 1: {{WORKFLOW_1_NAME}}
 
@@ -127,7 +127,7 @@ Step 3: {{AGENT_Z}} — {{STEP_3_ACTION}}
 
 ### Workflow 2: {{WORKFLOW_2_NAME}}
 
-<!-- GUIDANCE: Add additional workflows as needed. Minimum 1 for MCS-1, 3+ for MCS-2. -->
+<!-- WHY: Add additional workflows as needed. Minimum 1 for MCS-1, 3+ for MCS-2. -->
 
 **Trigger:** {{WORKFLOW_2_TRIGGER}}
 
@@ -139,8 +139,8 @@ Step 3: {{AGENT_Z}} — {{STEP_3_ACTION}}
 
 ## Quality Gates
 
-<!-- GUIDANCE: Each workflow needs a quality gate. -->
-<!-- GUIDANCE: Gates should be specific — "output is complete" is not a gate. -->
+<!-- WHY: Each workflow needs a quality gate. -->
+<!-- WHY: Gates should be specific — "output is complete" is not a gate. -->
 
 | Workflow | Gate | Check | Pass Condition |
 |----------|------|-------|---------------|
@@ -151,8 +151,8 @@ Step 3: {{AGENT_Z}} — {{STEP_3_ACTION}}
 
 ## Escalation Rules
 
-<!-- GUIDANCE: Define exactly when the squad cannot handle the task. -->
-<!-- GUIDANCE: Explicit escalation rules prevent silent failure. -->
+<!-- WHY: Define exactly when the squad cannot handle the task. -->
+<!-- WHY: Explicit escalation rules prevent silent failure. -->
 
 The squad escalates to a human when:
 
@@ -166,8 +166,8 @@ When escalating, preserve state by: {{STATE_PRESERVATION_STRATEGY}}
 
 ## Capability Index
 
-<!-- GUIDANCE: Maps what the squad can do to which agent owns it. -->
-<!-- GUIDANCE: Allows users to query "can this squad do X?" programmatically. -->
+<!-- WHY: Maps what the squad can do to which agent owns it. -->
+<!-- WHY: Allows users to query "can this squad do X?" programmatically. -->
 
 See `config/capability-index.yaml` for machine-readable capability mapping.
 
@@ -180,6 +180,6 @@ See `config/capability-index.yaml` for machine-readable capability mapping.
 | {{CAPABILITY_3}} | {{AGENT_Z}} | {{CAPABILITY_3_NOTES}} |
 
 ---
-<!-- GUIDANCE: Required sections above cover MCS-1. -->
-<!-- GUIDANCE: For MCS-2: add handoff-protocol.md, 3 workflow examples, capability-index.yaml -->
-<!-- GUIDANCE: For MCS-3: all agents at MCS-2, stress-test routing, add performance metrics -->
+<!-- WHY: Required sections above cover MCS-1. -->
+<!-- WHY: For MCS-2: add handoff-protocol.md, 3 workflow examples, capability-index.yaml -->
+<!-- WHY: For MCS-3: all agents at MCS-2, stress-test routing, add performance metrics -->

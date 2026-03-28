@@ -1,203 +1,39 @@
-<!-- GUIDANCE: Application README doesn't use frontmatter (apps install to myclaude-products/, not .claude/skills/). -->
-<!-- GUIDANCE: But make the first line count — it becomes the marketplace listing headline. -->
+# {{PRODUCT_DISPLAY_NAME}}
 
-# {{APP_NAME}}
+<!-- WHY: D13 (Self-Documentation) — Without a clear README, buyers can't
+     install or use the product. Four sections below = MCS-1 minimum. -->
 
-<!-- GUIDANCE: Lead with the clearest possible one-liner. -->
-<!-- GUIDANCE: If someone reads only one sentence, this is it. -->
-<!-- GUIDANCE: "CLI tool that converts Markdown files to structured JSON" is good. -->
-<!-- GUIDANCE: "A powerful tool for various tasks" is useless. -->
+> {{PRODUCT_TAGLINE}}
 
-{{APP_ONE_LINER_DESCRIPTION}}
+## What It Does
 
-<!-- GUIDANCE: The paragraph below the title is your "30-second pitch". -->
-<!-- GUIDANCE: Include: what it does, who it's for, key differentiator. -->
-
-{{APP_EXPANDED_DESCRIPTION}}
-
----
-
-## Quick Start
-
-<!-- GUIDANCE: Fastest path from zero to working. 3-5 commands. -->
-<!-- GUIDANCE: This must actually work on a clean install. Test it. -->
-
-```bash
-{{INSTALL_COMMAND}}
-{{SETUP_COMMAND}}
-{{QUICKSTART_EXAMPLE_COMMAND}}
-```
-
----
+{{PRODUCT_DESCRIPTION}}
 
 ## Installation
 
-<!-- GUIDANCE: List ALL requirements explicitly. "Node.js" is not specific enough. -->
-<!-- GUIDANCE: "Node.js 20+ (tested on 20.11.0 and 22.x)" is specific. -->
-
-### Requirements
-
-- {{RUNTIME_REQUIREMENT}} (version: {{RUNTIME_VERSION}})
-- {{SYSTEM_REQUIREMENT_2}}
-- {{EXTERNAL_SERVICE_REQUIREMENT}} (if applicable)
-
-### Install
-
-**Option 1 — Package manager:**
-
 ```bash
-{{PACKAGE_MANAGER_INSTALL}}
+myclaude install {{PRODUCT_SLUG}}
 ```
 
-**Option 2 — From source:**
-
-```bash
-git clone {{REPO_URL}}
-cd {{APP_SLUG}}
-{{BUILD_COMMANDS}}
-```
-
-### Verify Installation
-
-```bash
-{{VERIFY_COMMAND}}
-# Expected output: {{VERIFY_EXPECTED_OUTPUT}}
-```
-
----
+After installation, the skill is available at `myclaude-products/{{PRODUCT_SLUG}}/`.
+Run from `myclaude-products/{{PRODUCT_SLUG}}/` in any Claude Code session.
 
 ## Usage
 
-<!-- GUIDANCE: Show real commands with real outputs. Not placeholder examples. -->
-<!-- GUIDANCE: Cover the most common 3 use cases. -->
+{{USAGE_INSTRUCTIONS}}
 
-### Basic Usage
-
-```bash
-{{BASIC_COMMAND}}
-```
-
-**Output:**
-```
-{{BASIC_COMMAND_OUTPUT}}
-```
-
-### Common Examples
-
-**Example 1 — {{EXAMPLE_1_DESCRIPTION}}:**
-
-```bash
-{{EXAMPLE_1_COMMAND}}
-```
-
-**Example 2 — {{EXAMPLE_2_DESCRIPTION}}:**
-
-```bash
-{{EXAMPLE_2_COMMAND}}
-```
-
-### All Options
+### Examples
 
 ```
-{{APP_SLUG}} [command] [options]
-
-Commands:
-  {{COMMAND_1}}    {{COMMAND_1_DESCRIPTION}}
-  {{COMMAND_2}}    {{COMMAND_2_DESCRIPTION}}
-
-Options:
-  --{{OPTION_1}}   {{OPTION_1_DESCRIPTION}}  (default: {{OPTION_1_DEFAULT}})
-  --{{OPTION_2}}   {{OPTION_2_DESCRIPTION}}
-  --help, -h       Show this help message
-  --version, -v    Show version
+/{{PRODUCT_SLUG}} {{EXAMPLE_INPUT}}
 ```
+
+## Requirements
+
+- Claude Code >= 1.0.0
+- {{ADDITIONAL_REQUIREMENTS}}
 
 ---
 
-## Configuration
-
-<!-- GUIDANCE: Document all configuration options with examples. -->
-
-### Environment Variables
-
-Create a `.env` file in the project root:
-
-```bash
-{{ENV_VAR_1}}={{ENV_VAR_1_EXAMPLE}}  # {{ENV_VAR_1_DESCRIPTION}}
-{{ENV_VAR_2}}={{ENV_VAR_2_EXAMPLE}}  # {{ENV_VAR_2_DESCRIPTION}}
-```
-
-**Required:** `{{REQUIRED_ENV_VARS}}`
-**Optional:** `{{OPTIONAL_ENV_VARS}}`
-
-### Config File
-
-Optional: create `{{CONFIG_FILE_NAME}}` at project root:
-
-```{{CONFIG_FILE_FORMAT}}
-{{CONFIG_FILE_EXAMPLE}}
-```
-
----
-
-## Architecture
-
-<!-- GUIDANCE: Quick overview of how the app is built. -->
-<!-- GUIDANCE: Focus on decisions that affect how to develop/extend the app. -->
-
-```
-src/
-├── {{MODULE_1}}/    # {{MODULE_1_PURPOSE}}
-├── {{MODULE_2}}/    # {{MODULE_2_PURPOSE}}
-└── {{ENTRY_FILE}}   # Entry point
-```
-
-**Key dependencies:**
-- `{{DEPENDENCY_1}}` — {{DEPENDENCY_1_PURPOSE}}
-- `{{DEPENDENCY_2}}` — {{DEPENDENCY_2_PURPOSE}}
-
-See `docs/architecture.md` for full design decisions.
-
----
-
-## Development
-
-<!-- GUIDANCE: How to develop on this app. -->
-
-```bash
-# Install dev dependencies
-{{DEV_INSTALL_COMMAND}}
-
-# Run in development mode
-{{DEV_RUN_COMMAND}}
-
-# Run tests
-{{TEST_COMMAND}}
-
-# Build for production
-{{BUILD_COMMAND}}
-```
-
----
-
-## Known Limitations
-
-<!-- GUIDANCE: Be honest. Prevents negative reviews from mismatched expectations. -->
-
-- {{LIMITATION_1}}
-- {{LIMITATION_2}}
-- {{LIMITATION_3}}
-
----
-
-## License
-
-{{LICENSE}}
-
----
-
-**Version:** {{VERSION}} | **Author:** {{AUTHOR_USERNAME}}
-
-<!-- GUIDANCE: Above covers MCS-1. -->
-<!-- GUIDANCE: For MCS-2: add CLAUDE.md, docs/architecture.md, test the app -->
-<!-- GUIDANCE: For MCS-3: add CI/CD, test suite, production deployment guide -->
+**Version:** {{VERSION}} | **License:** {{LICENSE}} | **MCS:** {{MCS_LEVEL}}
+**Author:** {{AUTHOR}}

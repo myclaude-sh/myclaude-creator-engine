@@ -1,0 +1,75 @@
+# product-dna/system.yaml — DNA requirements for Systems
+# Read by /create, /validate, /package when type=system
+# Systems are the most complex product type — ALL 18 DNA patterns apply
+
+type: system
+primary_file: SYSTEM.md
+install_target: ".claude/skills/{slug}/"
+template: "templates/system/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "grep activation/boot section + references/ ref" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "grep anti-pattern section >=5 items" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "references/ dir + SYSTEM.md <500 lines" }
+    D4:  { required: true,  name: "Quality Gate",            check: "grep quality gate >=3 criteria" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with what/install/usage/requirements" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "error/fallback/degradation section" }
+  tier2:
+    D5:  { required: true,  name: "Question System",         check: "input classification or triage table" }
+    D6:  { required: true,  name: "Confidence Signaling",    check: "confidence levels in system output" }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "precondition checks before routing" }
+    D8:  { required: true,  name: "State Persistence",       check: "state management (STATE.yaml or equivalent)" }
+    D15: { required: true,  name: "Testability",             check: "test scenarios with expected routing" }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths, no common names, relative refs" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks for system events" }
+  tier3:
+    D9:  { required: true,  name: "Orchestrate Don't Execute", check: "SYSTEM.md has routing table, no domain instructions" }
+    D10: { required: true,  name: "Handoff Spec",              check: "handoff template between components" }
+    D11: { required: true,  name: "Socratic Pressure",         check: "self-challenge at decision points" }
+    D12: { required: true,  name: "Compound Memory",           check: "memory config with project scope" }
+    D18: { required: true,  name: "Subagent Isolation",        check: "context:fork in agent/component definitions" }
+
+mcs_expectations:
+  mcs1: "All Tier 1 PASS. Score >= 75%."
+  mcs2: "Tier 1+2 all required PASS. Score >= 85%."
+  mcs3: "ALL 18 patterns PASS. Score >= 92%. PRO validation required."
+
+template_files:
+  - source: "SYSTEM.md.template"
+    target: "SYSTEM.md"
+    dna_injected: [D1, D2, D4, D5, D7, D9, D10, D14]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+  - source: "references/domain-knowledge.md.template"
+    target: "references/domain-knowledge.md"
+    dna_injected: [D3]
+  - source: "agents/orchestrator.md.template"
+    target: "agents/"
+    dna_injected: [D8, D11, D12, D18]
+  - source: "STATE.yaml.template"
+    target: "STATE.yaml"
+    dna_injected: [D8]
+
+frontmatter:
+  required:
+    - name
+    - description
+    - tools
+  optional:
+    - model
+    - memory
+    - permissionMode
+    - maxTurns
+    - skills
+
+discovery_questions:
+  - "What complex domain does this system operate in?"
+  - "How many distinct agents/components does it need?"
+  - "What is the orchestration pattern (hub-spoke, pipeline, mesh)?"
+  - "How do components communicate — what handoff protocol?"
+  - "What state must persist across sessions?"
+  - "What quality gates exist between system phases?"
+  - "How does the system handle component failure?"
+  - "What is the system's memory architecture?"

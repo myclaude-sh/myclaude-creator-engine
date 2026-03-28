@@ -1,0 +1,63 @@
+# product-dna/design-system.yaml — DNA requirements for Design Systems
+# Read by /create, /validate, /package when type=design-system
+
+type: design-system
+primary_file: DESIGN-SYSTEM.md
+install_target: "myclaude-products/{slug}/"
+template: "templates/design-system/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: false, name: "Activation Protocol",    applicable: false, note: "DS is reference, not invocable" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "grep anti-pattern section >=5 items" }
+    D3:  { required: false, name: "Progressive Disclosure",  applicable: false }
+    D4:  { required: true,  name: "Quality Gate",            check: "grep quality criteria for token usage" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with install/usage/token reference" }
+    D14: { required: false, name: "Graceful Degradation",    check: "fallback tokens" }
+  tier2:
+    D5:  { required: false, applicable: false }
+    D6:  { required: false, applicable: false }
+    D7:  { required: false, applicable: false }
+    D8:  { required: false, applicable: false }
+    D15: { required: false, applicable: false }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded values, token-only" }
+    D17: { required: false, applicable: false }
+  tier3:
+    # No Tier 3 patterns applicable to design systems
+    D9:  { applicable: false }
+    D10: { applicable: false }
+    D11: { applicable: false }
+    D12: { applicable: false }
+    D18: { applicable: false }
+
+mcs_expectations:
+  mcs1: "D2+D4+D13 PASS. Score >= 75%."
+  mcs2: "D16 required. Score >= 85%."
+  mcs3: "Not applicable — DS max is MCS-2."
+
+template_files:
+  - source: "DESIGN-SYSTEM.md.template"
+    target: "DESIGN-SYSTEM.md"
+    dna_injected: [D2, D4]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+  - source: "tokens/"
+    target: "tokens/"
+    note: "Token files (colors, typography, spacing, shadows, motion)"
+
+frontmatter:
+  required:
+    - name
+    - description
+  optional:
+    - version
+    - license
+
+discovery_questions:
+  - "What visual identity does this design system serve?"
+  - "What platforms does it target (web, CLI, mobile)?"
+  - "What are the core token categories (color, type, spacing, shadow, motion)?"
+  - "What anti-patterns should users of this DS avoid?"
+  - "Does it include component patterns or just tokens?"
+  - "What frameworks does it support (Tailwind, CSS custom properties, etc.)?"

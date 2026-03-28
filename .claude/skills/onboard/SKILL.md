@@ -15,7 +15,7 @@ Discover and persist creator profile through guided conversation. Build `creator
 
 **When to use:** First time using the Creator Engine in a project, or when profile is stale and needs update.
 
-**When NOT to use:** When `creator.yaml` already exists and is accurate — use `/update-profile` instead of re-running full onboarding.
+**When NOT to use:** When `creator.yaml` already exists and is accurate — run `/onboard update` instead of re-running full onboarding.
 
 ---
 
@@ -94,13 +94,13 @@ Infer from answers. Do not ask directly. Classification rules:
 
 Silently scan local environment:
 - Check `workspace/` — count product drafts and their statuses
-- Check `workspace/*/.engine-meta.yaml` — identify products by category and status
+- Check `workspace/*/.meta.yaml` — identify products by category and status
 - Note any products that could be published (status: validated)
 
 Report findings:
 ```
 Environment scan complete:
-  Engine tools: 15 skills ready (type /engine-help to see all)
+  Engine tools: 10 skills ready (type /help to see all)
   Your workspace: {N} product(s) in progress
     - {slug}: {category}, {status}
 ```
@@ -163,8 +163,8 @@ Show next steps tailored to profile type:
 | Profile Type | Recommended First Action |
 |---|---|
 | `developer` | `/create skill` — build a tool around your code expertise |
-| `domain-expert` | `/create prompt` or `/scan-market` — monetize your domain knowledge |
-| `marketer` | `/scan-market` — find gaps that match your audience |
+| `domain-expert` | `/create prompt` or `/map` — monetize your domain knowledge |
+| `marketer` | `/map` then `/create` — find gaps that match your audience |
 | `prompt-engineer` | `/create prompt` or `/create agent` — start with what you know |
 | `hybrid` | `/create system` — combine multiple product types |
 
@@ -174,9 +174,9 @@ Profile created! Here's what I recommend next:
   [persona-specific recommendation from table above]
 
   Other options:
+  - /map — extract your domain knowledge first (recommended for complex products)
   - /create — start building any product type
-  - /scan-market — see what's selling in the marketplace
-  - /validate — check a product you've already built
+  - /help — see all available commands
 ```
 
 ### UPDATE MODE FLOW

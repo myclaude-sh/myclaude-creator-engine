@@ -31,7 +31,7 @@ Three principles govern marketplace pricing:
 | MCS-2 | $9 — $29 | $15 |
 | MCS-3 | $29 — $79 | $49 |
 
-**Example:** Kairo Systematic Reasoning at MCS-3 → $49. Justification: saves 1+ hour
+**Example:** A systematic reasoning skill at MCS-3 → $49. Justification: saves 1+ hour
 of analysis time per use for professionals charging $200+/hr.
 
 ---

@@ -1,0 +1,55 @@
+# product-dna/claude-md.yaml — DNA requirements for CLAUDE.md products
+# Read by /create, /validate, /package when type=claude-md
+
+type: claude-md
+primary_file: CLAUDE.md
+install_target: ".claude/rules/{slug}.md"
+template: "templates/claude-md/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "boot sequence or activation section" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "anti-patterns or DON'T section >=5 items" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "references/ for detailed knowledge" }
+    D4:  { required: false, name: "Quality Gate",            applicable: false, note: "CLAUDE.md sets rules, not gates" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with install/usage" }
+    D14: { required: false, name: "Graceful Degradation",    check: "scope containment rules" }
+  tier2:
+    D5:  { required: false, applicable: false }
+    D6:  { required: false, applicable: false }
+    D7:  { required: false, name: "Pre-Execution Gate", check: "boot sequence with file reads before action" }
+    D8:  { required: false, applicable: false }
+    D15: { required: false, applicable: false }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths, namespace-safe" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks config if applicable" }
+  tier3:
+    D9:  { applicable: false }
+    D10: { applicable: false }
+    D11: { applicable: false }
+    D12: { applicable: false }
+    D18: { applicable: false }
+
+mcs_expectations:
+  mcs1: "D1+D2+D3+D13 PASS. Score >= 75%."
+  mcs2: "D16 required. Score >= 85%."
+  mcs3: "Not applicable — CLAUDE.md max MCS-2."
+
+template_files:
+  - source: "CLAUDE.md.template"
+    target: "CLAUDE.md"
+    dna_injected: [D1, D2, D3]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+
+frontmatter:
+  required: []  # CLAUDE.md files don't have frontmatter — they ARE the instruction
+  optional: []
+
+discovery_questions:
+  - "What kind of project is this CLAUDE.md designed for?"
+  - "What rules and conventions must Claude follow in this project?"
+  - "What are the top 5 things Claude should NEVER do in this context?"
+  - "What boot sequence should run at the start of each session?"
+  - "What reference files should Claude load for domain knowledge?"
+  - "How should this compose with the user's existing CLAUDE.md?"

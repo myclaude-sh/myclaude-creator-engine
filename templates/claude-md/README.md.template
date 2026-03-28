@@ -1,0 +1,39 @@
+# {{PRODUCT_DISPLAY_NAME}}
+
+<!-- WHY: D13 (Self-Documentation) — Without a clear README, buyers can't
+     install or use the product. Four sections below = MCS-1 minimum. -->
+
+> {{PRODUCT_TAGLINE}}
+
+## What It Does
+
+{{PRODUCT_DESCRIPTION}}
+
+## Installation
+
+```bash
+myclaude install {{PRODUCT_SLUG}}
+```
+
+After installation, the skill is available at `.claude/rules/{{PRODUCT_SLUG}}.md`.
+Rules auto-load every Claude Code session in any Claude Code session.
+
+## Usage
+
+{{USAGE_INSTRUCTIONS}}
+
+### Examples
+
+```
+/{{PRODUCT_SLUG}} {{EXAMPLE_INPUT}}
+```
+
+## Requirements
+
+- Claude Code >= 1.0.0
+- {{ADDITIONAL_REQUIREMENTS}}
+
+---
+
+**Version:** {{VERSION}} | **License:** {{LICENSE}} | **MCS:** {{MCS_LEVEL}}
+**Author:** {{AUTHOR}}

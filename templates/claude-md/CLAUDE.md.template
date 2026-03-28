@@ -1,12 +1,12 @@
-<!-- GUIDANCE: CLAUDE.md configs install to .claude/rules/, not .claude/skills/. -->
-<!-- GUIDANCE: No frontmatter needed — Claude Code auto-loads rules on every session. -->
-<!-- GUIDANCE: The header should identify the PROJECT TYPE (e.g., "Next.js Enterprise"). -->
+<!-- WHY: CLAUDE.md configs install to .claude/rules/, not .claude/skills/. -->
+<!-- WHY: No frontmatter needed — Claude Code auto-loads rules on every session. -->
+<!-- WHY: The header should identify the PROJECT TYPE (e.g., "Next.js Enterprise"). -->
 
 # {{PROJECT_TYPE}} — Claude Code Configuration
 
-<!-- GUIDANCE: Header identifies the project type, not the project name. -->
-<!-- GUIDANCE: This config is generic enough to reuse across projects of this type. -->
-<!-- GUIDANCE: Do not include project-specific names, paths, or credentials. -->
+<!-- WHY: Header identifies the project type, not the project name. -->
+<!-- WHY: This config is generic enough to reuse across projects of this type. -->
+<!-- WHY: Do not include project-specific names, paths, or credentials. -->
 
 > Claude Code configuration for {{PROJECT_TYPE_DESCRIPTION}} projects.
 > Enforces {{KEY_CONVENTIONS}} conventions and {{ARCHITECTURE_APPROACH}} architecture.
@@ -14,16 +14,16 @@
 **Version:** {{VERSION}}
 **Target Stack:** {{TECH_STACK}}
 **Team Size:** {{TEAM_SIZE}}
-<!-- GUIDANCE: Options: Solo | Small Team (2-5) | Enterprise (5+) -->
+<!-- WHY: Options: Solo | Small Team (2-5) | Enterprise (5+) -->
 **Author:** {{AUTHOR_USERNAME}}
 
 ---
 
 ## First Action (Boot Sequence)
 
-<!-- GUIDANCE: CE-D34 analog for CLAUDE.md — defines what to load at session start. -->
-<!-- GUIDANCE: A boot sequence prevents Claude Code from operating without context. -->
-<!-- GUIDANCE: Order: architecture docs first, then current state (git, TODOs). -->
+<!-- WHY: D1 (Activation Protocol) — defines what to load at session start. -->
+<!-- WHY: A boot sequence prevents Claude Code from operating without context. -->
+<!-- WHY: Order: architecture docs first, then current state (git, TODOs). -->
 
 At the start of every session, before responding to any request:
 
@@ -39,9 +39,9 @@ At the start of every session, before responding to any request:
 
 ## Architecture Overview
 
-<!-- GUIDANCE: Summarize the key architectural decisions Claude Code must know. -->
-<!-- GUIDANCE: Include directory structure with what lives where. -->
-<!-- GUIDANCE: Explain why (not just what) for the most important decisions. -->
+<!-- WHY: Summarize the key architectural decisions Claude Code must know. -->
+<!-- WHY: Include directory structure with what lives where. -->
+<!-- WHY: Explain why (not just what) for the most important decisions. -->
 
 ### Project Structure
 
@@ -70,8 +70,8 @@ At the start of every session, before responding to any request:
 
 ## Coding Conventions
 
-<!-- GUIDANCE: Specific, enforceable rules. Not "write clean code". -->
-<!-- GUIDANCE: Each rule should be testable — you can observe whether it's followed. -->
+<!-- WHY: Specific, enforceable rules. Not "write clean code". -->
+<!-- WHY: Each rule should be testable — you can observe whether it's followed. -->
 
 ### Naming
 
@@ -106,8 +106,8 @@ At the start of every session, before responding to any request:
 
 ## Security Rules
 
-<!-- GUIDANCE: Non-negotiable rules Claude Code must always follow. -->
-<!-- GUIDANCE: These prevent the most common and dangerous mistakes. -->
+<!-- WHY: Non-negotiable rules Claude Code must always follow. -->
+<!-- WHY: These prevent the most common and dangerous mistakes. -->
 
 Claude Code MUST NEVER:
 
@@ -129,8 +129,8 @@ All secrets use `{{CREDENTIALS_PATTERN}}` (e.g., `.env` file, vault reference, e
 
 ## Workflow Rules
 
-<!-- GUIDANCE: How work should be done in this project. -->
-<!-- GUIDANCE: Rules that apply to the development process, not just the code. -->
+<!-- WHY: How work should be done in this project. -->
+<!-- WHY: Rules that apply to the development process, not just the code. -->
 
 ### Branching
 
@@ -160,7 +160,7 @@ Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
 
 ## Error Handling
 
-<!-- GUIDANCE: How Claude Code should handle and report errors. -->
+<!-- WHY: How Claude Code should handle and report errors. -->
 
 - All async functions must have try/catch or equivalent error boundaries
 - Error messages must be: human-readable, actionable, and include context
@@ -168,6 +168,6 @@ Types: `feat`, `fix`, `chore`, `docs`, `refactor`, `test`
 - {{ERROR_HANDLING_RULE_2}}
 
 ---
-<!-- GUIDANCE: Above covers MCS-1 (CLAUDE.md + README). -->
-<!-- GUIDANCE: For MCS-2: break into rules/ directory, add architecture.md -->
-<!-- GUIDANCE: For MCS-3: add hook configurations, MCP integration patterns -->
+<!-- WHY: Above covers MCS-1 (CLAUDE.md + README). -->
+<!-- WHY: For MCS-2: break into rules/ directory, add architecture.md -->
+<!-- WHY: For MCS-3: add hook configurations, MCP integration patterns -->

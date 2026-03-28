@@ -266,3 +266,18 @@ When creating a system, answer these before scaffolding:
 5. Can components be used independently or only as a system? (composability decision)
 6. What is the shared knowledge base? (what context all components need)
 7. What are the 3-5 most common user paths through the system?
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/system.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

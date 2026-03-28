@@ -15,7 +15,7 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 
 **When to use:** Starting a new product — any of the 9 categories.
 
-**When NOT to use:** When the product already exists in `workspace/` and you want to add content (use `/create-content`). Do not use to overwrite an existing scaffold.
+**When NOT to use:** When the product already exists in `workspace/` and you want to add content (use `/fill`). Do not use to overwrite an existing scaffold unless `--force` is specified.
 
 ---
 
@@ -24,11 +24,15 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 1. Read `creator.yaml` from project root — load defaults (`default_category`, `default_license`, `quality_target`)
 2. Identify which category was requested (from sub-command or by asking)
 3. **Show the destination first** — Load the exemplar for this category from `references/exemplars/{category}-exemplar.md`. Show a condensed preview (title, structure, key sections) so the creator understands what "great" looks like before building. "Here's what an MCS-3 {category} looks like. Yours will follow this structure."
-4. Load discovery questions from `${CLAUDE_SKILL_DIR}/references/discovery-questions.md` for that category
-5. Load the product spec for that category from `references/product-specs/{category}-spec.md` (if it exists — project root)
-6. Load the scaffold template from `templates/{category}/` (project root) — this is the structural source of truth for the generated files
-7. Generate scaffold in `workspace/{product-slug}/` using the loaded template as base structure
-8. After scaffold is generated, suggest: "Run `/create-content` to fill in the sections with your expertise, or start editing directly."
+4. Load DNA requirements from `product-dna/{category}.yaml` — inject required DNA patterns into scaffold
+5. Load discovery questions from `${CLAUDE_SKILL_DIR}/references/discovery-questions.md` for that category
+6. Load the product spec from `references/product-specs/{category}-spec.md`
+7. Load the scaffold template from `templates/{category}/`
+8. **Load domain-map.md** if it exists in `workspace/domain-map.md` — prefill scaffold sections with domain knowledge
+9. Generate scaffold in `workspace/{product-slug}/` with DNA patterns as sections + WHY comments
+10. Create `.meta.yaml` with v2.0 schema (product.type, state.phase=scaffold, mcs_target)
+11. Move `workspace/domain-map.md` → `workspace/{product-slug}/domain-map.md` if it was loaded
+12. After scaffold is generated, suggest: "Run `/fill` to add your expertise, or start editing directly."
 
 ---
 
@@ -98,24 +102,37 @@ Create directory `workspace/{product-slug}/` and all required files for the cate
 
 Every generated file must include guidance comments:
 ```
-<!-- GUIDANCE: Describe what the skill does in 1-2 sentences. Be specific about the problem it solves. -->
+<!-- WHY: Describe what the skill does in 1-2 sentences. Be specific about the problem it solves. -->
 ```
 
 These are stripped during `/package`. (CE-D12)
 
-Create `.engine-meta.yaml` in the workspace root for the product: (CE-D41)
+Create `.meta.yaml` in the product directory `workspace/{product-slug}/`:
 
 ```yaml
-# Engine metadata — do not distribute, stripped during packaging
-engine_meta:
-  product_slug: "{product-slug}"
-  category: "{category}"
-  created_at: "{YYYY-MM-DD}"
-  creator_engine_version: "1.0.0"
-  scaffold_state: "generated"  # generated | in-progress | validated | packaged | published
+# Product metadata — not distributed, stripped during /package
+product:
+  slug: "{product-slug}"
+  type: "{category}"               # skill|agent|squad|workflow|design-system|prompt|claude-md|application|system
+  created: "{YYYY-MM-DD}"
   mcs_target: "{MCS-1|MCS-2|MCS-3}"
+
+state:
+  phase: "scaffold"                # scaffold | content | validated | packaged | published
   last_validated: null
-  last_validation_result: null
+  last_validation_score: null
+  dna_compliance:
+    tier1: null                    # 0-100
+    tier2: null
+    tier3: null
+  overall_score: null
+
+history:
+  created_at: "{YYYY-MM-DD}"
+  validated_at: []                 # append timestamps
+  packaged_at: null
+  published_at: null
+  version: "1.0.0"
 ```
 
 **Step 5 — MCS-1 Structural Validation**
@@ -136,14 +153,13 @@ Files generated:
   {list of generated files}
 
 Next steps:
-  [ ] Fill in the sections marked with GUIDANCE comments
-  [ ] Add your domain-specific content and examples
-  [ ] Run /validate to check MCS-1 compliance
-  [ ] Run /validate --level=2 when targeting MCS-2
-  [ ] Run /publish when ready
+  [ ] Run /fill to add your expertise with guided extraction
+  [ ] Or edit files directly — WHY comments explain each section
+  [ ] Run /validate to check quality
+  [ ] Run /package + /publish when ready
 
-Tip: The GUIDANCE comments explain what each section needs.
-     They are stripped automatically during packaging.
+Tip: The WHY comments (<!-- WHY: ... -->) explain what each section needs.
+     They are stripped automatically during /package.
 ```
 
 ### PER-CATEGORY SCAFFOLD STRUCTURES
@@ -314,7 +330,7 @@ Prefilling reduces blank-page paralysis and ensures MCS-1 structural compliance 
 ```
 workspace/{product-slug}/
   [category-specific files — see per-category structures above]
-  .engine-meta.yaml        ← internal metadata, stripped during packaging
+  .meta.yaml        ← internal metadata, stripped during packaging
 ```
 
 ---
@@ -326,13 +342,15 @@ Generated scaffold must pass MCS-1 structural validation before being shown to t
 - All required metadata fields are populated (even if with placeholders that need filling)
 - README.md skeleton contains the four required sections: what it does, install, usage, requirements
 - No syntax errors in any generated YAML or JSON files
-- `.engine-meta.yaml` is valid and contains all required fields
+- `.meta.yaml` is valid and contains all required fields
 
 ---
 
 ## Decision Notes
 
-**CE-D12:** Guidance comments (format: `<!-- GUIDANCE: ... -->`) are included in every scaffold section to explain what the creator must fill in. They are stripped during `/package`. Creators should NOT remove them manually — they're harmless in the workspace.
+> **Note:** CE-D references are from Creator Engine v1.1.0. SE-D references are from Studio Engine v2.0 PRD.
+
+**CE-D12:** WHY comments (format: `<!-- WHY: ... -->`) are included in every scaffold section to explain what the creator must fill in. They are stripped during `/package`. Creators should NOT remove them manually — they're harmless in the workspace.
 
 **Why pre-validate at scaffold time:** Starting at MCS-1 means the creator never has to "fix the basics." They start publishable and build up. Failure to scaffold correctly is a bug in the Scaffolder, not the creator's responsibility.
 

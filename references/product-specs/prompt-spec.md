@@ -183,3 +183,18 @@ When creating a prompt, answer these before scaffolding:
 5. What tone or voice should the prompt enforce?
 6. What are the edge cases the prompt must handle? (ambiguous input, missing context, etc.)
 7. What are the 2-3 most common ways this prompt will be misused?
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/prompt.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

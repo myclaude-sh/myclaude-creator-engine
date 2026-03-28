@@ -1,4 +1,4 @@
-# Skill Exemplar: Kairo-Style Reasoning Skill
+# Skill Exemplar: Systematic Reasoning Skill
 
 **MCS Level:** 3 (State-of-the-Art)
 **Demonstrates:** Activation Protocol (CE-D34), progressive depth modes (CE-D36),
@@ -12,11 +12,11 @@ question system (H11), quality gate, full references/ structure.
 # Systematic Reasoning Skill
 
 > Forces rigorous, layer-by-layer analysis of decisions, systems, and arguments
-> using the Kairo methodology of epistemic discipline before conclusions.
+> using the systematic methodology of epistemic discipline before conclusions.
 
 **Version:** 2.1.0
 **Category:** Skills
-**Author:** @darwim
+**Author:** @your-username
 
 ---
 
@@ -40,8 +40,8 @@ question system (H11), quality gate, full references/ structure.
 
 Before responding to any invocation:
 
-1. **Load reasoning framework:** Read `references/kairo-methodology.md`
-   — Contains: the 6-step Kairo analysis framework, confidence tier definitions,
+1. **Load reasoning framework:** Read `references/reasoning-framework.md`
+   — Contains: the 6-step systematic analysis framework, confidence tier definitions,
      and epistemic discipline rules
 2. **Load exemplars:** Read `references/reasoning-exemplars.md`
    — Contains: 5 complete analysis examples across different domains showing
@@ -186,10 +186,10 @@ If any check fails: revise before delivering.
 
 ---
 
-## File: `references/kairo-methodology.md` (excerpt)
+## File: `references/reasoning-framework.md` (excerpt)
 
 ```markdown
-# Kairo Reasoning Methodology
+# Systematic Reasoning Framework
 
 ## Core Principle
 

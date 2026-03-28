@@ -1,35 +1,26 @@
-# MyClaude Creator Engine
+# MyClaude Studio Engine
 
-> The official creation studio for producing, validating, packaging, and publishing
-> products to the [MyClaude marketplace](https://myclaude.sh).
->
-> **Mental model:** Unity Editor for the Claude Code Asset Store.
+> The world's most advanced Claude Code creation studio.
+> A self-contained meta-system that prints structural DNA into everything it creates.
+> Free. Open Source. State-of-the-art. Made in Brazil.
 
 ---
 
 ## What It Is
 
-The MyClaude Creator Engine is a **standalone Claude Code-native system** — a repo you open
-in Claude Code that transforms your session into a full-powered creation studio.
+MyClaude Studio Engine is a **Claude Code-native system** — a repository that transforms any Claude Code session into a professional creation studio. It is the creative motor of the MyClaude ecosystem.
 
-It is the official toolchain for producing, validating, packaging, and publishing products
-to the MyClaude marketplace. It adapts to your creator type (developer, prompt engineer,
-domain expert, marketer, or agency) and enforces quality standards through the MyClaude
-Creator Spec (MCS) tier system.
+**Mental model:** "The forge where world-class Claude Code products are born."
 
-**What it covers:**
-
-- Scaffolding for all 9 product categories (skills, agents, squads, workflows, design
-  systems, prompts, CLAUDE.md configs, applications, systems)
-- MCS validation in 3 tiers (Bronze / Silver / Gold)
-- Packaging products into distribution-ready `.publish/` directories with `vault.yaml` metadata
-- Publishing workflow integrated with the MyClaude CLI (`myclaude publish`)
+**What it feels like:**
+- **Empowered** — "I have everything I need"
+- **Elevated** — "Everything I create has structural DNA I couldn't achieve alone"
+- **Connected** — "I can validate, package, and ship without leaving Claude Code"
 
 **What it is NOT:**
-
-- Not a standalone CLI binary — it runs inside Claude Code
-- Not limited to developers — adapts to any creator persona
-- Not a replacement for the MyClaude CLI — the Engine creates, the CLI distributes
+- NOT a scaffolder (it's intelligence + creation + validation + publishing)
+- NOT limited to developers (adapts to any creator persona)
+- NOT dependent on the MyClaude marketplace (also supports Anthropic plugin system)
 
 ---
 
@@ -38,9 +29,8 @@ Creator Spec (MCS) tier system.
 | Requirement | Install |
 |-------------|---------|
 | Claude Code | [claude.ai/download](https://claude.ai/download) |
-| MyClaude CLI | `npm i -g @myclaude/cli` |
+| MyClaude CLI | `npm i -g @myclaude-cli/cli` |
 | MyClaude account | [myclaude.sh](https://myclaude.sh) |
-| Git | [git-scm.com](https://git-scm.com) |
 
 ---
 
@@ -48,186 +38,110 @@ Creator Spec (MCS) tier system.
 
 ```bash
 # 1. Clone the Engine
-git clone https://github.com/l0z4n0-a1/myclaude-creator-engine.git
-cd myclaude-creator-engine
+git clone https://github.com/l0z4n0-a1/myclaude-studio-engine.git
+cd myclaude-studio-engine
 
-# 2. Open in Claude Code (skills load on session start)
-claude   # or open in VS Code / JetBrains with Claude Code extension
+# 2. Open in Claude Code
+claude
 
-# 3. Set up your creator profile (~3 minutes, conversational)
+# 3. Set up your creator profile (~3 minutes)
 /onboard
 
-# 4. Create your first product (shows an exemplar first, then scaffolds)
+# 4. Map your domain knowledge (optional but recommended)
+/map
+
+# 5. Create your first product
 /create skill
 
-# 5. Fill content with guided expertise extraction
-/create-content
+# 6. Fill content with guided expertise extraction
+/fill
 
-# 6. Validate quality
+# 7. Validate quality
 /validate
 
-# 7. Package and publish
+# 8. Package and publish
+/package
 /publish
 ```
 
-> **Note:** If you already had Claude Code open before cloning, restart the session
-> so the Engine's 16 skills load into the `/` autocomplete menu.
-
 ---
 
-## Command Reference
+## Commands (10)
 
-### Core Creation (P0)
-
-| Command | Description |
-|---------|-------------|
-| `/onboard` | Set up your creator profile — runs once, adapts everything |
-| `/create skill` | Scaffold a new skill |
-| `/create agent` | Scaffold a new agent |
-| `/create squad` | Scaffold a new squad |
-| `/create workflow` | Scaffold a new workflow |
-| `/create ds` | Scaffold a new design system |
-| `/create prompt` | Scaffold a new prompt |
-| `/create claude-md` | Scaffold a new CLAUDE.md configuration |
-| `/create app` | Scaffold a new application |
-| `/create system` | Scaffold a new system |
-| `/create-content` | Fill scaffolded product with real content — guided expertise extraction |
-
-### Quality and Publishing (P0)
+### Creation
 
 | Command | Description |
 |---------|-------------|
-| `/validate` | Run MCS validation (defaults to MCS-1) |
-| `/validate --level=N` | Validate at specific MCS level (1, 2, or 3) |
-| `/validate --fix` | Auto-fix structural issues that can be safely resolved |
-| `/validate --batch` | Validate all products in workspace |
-| `/test` | Sandbox test your product against sample inputs |
-| `/package` | Strip guidance comments, generate `vault.yaml`, stage `.publish/` directory |
-| `/publish` | Full publish workflow — validate, package, invoke `myclaude publish` |
+| `/onboard` | Set up creator profile (creator.yaml) |
+| `/map [topic]` | Extract and structure domain knowledge |
+| `/create [type]` | Scaffold a new product (9 types) |
+| `/fill [slug]` | Guide content filling for a scaffold |
 
-### Shortcuts
+### Quality
 
-| Shortcut | What It Does |
-|----------|-------------|
-| `/quick-skill` | Create, Validate, Package, Publish in one flow |
-| `/quick-publish` | Validate, Package, Publish for an existing product |
+| Command | Description |
+|---------|-------------|
+| `/validate [--level=N]` | Run MCS quality validation (7-stage DNA pipeline) |
+| `/test [slug]` | Sandbox test against sample inputs (worktree isolation) |
+
+### Shipping
+
+| Command | Description |
+|---------|-------------|
+| `/package [slug]` | Bundle product (vault.yaml + plugin.json) |
+| `/publish [slug]` | Ship to myclaude.sh via CLI |
 
 ### Utility
 
 | Command | Description |
 |---------|-------------|
-| `/engine-status` | Engine version, profile loaded, active workspace, stale builds |
-| `/engine-help` | All available commands with descriptions |
-| `/differentiate` | Anti-commodity coaching — Porter, Godin, Ries frameworks |
-| `/quality-review` | Deep MCS-3 quality audit — Feathers, Deming, Popper |
+| `/status` | Dashboard: engine, workspace, products |
+| `/help` | Full command reference |
 
 ---
 
-## Architecture
+## Editions
 
-```
-CLAUDE.md (System Brain)
-  Routes commands, loads creator profile, enforces MCS rules
-              |
-    +---------+-----------+
-    |                     |
- .claude/skills/       references/
-    |                     |
- /onboard              product-specs/
- /create               exemplars/
- /validate             mcs-spec
- /package              best-practices/
- /publish              templates/
- /differentiate
- /quality-review
-    |
-    v
- workspace/
- (active builds -- gitignored)
-    |
-    v
- .publish/                    <-- staged output with vault.yaml
-    |
-    v
- myClaude CLI
- myclaude publish (ships to marketplace)
-```
+| Feature | LITE (free) | PRO (marketplace) |
+|---------|------------|-------------------|
+| 10 core skills | Yes | Yes |
+| MCS-1 + MCS-2 validation | Yes | Yes |
+| MCS-3 validation (agent-assisted) | — | Yes |
+| 5 specialist agents | — | Yes |
+| Market intelligence | — | Yes |
+| Decision logging | — | Yes |
 
-### Key Design Decisions
-
-| ID | Decision | Rationale |
-|----|----------|-----------|
-| CE-D28 | Engine invokes CLI, never reimplements | Single responsibility — Engine creates, CLI distributes |
-| CE-D12 | Guidance comments stripped during `/package` | Buyers receive clean files, originals untouched |
-| CE-D13 | Validation is non-destructive by default | `--fix` has conservative scope: structural/formatting only |
-| CE-D9 | Anti-Commodity Gate at MCS-2+ | MCS-1 allows commodity products; MCS-2+ demands differentiation |
-| WP-3 | Unified `vault.yaml` manifest | One schema across Engine, CLI, and Marketplace (CONDUIT) |
-| WP-20 | CLI publish is available | Engine invokes `myclaude publish` directly from `.publish/` |
+PRO installs INTO LITE via the marketplace (recursive). Detection: glob `.claude/skills/forge-master/`.
 
 ---
 
-## Ecosystem Integration (CONDUIT)
+## Structural DNA (18 Patterns)
 
-The Engine is one part of a three-system pipeline:
+Every product created by the Engine inherits structural DNA — 18 patterns extracted from production systems:
 
-```
-  CREATOR ENGINE          CLI              MARKETPLACE
-  (this repo)         (myclaude)          (myclaude.sh)
-       |                  |                    |
-  /create             reads               displays
-  /validate           vault.yaml           product
-  /package  ------>   packs + uploads  --> with MCS badge,
-  /publish            to R2 + API          enrichment fields
-       |                  |                    |
-   vault.yaml v2      vault.yaml v2       Firestore
-   in .publish/        from CWD            (persisted)
-```
+| Tier | Patterns | Required For |
+|------|----------|-------------|
+| **Tier 1** (6) | Activation Protocol, Anti-Pattern Guard, Progressive Disclosure, Quality Gate, Self-Documentation, Graceful Degradation | MCS-1 (all products) |
+| **Tier 2** (7) | Question System, Confidence Signaling, Pre-Execution Gate, State Persistence, Testability, Composability, Hook Integration | MCS-2 |
+| **Tier 3** (5) | Orchestrate Don't Execute, Handoff Spec, Socratic Pressure, Compound Memory, Subagent Isolation | MCS-3 |
 
-The **CONDUIT Wiring Protocol** ensures every field the Engine generates flows unbroken to the buyer's eyes on myclaude.sh.
-
-### vault.yaml (Unified Manifest)
-
-The Engine generates `vault.yaml` during `/package`. The CLI reads it during `myclaude publish`. One schema, zero translation:
-
-```yaml
-name: "my-product"
-display_name: "My Product"
-version: "1.0.0"
-type: "skill"
-description: "One-line value proposition"
-license: "MIT"
-entry: "SKILL.md"
-readme: "README.md"
-
-# Enrichment (optional, CLI applies defaults)
-mcs_level: 2
-language: "en"
-tags: ["security", "audit"]
-price: 0
-install_target: ".claude/skills/my-product/"
-compatibility:
-  claude_code: ">=1.0.0"
-dependencies:
-  myclaude: []
-```
+Full documentation: `structural-dna.md`
 
 ---
 
-## Quality Tiers (MCS)
+## MCS Quality System
 
-| Tier | Name | Criteria | Badge |
-|------|------|----------|-------|
-| **MCS-1** | Publishable | Structure complete, no broken references, README exists | Muted |
-| **MCS-2** | Quality | Anti-Commodity Gate passed, unique value prop documented | Cyan |
-| **MCS-3** | State-of-the-Art | Agent quality review, exemplar comparison, full coverage | Gold |
+| Level | Score | What It Proves | Badge |
+|-------|-------|----------------|-------|
+| **MCS-1** | >= 75% | Functional, documented, no broken refs | Muted |
+| **MCS-2** | >= 85% | Demonstrates craft and professionalism | Cyan |
+| **MCS-3** | >= 92% | State-of-the-art structural DNA | Gold |
 
-Every product must pass MCS-1 before it can be published. MCS level is persisted in `vault.yaml` and displayed as a badge on the marketplace.
+Scoring: `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
 
 ---
 
-## Product Categories
-
-The Engine supports all 9 MyClaude product categories:
+## Product Categories (9)
 
 | Category | Type Key | Install Target |
 |----------|----------|---------------|
@@ -243,77 +157,57 @@ The Engine supports all 9 MyClaude product categories:
 
 ---
 
-## Project Structure
+## Architecture
 
 ```
-myclaude-creator-engine/
-  CLAUDE.md                    # System brain — boot sequence, routing, rules
-  creator.yaml                 # Creator profile (generated by /onboard)
-  .engine-meta.yaml            # Engine state tracking
-  .claude/
-    skills/                    # All skills follow Anthropic's Agent Skills spec
-      onboard/SKILL.md         # Creator onboarding flow
-      create/SKILL.md          # Product scaffolding (all 9 types)
-      validate/SKILL.md        # MCS validation pipeline
-      publish/SKILL.md         # Publishing to myclaude.sh
-      package/SKILL.md         # Packaging for distribution
-      test/SKILL.md            # Sandbox testing
-      differentiate/SKILL.md   # Anti-commodity coaching (Porter + Godin + Ries)
-      quality-review/SKILL.md  # MCS-3 deep quality audit (Feathers + Deming + Popper)
-      engine-status/SKILL.md   # Dashboard
-      engine-help/SKILL.md     # Command listing
-      quick-skill/SKILL.md     # Create-to-publish pipeline
-      quick-publish/SKILL.md   # Validate-to-publish pipeline
-      market-scan/SKILL.md     # Market analysis (internal, future P2)
-      packaging-review/SKILL.md # Packaging optimization (internal)
-      domain-consult/SKILL.md  # Category expertise (internal)
-    settings.json              # Permissions and hooks
-  references/
-    product-specs/             # Spec per product type (9 specs)
-    exemplars/                 # Gold-standard examples (9 exemplars)
-    quality/                   # MCS spec, anti-patterns, anti-commodity
-    best-practices/            # Naming, skill design, versioning, licensing
-    market/                    # Pricing benchmarks, categories
-  templates/                   # Scaffold templates per category (9 templates)
-  workspace/                   # Active builds (gitignored)
+CLAUDE.md (Boot + Routing)
+  |
+  +--- .claude/skills/ (10 skills)
+  |      /onboard, /map, /create, /fill, /validate
+  |      /test, /package, /publish, /status, /help
+  |
+  +--- product-dna/ (9 files)
+  |      DNA requirements per product type
+  |
+  +--- references/
+  |      product-specs/, exemplars/, quality/, best-practices/
+  |
+  +--- templates/ (9 types)
+  |      Rich templates with WHY comments + DNA sections
+  |
+  +--- workspace/ (active builds)
+         {slug}/.meta.yaml, .publish/
 ```
 
 ---
 
-## Creator Types
+## Ecosystem
 
-The Engine adapts its behavior based on your creator profile:
+```
+CREATOR → STUDIO ENGINE → CLI → MARKETPLACE → BUYER
+(expertise)   (forge)     (ship)  (discover)   (install)
+                |
+                └── Also: Anthropic Plugin Marketplace
+```
 
-| Type | Engine Behavior |
-|------|-----------------|
-| **Developer** | Lead with scaffolding, show CLI integration, expose architecture docs |
-| **Prompt Engineer** | Focus on prompt structure, context engineering, exemplar references |
-| **Domain Expert** | Emphasize AI-assisted creation, packaging, market positioning |
-| **Marketer** | Lead with market opportunities, pricing benchmarks, competitive positioning |
-| **Agency** | Show batch operations, multi-product workspace management |
-| **Hybrid** | Ask which mode per session |
+**CONDUIT Protocol** ensures every field flows unbroken from Engine to buyer.
 
 ---
 
-## Development
+## Related
 
-### Related Repositories
-
-| Repository | Description |
-|------------|-------------|
-| [myClaude Marketplace](https://myclaude.sh) | myClaude web app (Next.js + Firebase + Stripe) |
-| [@myclaude/cli](https://www.npmjs.com/package/@myclaude/cli) | myClaude CLI (`myclaude publish`, `myclaude install`) |
-
-### Decisions Log
-
-All architectural decisions are tracked with `CE-D` prefix in `CLAUDE.md`. The CONDUIT wiring decisions use `WP-` prefix.
+| Link | Description |
+|------|-------------|
+| [myclaude.sh](https://myclaude.sh) | MyClaude Marketplace |
+| [@myclaude-cli/cli](https://www.npmjs.com/package/@myclaude-cli/cli) | MyClaude CLI |
+| [PRD v2.0](docs/prd-studio-engine-v2.md) | Full product requirements |
 
 ---
 
 ## License
 
-MIT License. See [LICENSE](LICENSE) for details.
+MIT License. See [LICENSE](LICENSE).
 
 ---
 
-*MyClaude Creator Engine v1.0.0 — The Engine is itself a MyClaude product (category: system).*
+*MyClaude Studio Engine v2.0.0 — The Engine is its own best advertisement.*

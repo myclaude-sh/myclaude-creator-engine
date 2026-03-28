@@ -27,6 +27,9 @@ Thumbs.db
 # Local Claude Code settings (personal, not shared)
 .claude/settings.local.json
 
+# Build history — internal development artifacts, not distributed
+docs/history/
+
 # Editor
 .vscode/
 .idea/

@@ -11,7 +11,7 @@ improves discoverability and communicates professionalism.
 
 ```
 security-audit-skill     ✓
-kairo-reasoning          ✓
+code-review-skill        ✓
 next-js-enterprise       ✓
 
 Security Audit Skill     ✗ (spaces)
@@ -34,7 +34,7 @@ is taken, add a qualifier: `security-audit-nodejs` instead of `security-audit`.
 ```
 Security Audit Skill             ✓  (clear, specific)
 Next.js Enterprise CLAUDE.md     ✓  (includes qualifier)
-Kairo Systematic Reasoning       ✓  (evocative but specific)
+Structured Code Analysis         ✓  (evocative but specific)
 
 My Amazing Skill                 ✗  (vanity, not descriptive)
 The Best Code Reviewer           ✗  (superlative claim)

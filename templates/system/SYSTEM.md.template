@@ -4,28 +4,28 @@ description: >-
   {{SYSTEM_DESCRIPTION}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter makes your system invocable after installation. -->
+<!-- WHY: Frontmatter makes your system invocable after installation. -->
 
 # {{SYSTEM_NAME}}
 
-<!-- GUIDANCE: System name describes the unified capability, not the components. -->
-<!-- GUIDANCE: "Research Intelligence System" > "Skill + Agent + Workflow Bundle" -->
+<!-- WHY: System name describes the unified capability, not the components. -->
+<!-- WHY: "Research Intelligence System" > "Skill + Agent + Workflow Bundle" -->
 
 **Purpose:** {{SYSTEM_PURPOSE}}
 **Version:** {{VERSION}}
 **Components:** {{COMPONENT_COUNT}} components — {{COMPONENT_SUMMARY}}
-<!-- GUIDANCE: e.g., "4 components — 2 skills, 1 agent, 1 workflow" -->
+<!-- WHY: e.g., "4 components — 2 skills, 1 agent, 1 workflow" -->
 **Entry Point:** {{SYSTEM_ENTRY_POINT}}
 **Complexity:** {{SYSTEM_COMPLEXITY}}
-<!-- GUIDANCE: Options: OPERATIONAL | COGNITIVE | HYBRID -->
+<!-- WHY: Options: OPERATIONAL | COGNITIVE | HYBRID -->
 **Author:** {{AUTHOR_USERNAME}}
 
 ---
 
 ## What This System Does
 
-<!-- GUIDANCE: Explain the emergent capability — what can users do with the SYSTEM -->
-<!-- GUIDANCE: that they couldn't do with individual components alone? -->
+<!-- WHY: Explain the emergent capability — what can users do with the SYSTEM -->
+<!-- WHY: that they couldn't do with individual components alone? -->
 
 {{SYSTEM_CAPABILITY_DESCRIPTION}}
 
@@ -38,8 +38,8 @@ description: >-
 
 ## Architecture
 
-<!-- GUIDANCE: Show how components connect. A visual diagram is strongly recommended. -->
-<!-- GUIDANCE: Explain data flow between components. -->
+<!-- WHY: Show how components connect. A visual diagram is strongly recommended. -->
+<!-- WHY: Explain data flow between components. -->
 
 ```
 [User Input]
@@ -62,8 +62,8 @@ description: >-
 
 ## Component Inventory
 
-<!-- GUIDANCE: Every component must be listed. References must resolve. -->
-<!-- GUIDANCE: Each component should be at MCS-1 minimum. -->
+<!-- WHY: Every component must be listed. References must resolve. -->
+<!-- WHY: Each component should be at MCS-1 minimum. -->
 
 | Name | Type | Location | MCS Level | Purpose |
 |------|------|----------|-----------|---------|
@@ -71,14 +71,14 @@ description: >-
 | `{{COMPONENT_2_NAME}}` | Agent | `agents/{{COMPONENT_2_FILE}}` | {{COMPONENT_2_MCS}} | {{COMPONENT_2_PURPOSE}} |
 | `{{COMPONENT_3_NAME}}` | Workflow | `workflows/{{COMPONENT_3_SLUG}}/` | {{COMPONENT_3_MCS}} | {{COMPONENT_3_PURPOSE}} |
 
-<!-- GUIDANCE: Add rows for each component. Minimum 2 different types for MCS-1. -->
+<!-- WHY: Add rows for each component. Minimum 2 different types for MCS-1. -->
 
 ---
 
 ## Routing Logic
 
-<!-- GUIDANCE: The routing layer is what makes this a system, not a bundle. -->
-<!-- GUIDANCE: Every input type must map to exactly one component or routing path. -->
+<!-- WHY: The routing layer is what makes this a system, not a bundle. -->
+<!-- WHY: Every input type must map to exactly one component or routing path. -->
 
 See `config/routing.yaml` for machine-readable routing rules.
 
@@ -95,8 +95,8 @@ See `config/routing.yaml` for machine-readable routing rules.
 
 ## Shared Knowledge Base
 
-<!-- GUIDANCE: What do all components share? -->
-<!-- GUIDANCE: Shared knowledge enables components to produce consistent outputs. -->
+<!-- WHY: What do all components share? -->
+<!-- WHY: Shared knowledge enables components to produce consistent outputs. -->
 
 All components in this system reference the shared knowledge base in `references/`:
 
@@ -109,8 +109,8 @@ All components in this system reference the shared knowledge base in `references
 
 ## User Journey
 
-<!-- GUIDANCE: Walk through the 3 most common paths through the system. -->
-<!-- GUIDANCE: Include the exact commands/invocations. -->
+<!-- WHY: Walk through the 3 most common paths through the system. -->
+<!-- WHY: Include the exact commands/invocations. -->
 
 ### Journey 1: {{JOURNEY_1_NAME}}
 
@@ -149,8 +149,8 @@ All components in this system reference the shared knowledge base in `references
 
 ## Configuration
 
-<!-- GUIDANCE: How to customize the system. -->
-<!-- GUIDANCE: Document what can be changed without breaking the system. -->
+<!-- WHY: How to customize the system. -->
+<!-- WHY: Document what can be changed without breaking the system. -->
 
 See `config/manifest.yaml` for component inventory and `config/routing.yaml` for routing rules.
 
@@ -170,8 +170,8 @@ When a component is disabled, requests that would route to it fall back to `{{FA
 
 ## Component Independence
 
-<!-- GUIDANCE: Document whether components can be used outside the system. -->
-<!-- GUIDANCE: MCS-3 requires composable components. -->
+<!-- WHY: Document whether components can be used outside the system. -->
+<!-- WHY: MCS-3 requires composable components. -->
 
 Each component in this system can be used independently:
 
@@ -182,6 +182,6 @@ Each component in this system can be used independently:
 | `{{COMPONENT_3_NAME}}` | See `workflows/{{COMPONENT_3_SLUG}}/README.md` | Standalone workflow |
 
 ---
-<!-- GUIDANCE: Above covers MCS-1. -->
-<!-- GUIDANCE: For MCS-2: routing.yaml, all components at MCS-1+, 2 integration tests -->
-<!-- GUIDANCE: For MCS-3: all components at MCS-2+, stress-tested routing, CHANGELOG -->
+<!-- WHY: Above covers MCS-1. -->
+<!-- WHY: For MCS-2: routing.yaml, all components at MCS-1+, 2 integration tests -->
+<!-- WHY: For MCS-3: all components at MCS-2+, stress-tested routing, CHANGELOG -->

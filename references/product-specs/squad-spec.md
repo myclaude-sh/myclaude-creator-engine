@@ -196,3 +196,18 @@ When creating a squad, answer these before scaffolding:
 5. What are the handoff protocols between agents? (what format, what context)
 6. When does the squad escalate to a human? (explicit conditions)
 7. Can individual agents be used outside this squad? (composability requirement for MCS-3)
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/squad.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

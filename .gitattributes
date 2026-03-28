@@ -1,0 +1,5 @@
+# Force LF line endings for Claude Code skill files
+# (frontmatter parser may not handle CRLF)
+.claude/skills/*/SKILL.md text eol=lf
+.claude/agents/*.md text eol=lf
+CLAUDE.md text eol=lf

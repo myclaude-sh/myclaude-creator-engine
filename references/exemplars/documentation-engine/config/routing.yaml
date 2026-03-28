@@ -1,0 +1,9 @@
+routes:
+  - pattern: "quick|readme|fast"
+    component: "skills/quick-doc"
+  - pattern: "architecture|deep|analyze"
+    component: "agents/doc-analyst"
+  - pattern: "full|suite|complete|all"
+    component: "workflows/full-suite"
+fallback:
+  component: "skills/quick-doc"

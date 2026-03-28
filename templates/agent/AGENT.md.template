@@ -4,17 +4,17 @@ description: >-
   {{AGENT_ROLE_DESCRIPTION}}
   Use when: {{TRIGGER_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter is required for marketplace installation. Buyers' Claude Code -->
-<!-- GUIDANCE: uses the `description` to decide when to invoke your agent. Be specific. -->
+<!-- WHY: Frontmatter is required for marketplace installation. Buyers' Claude Code -->
+<!-- WHY: uses the `description` to decide when to invoke your agent. Be specific. -->
 
 # {{AGENT_NAME}}
 
-<!-- GUIDANCE: Agent name should be role-descriptive. "Security Auditor" not "Helper Agent". -->
-<!-- GUIDANCE: The role description answers: what job does this agent have? -->
+<!-- WHY: Agent name should be role-descriptive. "Security Auditor" not "Helper Agent". -->
+<!-- WHY: The role description answers: what job does this agent have? -->
 
 **Role:** {{AGENT_ROLE_DESCRIPTION}}
 **Type:** {{AGENT_TYPE}}
-<!-- GUIDANCE: Type options: THINKER (reasoning-focused), HYBRID (reasoning + action), EXECUTOR (action-focused) -->
+<!-- WHY: Type options: THINKER (reasoning-focused), HYBRID (reasoning + action), EXECUTOR (action-focused) -->
 **Version:** {{VERSION}}
 **Author:** {{AUTHOR_USERNAME}}
 
@@ -22,11 +22,11 @@ description: >-
 
 ## Identity and Persona
 
-<!-- GUIDANCE: This section defines WHO this agent is, not just WHAT it does. -->
-<!-- GUIDANCE: Identity makes behavior consistent across all contexts. -->
-<!-- GUIDANCE: Reference real thinkers or archetypes whose cognitive style matches. -->
-<!-- GUIDANCE: Be specific: "Approaches problems like a forensic investigator: evidence first, -->
-<!-- GUIDANCE: hypothesis second" is better than "analytical and thorough". -->
+<!-- WHY: This section defines WHO this agent is, not just WHAT it does. -->
+<!-- WHY: Identity makes behavior consistent across all contexts. -->
+<!-- WHY: Reference real thinkers or archetypes whose cognitive style matches. -->
+<!-- WHY: Be specific: "Approaches problems like a forensic investigator: evidence first, -->
+<!-- WHY: hypothesis second" is better than "analytical and thorough". -->
 
 ### Cognitive Style
 
@@ -34,8 +34,8 @@ description: >-
 
 ### Inspirational Models
 
-<!-- GUIDANCE: Whose thinking patterns does this agent embody? -->
-<!-- GUIDANCE: This shapes decision-making, not just tone. -->
+<!-- WHY: Whose thinking patterns does this agent embody? -->
+<!-- WHY: This shapes decision-making, not just tone. -->
 
 This agent's reasoning patterns draw from:
 - **{{MODEL_1_NAME}}** — {{MODEL_1_WHAT_IT_CONTRIBUTES}}
@@ -43,7 +43,7 @@ This agent's reasoning patterns draw from:
 
 ### Voice and Communication Style
 
-<!-- GUIDANCE: How does this agent communicate? Be specific enough to predict behavior. -->
+<!-- WHY: How does this agent communicate? Be specific enough to predict behavior. -->
 
 - **Tone:** {{COMMUNICATION_TONE}}
 - **Length:** {{RESPONSE_LENGTH_GUIDELINE}}
@@ -52,8 +52,8 @@ This agent's reasoning patterns draw from:
 
 ### Operating Values
 
-<!-- GUIDANCE: 3-5 values that drive trade-off decisions. -->
-<!-- GUIDANCE: Values answer: when two things conflict, what wins? -->
+<!-- WHY: 3-5 values that drive trade-off decisions. -->
+<!-- WHY: Values answer: when two things conflict, what wins? -->
 
 1. {{VALUE_1}} — {{VALUE_1_IMPLICATION}}
 2. {{VALUE_2}} — {{VALUE_2_IMPLICATION}}
@@ -63,8 +63,8 @@ This agent's reasoning patterns draw from:
 
 ## Capabilities and Limitations
 
-<!-- GUIDANCE: Be specific. "Can analyze code" is not a capability. -->
-<!-- GUIDANCE: "Can identify OWASP Top 10 vulnerabilities in Python and Node.js code" is a capability. -->
+<!-- WHY: Be specific. "Can analyze code" is not a capability. -->
+<!-- WHY: "Can identify OWASP Top 10 vulnerabilities in Python and Node.js code" is a capability. -->
 
 ### What This Agent Can Do
 
@@ -75,8 +75,8 @@ This agent's reasoning patterns draw from:
 
 ### What This Agent Cannot Do
 
-<!-- GUIDANCE: Explicit limitations are as important as capabilities. -->
-<!-- GUIDANCE: They prevent the agent from being used in contexts where it will fail. -->
+<!-- WHY: Explicit limitations are as important as capabilities. -->
+<!-- WHY: They prevent the agent from being used in contexts where it will fail. -->
 
 - Cannot {{LIMITATION_1}}
 - Will not {{REFUSAL_CONDITION}} (ethical boundary)
@@ -86,8 +86,8 @@ This agent's reasoning patterns draw from:
 
 ## Activation Protocol
 
-<!-- GUIDANCE: CE-D34 / H12 — Every agent needs an Activation Protocol. -->
-<!-- GUIDANCE: Defines what to load and in what order before responding. -->
+<!-- WHY: D1 (Activation Protocol) — Every agent needs an Activation Protocol. -->
+<!-- WHY: Defines what to load and in what order before responding. -->
 
 Before responding to any input:
 
@@ -100,8 +100,8 @@ Before responding to any input:
 
 ## Tool Access
 
-<!-- GUIDANCE: List tools explicitly. Unlisted tools should not be used. -->
-<!-- GUIDANCE: Include WHEN to use each tool and the decision logic. -->
+<!-- WHY: List tools explicitly. Unlisted tools should not be used. -->
+<!-- WHY: Include WHEN to use each tool and the decision logic. -->
 
 | Tool | Permission | When to Use | Notes |
 |------|-----------|------------|-------|
@@ -110,14 +110,14 @@ Before responding to any input:
 | `{{TOOL_3}}` | {{PERMISSION_3}} | {{WHEN_TO_USE_3}} | {{TOOL_3_NOTES}} |
 
 **Default tool preference:** {{DEFAULT_TOOL_PREFERENCE}}
-<!-- GUIDANCE: e.g., "Prefer Read over Bash; prefer Bash over making assumptions" -->
+<!-- WHY: e.g., "Prefer Read over Bash; prefer Bash over making assumptions" -->
 
 ---
 
 ## Decision Protocols
 
-<!-- GUIDANCE: Explicit decision trees make agent behavior predictable and testable. -->
-<!-- GUIDANCE: Cover the most important decision points, not every edge case. -->
+<!-- WHY: Explicit decision trees make agent behavior predictable and testable. -->
+<!-- WHY: Cover the most important decision points, not every edge case. -->
 
 ### Act vs. Ask
 
@@ -130,7 +130,7 @@ IF input requires irreversible action → Confirm before acting
 
 ### Handling Ambiguity
 
-<!-- GUIDANCE: What does this agent do when it doesn't have enough information? -->
+<!-- WHY: What does this agent do when it doesn't have enough information? -->
 
 - **Missing critical context:** Ask exactly one targeted question before proceeding
 - **Multiple valid interpretations:** State the interpretation being used, then act
@@ -138,7 +138,7 @@ IF input requires irreversible action → Confirm before acting
 
 ### Quality Standards
 
-<!-- GUIDANCE: When is output "done enough" to deliver? -->
+<!-- WHY: When is output "done enough" to deliver? -->
 
 Output is ready when:
 - {{QUALITY_STANDARD_1}}
@@ -149,8 +149,8 @@ Output is ready when:
 
 ## Output Format and Standards
 
-<!-- GUIDANCE: Define the exact format this agent uses for its primary outputs. -->
-<!-- GUIDANCE: Consistent format makes agent outputs composable and predictable. -->
+<!-- WHY: Define the exact format this agent uses for its primary outputs. -->
+<!-- WHY: Consistent format makes agent outputs composable and predictable. -->
 
 **Primary output format:**
 
@@ -167,8 +167,8 @@ Output is ready when:
 
 ## Handoff Protocols
 
-<!-- GUIDANCE: When does this agent pass control to another agent or escalate to human? -->
-<!-- GUIDANCE: Explicit handoff prevents the agent from attempting tasks beyond its competence. -->
+<!-- WHY: When does this agent pass control to another agent or escalate to human? -->
+<!-- WHY: Explicit handoff prevents the agent from attempting tasks beyond its competence. -->
 
 ### Escalate to Human When:
 
@@ -178,7 +178,7 @@ Output is ready when:
 
 ### Handoff to Agent When:
 
-<!-- GUIDANCE: List specific agents this one works with in a squad or system. -->
+<!-- WHY: List specific agents this one works with in a squad or system. -->
 
 | Condition | Pass to | Context to Include |
 |-----------|---------|-------------------|
@@ -197,13 +197,13 @@ When handing off, always include:
 
 ## Anti-Patterns
 
-<!-- GUIDANCE: What should this agent NEVER do? -->
-<!-- GUIDANCE: These are behavioral anti-patterns, not structural ones. -->
+<!-- WHY: What should this agent NEVER do? -->
+<!-- WHY: These are behavioral anti-patterns, not structural ones. -->
 
 - **{{BEHAVIORAL_ANTI_PATTERN_1}}:** {{WHY_AND_WHAT_TO_DO_INSTEAD}}
 - **{{BEHAVIORAL_ANTI_PATTERN_2}}:** {{WHY_AND_WHAT_TO_DO_INSTEAD}}
 - **Scope creep:** Never extend beyond defined capabilities, even when asked directly
 
 ---
-<!-- GUIDANCE: Required for MCS-1. For MCS-2 add examples/ with 3+ interactions. -->
-<!-- GUIDANCE: For MCS-3 add architecture.md with cognitive design justification. -->
+<!-- WHY: Required for MCS-1. For MCS-2 add examples/ with 3+ interactions. -->
+<!-- WHY: For MCS-3 add architecture.md with cognitive design justification. -->

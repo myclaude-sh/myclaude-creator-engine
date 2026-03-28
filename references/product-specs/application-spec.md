@@ -208,3 +208,18 @@ When creating an application, answer these before scaffolding:
 4. Does it require external services? (APIs, databases, auth — if yes, document clearly)
 5. What is the deployment model? (local CLI, web app, Docker container, etc.)
 6. What are the most common reasons this type of app breaks? (future error handling requirements)
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/application.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

@@ -22,14 +22,13 @@ Run MCS quality checks on any product in `workspace/` and return actionable, sco
 
 ## Activation Protocol
 
-1. Detect product type: read `.engine-meta.yaml` from the product directory for `category` and `scaffold_state`
-   - If `.engine-meta.yaml` is missing, infer type from file structure (look for SKILL.md, AGENT.md, SQUAD.md, etc.)
+1. Detect product type: read `.meta.yaml` from the product directory for `product.type` and `state.phase`
+   - If `.meta.yaml` is missing, infer type from file structure (look for SKILL.md, AGENT.md, SQUAD.md, etc.)
    - If type cannot be determined, ask: "What product type is this? (skill/agent/squad/workflow/ds/prompt/claude-md/app/system)"
-2. Load the product spec for the detected type from `references/product-specs/{type}-spec.md` (if it exists — project root)
-3. Load the appropriate MCS check references based on requested level:
-   - MCS-1: `${CLAUDE_SKILL_DIR}/references/mcs-1-checks.md`
-   - MCS-2: `${CLAUDE_SKILL_DIR}/references/mcs-1-checks.md` + `${CLAUDE_SKILL_DIR}/references/mcs-2-checks.md`
-   - MCS-3: all three check files from `${CLAUDE_SKILL_DIR}/references/`
+2. Load DNA requirements: read `product-dna/{type}.yaml` (project root) — get required patterns per tier
+3. Load the product spec from `references/product-specs/{type}-spec.md`
+4. Load config.yaml → scoring weights, thresholds, placeholder patterns
+5. Load quality-gates.yaml → state transition rules
 
 ---
 
@@ -38,70 +37,96 @@ Run MCS quality checks on any product in `workspace/` and return actionable, sco
 ```
 /validate                    → Auto-detect product type, run MCS-1 checks
 /validate --level=2          → Run MCS-2 checks (includes all MCS-1)
-/validate --level=3          → Run MCS-3 checks (includes MCS-1 + MCS-2, invokes quality-reviewer agent)
-/validate --fix              → Run MCS-1, then auto-remediate fixable issues (CE-D13: non-destructive)
+/validate --level=3          → Run MCS-3 checks (includes MCS-1 + MCS-2, invokes Quality Sentinel — PRO only)
+/validate --fix              → Run MCS-1, then auto-remediate fixable issues (non-destructive)
 /validate --report           → Run MCS-1, then output detailed quality report as a file
-/validate --batch              → Validate ALL products in workspace/ sequentially, produce summary
-/test                        → Sandbox test: run the product against 3 sample inputs and report behavior (CE-D35)
+/validate --batch            → Validate ALL products in workspace/ sequentially, produce summary
 ```
 
 ---
 
 ## Core Instructions
 
-### VALIDATION PIPELINE
+### VALIDATION PIPELINE (7 Stages — aligned with config.yaml)
 
-Execute stages in order. If a stage fails, report failures and stop — do not proceed to the next stage unless `--level` flag requires it.
+Execute stages in order. Blocking stages stop on failure. Non-blocking stages report but continue.
 
-**Stage 1 — STRUCTURAL VALIDATION**
+**Stage 1 — STRUCTURAL** (blocking)
 
-Check that the file structure matches the expected layout for the product type.
-- Are the required files present? (per product type — see product-spec or MCS-1 checks)
-- Are required metadata fields populated in the primary definition file?
+Glob: do all required files for the product type exist?
+Load `product-dna/{type}.yaml` → `required_files` and `config.yaml` → `routing.{type}.required_files`.
+Score: `files_found / files_expected`
 
-**Stage 2 — CONTENT VALIDATION**
+**Stage 2 — INTEGRITY** (blocking)
 
-Check that content is filled in and valid:
-- Are all required sections present and non-empty?
-- Are there any unfilled placeholders? (scan for `{placeholder}`, `TODO`, `lorem ipsum`, `coming soon`, `GUIDANCE:` left in non-comment positions)
-- Are all file references valid? (every file path mentioned actually exists)
-- Are there syntax errors in any YAML or JSON files?
+Grep: no placeholder content (`config.yaml` → `placeholder_patterns`: TODO, PLACEHOLDER, lorem ipsum, etc.)
+Ref check: every file path referenced in .md files actually exists on disk.
+YAML/JSON parse: no syntax errors in metadata files.
+Score: `valid_refs / total_refs`
 
-**Stage 3 — QUALITY VALIDATION** (MCS-2+)
+**Stage 3 — DNA TIER 1** (blocking, gates MCS-1)
 
-Check that the product demonstrates craft:
-- Does it have at least 3 exemplars/examples?
-- Is there an anti-patterns section?
-- Are there documented test scenarios covering 5+ user intents?
-- Is there a quality gate defined?
-- Is error handling for edge cases present?
-- Is naming consistent throughout all files?
-- Does the version follow semver (MAJOR.MINOR.PATCH)?
+Load `product-dna/{type}.yaml` → `tier1` patterns where `required: true`.
+For each applicable pattern, run the validation check:
+- D1 Activation Protocol: grep activation section + references/ ref
+- D2 Anti-Pattern Guard: grep anti-pattern section, count >= 5 items
+- D3 Progressive Disclosure: primary file < 500 lines + references/ exists
+- D4 Quality Gate: grep quality gate section, >= 3 verifiable criteria
+- D13 Self-Documentation: README.md with what/install/usage/requirements sections
+- D14 Graceful Degradation: grep "when not to use" or degradation section
+Score: `passed / applicable_count`
 
-**Stage 4 — EXCELLENCE VALIDATION** (MCS-3 only)
+**Stage 4 — DNA TIER 2** (non-blocking, gates MCS-2, LITE+PRO)
 
-Invoke quality-reviewer agent for:
-- Depth review: does `references/` contain real domain expertise?
-- Composability test: does the product work with standard MyClaude products?
-- Stress test: can it handle ambiguous, adversarial, and edge-case inputs?
-- Differentiation check: is it a commodity product?
-- Architecture review: are design decisions justified?
-- Token efficiency: is context usage reasonable?
+Load `product-dna/{type}.yaml` → `tier2` patterns where `required: true`.
+- D5 Question System: grep question/input table or "if missing, ask"
+- D6 Confidence Signaling: grep confidence levels or certainty markers
+- D7 Pre-Execution Gate: grep precondition checks
+- D8 State Persistence: state file or persistence section
+- D15 Testability: test scenarios or expected outputs
+- D16 Composability: no hardcoded paths, no common command names
+- D17 Hook Integration: hooks section in frontmatter or docs
+Score: `passed / applicable_count`
 
-**Stage 5 — ANTI-COMMODITY GATE** (MCS-2+ only, CE-D9)
+**Stage 5 — DNA TIER 3** (non-blocking, gates MCS-3, PRO only)
 
-Ask three questions:
+Invoke Quality Sentinel agent for deep review:
+- D9 Orchestrate Don't Execute: routing table, no domain instructions
+- D10 Handoff Spec: handoff template between agents
+- D11 Socratic Pressure: self-challenge pattern
+- D12 Compound Memory: memory config with project scope
+- D18 Subagent Isolation: context:fork or isolation
+Score: `passed / applicable_count`
+
+**Stage 6 — CLI PREFLIGHT** (blocking)
+
+Run `myclaude validate` on the product directory.
+If CLI not available, skip with warning.
+
+**Stage 7 — ANTI-COMMODITY** (advisory, NEVER blocking, MCS-2+)
+
+Three coaching questions:
 1. "What domain expertise did the creator inject that AI alone couldn't generate?"
 2. "If we removed all AI-generated content, what would remain?"
 3. "Does this product solve a specific problem that fewer than 5 other products address?"
 
-If all three answers are weak → GATE FAILS with feedback.
+Result: coaching feedback only. Creator can override and proceed.
 
-### SCORING
+### SCORING (DNA-based, per PRD §4)
 
-Calculate score as: `(passed_checks / total_checks) * 100`
+```
+For each applicable DNA pattern (from product-dna/{type}.yaml):
+  PASS    = 1.0   PARTIAL = 0.5   FAIL = 0.0
 
-Round to nearest integer. Report as `{score}/100`.
+DNA_SCORE        = (sum pattern_scores / applicable_count) x 100
+STRUCTURAL_SCORE = (files_found / files_expected) x 100
+INTEGRITY_SCORE  = (valid_refs / total_refs) x 100
+
+OVERALL = (DNA_SCORE x 0.50) + (STRUCTURAL_SCORE x 0.30) + (INTEGRITY_SCORE x 0.20)
+```
+
+Thresholds: MCS-1 >= 75%, MCS-2 >= 85%, MCS-3 >= 92%.
+Report as `{score}%` with breakdown per component.
 
 ### AUTO-FIX RULES (--fix flag, CE-D13)
 
@@ -118,19 +143,12 @@ Auto-fix NEVER:
 
 After auto-fix, re-run the same validation level and report the new score.
 
-### SANDBOX TEST (--test, CE-D35)
+### SANDBOX TEST
 
-Generate 3 sample inputs appropriate for the product type:
-- A clear, well-formed request (happy path)
-- An ambiguous or underspecified request (edge case)
-- An adversarial or off-topic request (boundary case)
-
-Run the product against each input. Report:
-- Did the product handle it correctly?
-- Did it fail gracefully?
-- What was the output quality?
-
-This does not modify any files.
+Sandbox testing is handled by the `/test` skill (separate worktree-isolated skill).
+When the creator runs `/test`, it creates a worktree copy, installs the product,
+runs 3 test scenarios (happy path, edge case, adversarial), and reports results.
+The `/validate` skill focuses on structural + DNA checks; `/test` focuses on runtime behavior.
 
 ---
 
@@ -170,7 +188,7 @@ For each failed content check, generate a **domain-aware remediation draft**:
 
 | Failed Check | Guided Fix |
 |---|---|
-| Missing anti-patterns section | Draft 3 anti-patterns based on the product's domain (read from .engine-meta.yaml category + the product's content) |
+| Missing anti-patterns section | Draft 3 anti-patterns based on the product's domain (read from .meta.yaml product.type + the product's content) |
 | Fewer than 3 exemplars | Draft example scenarios based on the skill's "When to Use" section |
 | No quality gate | Draft a quality gate based on the product's Core Instructions (what output should look like) |
 | No edge case handling | Suggest 2 edge cases based on the product's scope boundaries |
@@ -188,11 +206,11 @@ Rules:
 
 When `--batch` is invoked:
 
-1. Glob `workspace/*/.engine-meta.yaml` to find all products
+1. Glob `workspace/*/.meta.yaml` to find all products
 2. For each product found:
-   a. Read `.engine-meta.yaml` for category and mcs_target
+   a. Read `.meta.yaml` for product.type and product.mcs_target
    b. Run MCS-1 validation (or target level from meta)
-   c. Record: product slug, category, score, pass/fail, critical issues count
+   c. Record: product slug, type, score, pass/fail, critical issues count
 3. Output summary table:
 
 ```
@@ -202,7 +220,7 @@ When `--batch` is invoked:
 
   Products scanned: {N}
 
-  | Product | Category | MCS Target | Score | Status |
+  | Product | Type     | MCS Target | Score | Status |
   |---------|----------|------------|-------|--------|
   | {slug}  | {type}   | MCS-{N}    | {N}/100 | PASS/FAIL |
   | ...     | ...      | ...        | ...   | ...    |
@@ -215,7 +233,7 @@ When `--batch` is invoked:
 ═══════════════════════════════════════════════
 ```
 
-4. Update each product's `.engine-meta.yaml` with validation result
+4. Update each product's `.meta.yaml` with validation result
 5. Flag stale products (>30 days since last validation)
 
 Batch mode runs MCS-1 by default. Use `--batch --level=2` for MCS-2 batch validation.
@@ -250,11 +268,17 @@ This check does NOT validate enrichment fields (display_name, mcs_level, tags, e
 
 ---
 
-Update `.engine-meta.yaml` after validation:
+Update `.meta.yaml` after validation:
 ```yaml
-last_validated: "{YYYY-MM-DD}"
-last_validation_result: "{passed|failed}"
-scaffold_state: "validated"  # only if all checks passed
+state:
+  phase: "validated"                # only if all checks passed
+  last_validated: "{YYYY-MM-DD}"
+  last_validation_score: {overall_score}
+  dna_compliance:
+    tier1: {score}
+    tier2: {score}
+    tier3: {score or null}
+  overall_score: {score}
 ```
 
 ---
@@ -262,16 +286,18 @@ scaffold_state: "validated"  # only if all checks passed
 ## Quality Gate
 
 The Validator skill itself passes if:
-- It correctly identifies product type from `.engine-meta.yaml` or file structure
+- It correctly identifies product type from `.meta.yaml` or file structure
 - It runs all checks appropriate for the requested MCS level
 - Every failed check includes a specific, actionable fix instruction (not generic advice)
 - Score calculation is accurate: `passed / total * 100`
-- `.engine-meta.yaml` is updated after every validation run
+- `.meta.yaml` is updated after every validation run
 - `--fix` never modifies content that the creator wrote
 
 ---
 
 ## Decision Notes
+
+> **Note:** CE-D references are from Creator Engine v1.1.0. SE-D references are from Studio Engine v2.0 PRD.
 
 **CE-D13:** Validation is non-destructive by default. `--fix` has a conservative scope: structural and formatting only. Protecting existing creator content is more important than perfect automation.
 

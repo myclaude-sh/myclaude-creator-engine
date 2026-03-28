@@ -211,3 +211,18 @@ When creating a skill, answer these before scaffolding:
 6. What tools or integrations does it need? (file access, web search, code execution, etc.)
 7. What are the 3 most common ways users will misuse this skill? (future anti-patterns)
 8. Can this skill be part of a larger workflow? If so, what are its inputs/outputs as a component?
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/skill.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

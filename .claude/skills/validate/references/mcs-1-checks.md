@@ -1,8 +1,13 @@
 # MCS-1 Checks — Publishable
 
+> **v2.0 alignment:** These checks map to Stages 1-3 of the 7-stage validation pipeline.
+> Stage 1 (Structural) = U1-U3. Stage 2 (Integrity) = U4-U5. Stage 3 (DNA Tier 1) = D1,D2,D3,D4,D13,D14.
+> Security checks U8-U9 are in Stage 6 (CLI Preflight). See config.yaml for scoring formula.
+> For DNA pattern requirements per type, see `product-dna/{type}.yaml`.
+
 Minimum bar for marketplace listing. All checks are automated.
 
-**Total checks in this tier:** 9 universal + per-type structural checks (see below).
+**Total checks in this tier:** 9 universal + DNA Tier 1 (6 patterns) + per-type structural checks.
 
 ---
 

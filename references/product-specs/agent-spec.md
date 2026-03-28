@@ -207,3 +207,18 @@ When creating an agent, answer these before scaffolding:
 5. How does it interact with other agents if part of a squad?
 6. What does "done" look like for this agent — what counts as a successful output?
 7. What are the 3 scenarios where this agent is most likely to fail? (future stress tests)
+
+---
+
+## DNA Requirements
+
+For the complete DNA pattern applicability matrix for this product type,
+see `product-dna/agent.yaml`. That file defines:
+- Which of the 18 DNA patterns (D-01 to D-18) are required vs optional
+- Validation checks per pattern (grep/glob commands)
+- Template file mapping with DNA injection points
+- Frontmatter fields (Anthropic Agent Skills spec)
+- Discovery questions for /create
+
+**MCS scoring:** `(DNA x 0.50) + (Structural x 0.30) + (Integrity x 0.20)`
+See `references/quality/mcs-spec.md` for full scoring formula.

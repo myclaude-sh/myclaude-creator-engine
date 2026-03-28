@@ -1,10 +1,14 @@
 # MCS-3 Checks — State-of-the-Art
 
-The gold standard. Products that set the bar for the entire marketplace. Requires agent review.
+> **v2.0 alignment:** These checks map to Stage 5 (DNA Tier 3). PRO edition only.
+> DNA Tier 3 patterns: D9,D10,D11,D12,D18 — invoked via Quality Sentinel agent.
+> Threshold: >= 92%. See `product-dna/{type}.yaml` — only squads and systems require all Tier 3.
+
+The gold standard. Products that set the bar for the entire marketplace. Requires Quality Sentinel agent (PRO).
 
 **Prerequisite:** All MCS-1 and MCS-2 checks must pass before MCS-3 checks are evaluated.
 
-**Total additional checks in this tier:** 9 (all agent-assisted)
+**Total additional checks in this tier:** 5 DNA Tier 3 patterns (all agent-assisted)
 
 ---
 

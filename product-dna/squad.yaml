@@ -1,0 +1,70 @@
+# product-dna/squad.yaml — DNA requirements for Squads
+# Read by /create, /validate, /package when type=squad
+
+type: squad
+primary_file: SQUAD.md
+install_target: ".claude/skills/{slug}/"
+template: "templates/squad/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "grep activation/protocol in SQUAD.md" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "grep anti-pattern section >=5 items" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "references/ exists + SQUAD.md <500 lines" }
+    D4:  { required: true,  name: "Quality Gate",            check: "grep quality gate >=3 criteria" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md complete" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "error/fallback section" }
+  tier2:
+    D5:  { required: true,  name: "Question System",         check: "input classification or triage" }
+    D6:  { required: true,  name: "Confidence Signaling",    check: "confidence levels in output" }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "precondition checks before routing" }
+    D8:  { required: true,  name: "State Persistence",       check: "state tracking across agent handoffs" }
+    D15: { required: true,  name: "Testability",             check: "test scenarios with expected agent routing" }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths, relative refs" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks section" }
+  tier3:
+    D9:  { required: true,  name: "Orchestrate Don't Execute", check: "SQUAD.md has routing table, no domain instructions" }
+    D10: { required: true,  name: "Handoff Spec",              check: "handoff template between agents" }
+    D11: { required: true,  name: "Socratic Pressure",         check: "self-challenge at handoffs" }
+    D12: { required: true,  name: "Compound Memory",           check: "memory config with project scope" }
+    D18: { required: true,  name: "Subagent Isolation",        check: "context:fork in agent definitions" }
+
+mcs_expectations:
+  mcs1: "All Tier 1 PASS. Score >= 75%."
+  mcs2: "Tier 1+2 all required PASS. Score >= 85%."
+  mcs3: "ALL 18 patterns required. Score >= 92%. PRO only for validation."
+
+template_files:
+  - source: "SQUAD.md.template"
+    target: "SQUAD.md"
+    dna_injected: [D1, D2, D4, D5, D7, D9, D10, D14]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+  - source: "references/domain-knowledge.md.template"
+    target: "references/domain-knowledge.md"
+    dna_injected: [D3]
+  - source: "agents/specialist.md.template"
+    target: "agents/"
+    dna_injected: [D8, D11, D12, D18]
+
+frontmatter:
+  required:
+    - name
+    - description
+    - tools
+  optional:
+    - model
+    - memory
+    - permissionMode
+    - maxTurns
+    - skills
+
+discovery_questions:
+  - "What complex task requires multiple agents working together?"
+  - "How many agents are needed and what role does each play?"
+  - "What is the orchestration pattern (sequential, parallel, iterative)?"
+  - "How should agents hand off context to each other?"
+  - "What quality checks happen between agent transitions?"
+  - "What happens when one agent fails — how does the squad recover?"
+  - "Does the squad need a persistent decision log?"

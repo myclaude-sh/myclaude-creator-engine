@@ -1,0 +1,59 @@
+# product-dna/application.yaml — DNA requirements for Applications
+# Read by /create, /validate, /package when type=application
+
+type: application
+primary_file: APPLICATION.md
+install_target: "myclaude-products/{slug}/"
+template: "templates/application/"
+
+dna_patterns:
+  tier1:
+    D1:  { required: false, name: "Activation Protocol",    check: "setup/init section" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "anti-pattern section >=5 items" }
+    D3:  { required: false, name: "Progressive Disclosure",  check: "modular docs" }
+    D4:  { required: true,  name: "Quality Gate",            check: "quality criteria for app output" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md with setup/usage/config" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "error handling documentation" }
+  tier2:
+    D5:  { required: false, name: "Question System",         check: "input configuration" }
+    D6:  { required: false, name: "Confidence Signaling",    check: "output reliability indicators" }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "dependency/prereq checks" }
+    D8:  { required: false, name: "State Persistence",       check: "state management docs" }
+    D15: { required: false, name: "Testability",             check: "test instructions" }
+    D16: { required: true,  name: "Composability",           check: "no hardcoded paths" }
+    D17: { required: false, name: "Hook Integration",        check: "hooks if applicable" }
+  tier3:
+    D9:  { applicable: false }
+    D10: { applicable: false }
+    D11: { applicable: false }
+    D12: { applicable: false }
+    D18: { applicable: false }
+
+mcs_expectations:
+  mcs1: "D2+D4+D13+D14 PASS. Score >= 75%."
+  mcs2: "D7+D16 required. Score >= 85%."
+  mcs3: "Not typical for apps."
+
+template_files:
+  - source: "APPLICATION.md.template"
+    target: "APPLICATION.md"
+    dna_injected: [D2, D4, D7, D14]
+  - source: "README.md.template"
+    target: "README.md"
+    dna_injected: [D13]
+
+frontmatter:
+  required:
+    - name
+    - description
+  optional:
+    - "allowed-tools"
+    - paths
+
+discovery_questions:
+  - "What does this application do — what's the end result?"
+  - "What dependencies or prerequisites does it require?"
+  - "How should the user configure it for their project?"
+  - "What error cases should the app handle gracefully?"
+  - "How does this app differ from existing solutions?"
+  - "What file structure does it create or modify?"

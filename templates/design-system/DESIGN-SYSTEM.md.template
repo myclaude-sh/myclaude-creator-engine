@@ -3,32 +3,32 @@ name: {{PRODUCT_SLUG}}
 description: >-
   {{DESIGN_SYSTEM_DESCRIPTION}}
 ---
-<!-- GUIDANCE: Frontmatter provides metadata for the marketplace listing. -->
+<!-- WHY: Frontmatter provides metadata for the marketplace listing. -->
 
 # {{DESIGN_SYSTEM_NAME}}
 
-<!-- GUIDANCE: Name should be memorable and reflect the design personality. -->
-<!-- GUIDANCE: Examples: "Minimal Dark DS", "Warm Brand System", "Enterprise Utility DS" -->
+<!-- WHY: Name should be memorable and reflect the design personality. -->
+<!-- WHY: Examples: "Minimal Dark DS", "Warm Brand System", "Enterprise Utility DS" -->
 
 > {{DESIGN_SYSTEM_TAGLINE}}
-<!-- GUIDANCE: One-liner tagline capturing the design philosophy in a sentence. -->
+<!-- WHY: One-liner tagline capturing the design philosophy in a sentence. -->
 
 **Version:** {{VERSION}}
 **Target Platforms:** {{PLATFORMS}}
-<!-- GUIDANCE: Options: Web | Mobile | Web + Mobile -->
+<!-- WHY: Options: Web | Mobile | Web + Mobile -->
 **Base Unit:** {{BASE_UNIT}}px
-<!-- GUIDANCE: Typically 4 or 8. All spacing derives from this unit. -->
+<!-- WHY: Typically 4 or 8. All spacing derives from this unit. -->
 **Color Space:** {{COLOR_SPACE}}
-<!-- GUIDANCE: OKLCH recommended for perceptual uniformity. Alternatives: HSL, hex -->
+<!-- WHY: OKLCH recommended for perceptual uniformity. Alternatives: HSL, hex -->
 **Author:** {{AUTHOR_USERNAME}}
 
 ---
 
 ## Design Philosophy
 
-<!-- GUIDANCE: 2-4 sentences describing the core design values. -->
-<!-- GUIDANCE: These values guide all token decisions. -->
-<!-- GUIDANCE: Examples: "function over decoration", "dark-first", "accessible by default" -->
+<!-- WHY: 2-4 sentences describing the core design values. -->
+<!-- WHY: These values guide all token decisions. -->
+<!-- WHY: Examples: "function over decoration", "dark-first", "accessible by default" -->
 
 {{DESIGN_PHILOSOPHY_PARAGRAPH}}
 
@@ -41,8 +41,8 @@ description: >-
 
 ## Token Architecture
 
-<!-- GUIDANCE: Explain the two-layer token system: primitives and semantics. -->
-<!-- GUIDANCE: This helps buyers understand WHY tokens are named as they are. -->
+<!-- WHY: Explain the two-layer token system: primitives and semantics. -->
+<!-- WHY: This helps buyers understand WHY tokens are named as they are. -->
 
 This system uses a two-layer token architecture:
 
@@ -61,12 +61,12 @@ to define the palette; semantic tokens carry meaning and adapt to themes.
 
 ## Color System
 
-<!-- GUIDANCE: Colors are the most important section — be comprehensive. -->
-<!-- GUIDANCE: Include: brand, neutral, semantic (surface/text/border), and status colors. -->
-<!-- GUIDANCE: Declare whether light mode, dark mode, or both are supported. -->
+<!-- WHY: Colors are the most important section — be comprehensive. -->
+<!-- WHY: Include: brand, neutral, semantic (surface/text/border), and status colors. -->
+<!-- WHY: Declare whether light mode, dark mode, or both are supported. -->
 
 **Mode support:** {{COLOR_MODE_SUPPORT}}
-<!-- GUIDANCE: Options: "Light mode only" | "Dark mode only" | "Light + Dark (default: light)" -->
+<!-- WHY: Options: "Light mode only" | "Dark mode only" | "Light + Dark (default: light)" -->
 
 See `tokens/colors.yaml` for full token definitions.
 
@@ -97,7 +97,7 @@ See `tokens/colors.yaml` for full token definitions.
 
 ## Typography Scale
 
-<!-- GUIDANCE: Define font families, scale steps, weights, and line heights. -->
+<!-- WHY: Define font families, scale steps, weights, and line heights. -->
 
 See `tokens/typography.yaml` for full token definitions.
 
@@ -124,8 +124,8 @@ See `tokens/typography.yaml` for full token definitions.
 
 ## Spacing Scale
 
-<!-- GUIDANCE: All spacing derives from the base unit. -->
-<!-- GUIDANCE: Document both the numeric scale and semantic names. -->
+<!-- WHY: All spacing derives from the base unit. -->
+<!-- WHY: Document both the numeric scale and semantic names. -->
 
 See `tokens/spacing.yaml` for full token definitions.
 
@@ -146,7 +146,7 @@ Base unit: {{BASE_UNIT}}px
 
 ## Shadow / Elevation System
 
-<!-- GUIDANCE: Shadows communicate depth and focus hierarchy. -->
+<!-- WHY: Shadows communicate depth and focus hierarchy. -->
 
 See `tokens/shadows.yaml` for full token definitions.
 
@@ -162,8 +162,8 @@ See `tokens/shadows.yaml` for full token definitions.
 
 ## Export Instructions
 
-<!-- GUIDANCE: How to use this design system in a real project. -->
-<!-- GUIDANCE: Be specific with file names and import syntax. -->
+<!-- WHY: How to use this design system in a real project. -->
+<!-- WHY: Be specific with file names and import syntax. -->
 
 ### Available Exports
 
@@ -195,7 +195,7 @@ Always use semantic tokens (e.g., `primary` not `brand-500`).
 
 ## How to Instruct Claude Code
 
-<!-- GUIDANCE: This section is unique to design system products — helps buyers use the DS with Claude Code. -->
+<!-- WHY: This section is unique to design system products — helps buyers use the DS with Claude Code. -->
 
 Add this to your project's CLAUDE.md:
 
@@ -209,6 +209,6 @@ All UI must use {{DESIGN_SYSTEM_NAME}} tokens from `.claude/skills/{{DESIGN_SYST
 ```
 
 ---
-<!-- GUIDANCE: Above covers MCS-1. -->
-<!-- GUIDANCE: For MCS-2: add components/ specs and guidelines/usage.md -->
-<!-- GUIDANCE: For MCS-3: add motion tokens, full component library, theming system -->
+<!-- WHY: Above covers MCS-1. -->
+<!-- WHY: For MCS-2: add components/ specs and guidelines/usage.md -->
+<!-- WHY: For MCS-3: add motion tokens, full component library, theming system -->
