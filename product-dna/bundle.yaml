@@ -1,0 +1,84 @@
+# product-dna/bundle.yaml — DNA requirements for Bundles
+# Read by /create, /validate, /package when type=bundle
+# Bundles are the 10th product type — they group multiple products into one package
+
+type: bundle
+primary_file: BUNDLE.md
+install_target: "vault-creations/{slug}/"
+template: "templates/bundle/"
+
+# A bundle contains multiple products of other types
+# The bundle itself is a container — its DNA validates the container, not the contents
+# Individual products inside the bundle are validated by their own product-dna/{type}.yaml
+
+dna_patterns:
+  tier1:
+    D1:  { required: true,  name: "Activation Protocol",    check: "CLAUDE.md installer present at bundle root" }
+    D2:  { required: true,  name: "Anti-Pattern Guard",     check: "install rules documented (what NOT to do)" }
+    D3:  { required: true,  name: "Progressive Disclosure",  check: "BUNDLE-DOCS.md with full documentation" }
+    D4:  { required: true,  name: "Quality Gate",            check: "all products validated at MCS target before bundling" }
+    D13: { required: true,  name: "Self-Documentation",      check: "README.md per product + BUNDLE-DOCS.md" }
+    D14: { required: true,  name: "Graceful Degradation",    check: "installer handles missing products, partial installs" }
+  tier2:
+    D5:  { required: true,  name: "Question System",         check: "installer asks where to save motor via AskUserQuestion" }
+    D6:  { required: false, name: "Confidence Signaling",    applicable: false }
+    D7:  { required: true,  name: "Pre-Execution Gate",      check: "installer verifies all product folders before installing" }
+    D8:  { required: false, name: "State Persistence",       applicable: false }
+    D15: { required: true,  name: "Testability",             check: "installer verifies after install (primary files exist)" }
+    D16: { required: true,  name: "Composability",           check: "products reference each other, hierarchy documented" }
+    D17: { required: false, name: "Hook Integration",        applicable: false }
+  tier3:
+    D9:  { required: true,  name: "Orchestrate Don't Execute", check: "system product present that orchestrates all others" }
+    D10: { required: true,  name: "Handoff Spec",              check: "products have composability sections showing data flow" }
+    D11: { required: false, name: "Socratic Pressure",         applicable: false }
+    D12: { required: false, name: "Compound Memory",           check: "system has memory/ architecture" }
+    D18: { required: false, name: "Subagent Isolation",        applicable: false }
+
+mcs_expectations:
+  mcs1: "All products pass individual MCS-1. Bundle structure valid."
+  mcs2: "All products pass individual MCS-2. Installer tested. Hierarchy documented."
+  mcs3: "All products pass individual MCS-3. System with compound memory. Full documentation."
+
+# Bundle-specific fields
+bundle_fields:
+  required:
+    - products          # list of {slug, type, price} for each product in the bundle
+    - system            # slug of the system product (the motor)
+    - bundle_price      # price of the full bundle
+    - individual_total  # sum of individual prices
+    - discount_percent  # savings vs individual purchase
+  optional:
+    - tagline
+    - target_audience
+    - hierarchy_diagram
+
+# Install mapping (used by /start installer)
+install_mapping:
+  skill: ".claude/skills/{slug}/"       # global
+  prompt: ".claude/skills/{slug}/"      # global
+  agent: ".claude/commands/{slug}/"     # global
+  squad: ".claude/commands/{slug}/"     # global
+  workflow: ".claude/commands/{slug}/"  # global
+  system: "{user_chosen_path}/"         # standalone motor — user chooses
+
+# Export structure
+export_structure:
+  root_files:
+    - "CLAUDE.md"         # installer — runs on boot
+    - "BUNDLE-DOCS.md"    # full documentation
+  per_product: "{slug}/"   # each product in its own folder
+  system_includes:
+    - ".claude/skills/"    # all skills from bundle inside the motor
+    - ".claude/commands/"  # all commands from bundle inside the motor
+    - "CLAUDE.md"          # motor brain
+    - "SYSTEM.md"          # motor reference
+    - "memory/"            # state files
+    - "workspace/"         # created during install
+
+discovery_questions:
+  - "What products does this bundle contain? (list slugs and types)"
+  - "What is the system/motor that orchestrates everything?"
+  - "What is the hierarchy — how do products connect?"
+  - "What is the target audience for this bundle?"
+  - "What is the pricing strategy? (individual prices + bundle discount)"
+  - "What is the unique value of buying the bundle vs individual products?"

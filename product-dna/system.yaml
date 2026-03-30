@@ -4,7 +4,7 @@
 
 type: system
 primary_file: SYSTEM.md
-install_target: ".claude/skills/{slug}/"
+install_target: "{user_chosen_path}/"   # Systems are standalone projects — user chooses where to save
 template: "templates/system/"
 
 dna_patterns:

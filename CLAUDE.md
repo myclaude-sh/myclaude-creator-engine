@@ -44,19 +44,48 @@
 PRO adds: `/market` (Market Scout), `/my-products` (stats via CLI).
 LITE → PRO message: "Requires MyClaude Studio Pro. Install from myclaude.sh."
 
-## 9 TYPES
+## 10 TYPES
 
 | Type | File | Install Target | DNA |
 |------|------|----------------|-----|
 | skill | SKILL.md | .claude/skills/{slug}/ | product-dna/skill.yaml |
-| agent | AGENT.md | .claude/skills/{slug}/ | product-dna/agent.yaml |
-| squad | SQUAD.md | .claude/skills/{slug}/ | product-dna/squad.yaml |
-| workflow | WORKFLOW.md | .claude/skills/{slug}/ | product-dna/workflow.yaml |
-| design-system | DESIGN-SYSTEM.md | myclaude-products/{slug}/ | product-dna/design-system.yaml |
 | prompt | PROMPT.md | .claude/skills/{slug}/ | product-dna/prompt.yaml |
+| agent | AGENT.md | .claude/commands/{slug}/ | product-dna/agent.yaml |
+| squad | SQUAD.md | .claude/commands/{slug}/ | product-dna/squad.yaml |
+| workflow | WORKFLOW.md | .claude/commands/{slug}/ | product-dna/workflow.yaml |
+| system | SYSTEM.md | {user_chosen_path}/ | product-dna/system.yaml |
+| design-system | DESIGN-SYSTEM.md | myclaude-products/{slug}/ | product-dna/design-system.yaml |
 | claude-md | CLAUDE.md | .claude/rules/{slug}.md | product-dna/claude-md.yaml |
 | application | APPLICATION.md | myclaude-products/{slug}/ | product-dna/application.yaml |
-| system | SYSTEM.md | .claude/skills/{slug}/ | product-dna/system.yaml |
+| **bundle** | BUNDLE.md | vault-creations/{slug}/ | product-dna/bundle.yaml |
+
+### Bundle — 10º tipo
+
+Um bundle agrupa múltiplos produtos (skills + agents + squads + workflows + system) num único pacote distribuível. O bundle é o produto premium que conecta tudo.
+
+**Estrutura do bundle exportado:**
+```
+vault-creations/{bundle-name}/
+├── CLAUDE.md                    ← Installer (/start — roda ao abrir no CC)
+├── BUNDLE-DOCS.md               ← Documentação completa
+├── {skill-1}/                   ← Pasta do skill (.publish/)
+├── {skill-2}/                   ← Pasta do skill
+├── {agent}/                     ← Pasta do agent
+├── {squad}/                     ← Pasta do squad + agents/
+├── {workflow}/                  ← Pasta do workflow
+└── {system}/                    ← Pasta do system (COM .claude/ dentro)
+    ├── CLAUDE.md                ← Brain do motor
+    ├── SYSTEM.md                ← Referência completa
+    ├── .claude/skills/          ← Skills do bundle (registra slash commands)
+    ├── .claude/commands/        ← Agents, squads, workflows, o system
+    ├── memory/                  ← State files inicializados
+    └── workspace/               ← Criado durante install
+```
+
+**O /start instala:**
+1. Skills → `~/.claude/skills/` (global)
+2. Agents, Squads, Workflows → `~/.claude/commands/` (global)
+3. System → cópia pura para pasta escolhida pelo usuário (motor autônomo)
 
 ## VALIDATION (7 Stages)
 

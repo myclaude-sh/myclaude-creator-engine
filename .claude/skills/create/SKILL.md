@@ -54,6 +54,7 @@ What do you want to create?
   7. claude-md   — A project-specific CLAUDE.md configuration
   8. app         — A deployable application
   9. system      — A composite system (skills + agents + workflows)
+  10. bundle     — A package of connected products (skills + agents + squads + workflow + system)
 
 Enter number or name:
 ```
@@ -84,6 +85,7 @@ Then map the need to a product type using these rules:
 | "I need a complete solution for X" | **system** | Multi-type composite |
 | "I want a tool/app that does X" | **application** | Deployable software |
 | "I need consistent visual patterns" | **design-system** | Tokens + components |
+| "I want a package of connected products" | **bundle** | Skills + agents + squads + workflow + system |
 
 After recommending, explain in one sentence why that type fits, then proceed to the standard flow (exemplar preview → discovery questions → scaffold).
 
@@ -97,6 +99,7 @@ Direct sub-commands skip this menu and go straight to the category flow:
 - `/create claude-md` → CLAUDE.md creation flow
 - `/create app` → Application creation flow
 - `/create system` → System creation flow
+- `/create bundle` → Bundle creation flow
 
 ### UNIVERSAL CREATION FLOW
 

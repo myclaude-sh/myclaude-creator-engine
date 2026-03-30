@@ -154,10 +154,51 @@ Create `workspace/{slug}/.publish/` with:
 - CHANGELOG.md (generate if missing)
 - LICENSE file (generate from license field)
 
+**SYSTEM TYPE — Special packaging rules:**
+Products of type `system` are standalone project roots (motors) — like PRISM, Cognitive Refinery, etc.
+The user opens the system's folder in Claude Code to operate it. Three critical requirements:
+
+**1. CLAUDE.md at root (brain):**
+- Check if `CLAUDE.md` exists in the product source directory
+- If it exists → include it in `.publish/`
+- If it does NOT exist → generate one from SYSTEM.md (boot instructions, command list, rules)
+- Without CLAUDE.md, the exported system is a dead folder
+
+**2. .claude/commands/{name}/SYSTEM.md (slash command registration):**
+- Copy the SYSTEM.md into `.publish/.claude/commands/{system-name}/SYSTEM.md`
+- This makes `/system-name` available as a slash command when the user opens the folder
+- The `name:` field in SYSTEM.md frontmatter determines the slash command name
+
+**3. Bundle assets inside .claude/ (all commands available locally):**
+When the system is part of a bundle, ALL other bundle products must be included inside
+the system's `.publish/.claude/` so they work as slash commands when the user opens the motor:
+
+```
+.publish/
+├── CLAUDE.md                          ← brain
+├── SYSTEM.md                          ← reference
+├── .claude/
+│   ├── skills/                        ← skills from the bundle
+│   │   ├── {skill-1}/SKILL.md
+│   │   └── {skill-2}/SKILL.md
+│   └── commands/                      ← agents, squads, workflows, the system itself
+│       ├── {system-name}/SYSTEM.md    ← registers /system-name
+│       ├── {agent}/AGENT.md
+│       ├── {squad}/SQUAD.md + agents/
+│       └── {workflow}/WORKFLOW.md
+├── workspace/                         ← empty, ready for work
+└── memory/                            ← initialized state files
+```
+
+Install target mapping for bundle assets:
+- skill, prompt → `.claude/skills/{slug}/`
+- agent, squad, workflow → `.claude/commands/{slug}/`
+- Distribution files (vault.yaml, plugin.json, etc.) are EXCLUDED from these copies
+
 **EXCLUDE from .publish/** (internal Engine files — never distribute):
 - `.meta.yaml` (Engine product state tracking)
 - `domain-map.md` (creator's working notes)
-- Any file starting with `.` (hidden files, including `.env`)
+- Any file starting with `.` (hidden files, including `.env`) — EXCEPT `.claude/` directory
 - Files matching secret patterns: `*.pem`, `*.key`, `*.p12`, `credentials*.json`, `*.env`
 - If any excluded-for-secrets file is found, WARN: "Sensitive file `{file}` excluded from package. If this is intentional, rename it."
 

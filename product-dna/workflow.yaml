@@ -3,7 +3,7 @@
 
 type: workflow
 primary_file: WORKFLOW.md
-install_target: ".claude/skills/{slug}/"
+install_target: ".claude/commands/{slug}/"
 template: "templates/workflow/"
 
 dna_patterns:

@@ -3,7 +3,7 @@
 
 type: agent
 primary_file: AGENT.md
-install_target: ".claude/skills/{slug}/"
+install_target: ".claude/commands/{slug}/"
 template: "templates/agent/"
 
 dna_patterns:
