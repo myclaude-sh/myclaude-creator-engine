@@ -168,7 +168,7 @@ Score: `passed / applicable_count`
 **Stage 6 — CLI PREFLIGHT** (blocking)
 
 Run `myclaude validate --json` on the `.publish/` directory (if it exists from a previous /package run).
-[SOURCE: myclaude CLI v0.8.4 — checks vault.yaml, files, secrets, license, frontmatter, agent-skills-spec]
+[SOURCE: myclaude CLI v0.9.0 — checks vault.yaml, files, secrets, license, frontmatter, agent-skills-spec]
 
 **Execution logic:**
 1. Check if `.publish/` directory exists in workspace/{slug}/

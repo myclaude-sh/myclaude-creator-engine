@@ -689,7 +689,7 @@ On FallbackTriggeredError → switch model, strip thinking blocks
 ---
 
 ## 11. MyClaude CLI Integration
-[SOURCE: myclaude CLI v0.8.4 — live system, verified 2026-04-04]
+[SOURCE: myclaude CLI v0.9.0 — live system, verified 2026-04-06]
 
 The MyClaude CLI (`@myclaude-cli/cli`) is the distribution layer. The Engine creates → the CLI distributes.
 
