@@ -23,11 +23,14 @@ Extract domain expertise from conversation and structure it for product creation
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` — load creator expertise domains and technical level. If missing → "Creator profile not found. Run `/onboard` first." and stop.
 2. If `$ARGUMENTS` provided, use as domain topic seed
 3. If previous `domain-map.md` exists in workspace, load as context
 4. Begin structured knowledge extraction
 5. **Load voice identity:** Load `references/quality/engine-voice-core.md`. Every user-facing line in this skill honors the ✦ signature, three tones, and six anti-patterns.
+5b. **Load UX vocabulary:** Load `references/ux-vocabulary.md` — translate all internal terms before creator-facing output.
+5c. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after map, suggest /create with domain context).
 
 ---
 

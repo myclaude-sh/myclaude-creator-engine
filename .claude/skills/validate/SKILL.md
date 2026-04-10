@@ -24,6 +24,7 @@ Run MCS quality checks on any product in `workspace/` and return actionable, sco
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Detect product type: read `.meta.yaml` → `product.type` and `state.phase`
    - Missing → infer from file structure (SKILL.md, AGENT.md, SQUAD.md, hooks.json, etc.)
    - Cannot determine → ask: "What product type is this?"
@@ -32,11 +33,13 @@ Run MCS quality checks on any product in `workspace/` and return actionable, sco
     - `workflow_style == "guided"` or missing → **Guided mode** (default). Walk each stage with the full coaching voice and propose remediation interactively after failing stages.
 2. **Maintain creator persona**: Read `creator.yaml` → adapt to `profile.type` and `technical_level`
 3. **Load voice identity**: Load `references/quality/engine-voice-core.md`. Load the full `references/quality/engine-voice.md` only for peak moments (first-pass milestone celebration, confronting failure verdict) — see UX Stack below.
+3b. **Exemplar load:** Load `references/quality/exemplar-outputs.md` sections E6 and E7 only — the validation pass and failure exemplars. Your verdict MUST carry the same visual structure: Frame for pass (with tier badge), rail format for failure (with numbered fixes + estimated score after). Adapt to creator context — never copy verbatim.
 4. Load DNA requirements: `product-dna/{type}.yaml`
 4b. **Load architectural DNA:** Read `structural-dna.md`. The 10 architectural principles and the Tier 1 DNA patterns (D1-D4, D13, D14) are the canonical audit baseline — Stages 3 and 5 grep the product against them, and any violation surfaces as coaching.
 5. Load product spec: `references/product-specs/{type}-spec.md`
 6. Load config: `config.yaml` → scoring weights, thresholds, placeholder patterns
 7. Load gates: `quality-gates.yaml` → state transition rules
+7b. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after validate passes, guide to /test then /package), #19 (error recovery: on validation failure, propose specific fixes), #20 (test mandate: if MCS-2+ and not tested, block /package suggestion).
 8. **CLI contract:** Load `references/cli-contract.md` for Stage 6 (CLI Preflight). Severity map:
    - **Warning:** `validate --json` — CLI validation is advisory during /validate (blocking only during /publish)
    - **Warning:** `doctor --json` — health check is advisory, score < 8.0 triggers suggestion
@@ -88,8 +91,23 @@ Execute stages in order. Blocking stages stop on failure. Non-blocking stages re
 
 **Stage routing by level:**
 - `--level=1` (MCS-1): Stages **0**, 1, 2, 3, 6, **9**
-- `--level=2` (MCS-2): Stages **0**, 1, 2, 3, 4, 6, 7, 7b-7d, 8, **9**
+- `--level=2` (MCS-2): Stages **0**, 1, 2, 3, 4, **5 (squad only)**, 6, 7, 7b-7d, 8, **9**
 - `--level=3` (MCS-3): Stages **0**, 1, 2, 3, 4, 5, 6, 7, 7b-7d, 8, **9**
+
+**Squad-specific validation (applies at MCS-2+):**
+When `product.type == "squad"`, the following additional checks run regardless of edition:
+- **Stage 5 DNA Tier 3 patterns D9, D10, D18 are MANDATORY at MCS-2 for squads** (not PRO-gated). These are the coordination DNA — without them, a squad is just agents in a folder.
+  - **D9 (Orchestrate Don't Execute):** Verify orchestrator agent's `allowed-tools` includes Agent but excludes Write/Edit/NotebookEdit. Orchestrator routes, never executes.
+  - **D10 (Handoff Specification):** Verify `config/handoff-protocol.md` exists and contains a handoff envelope format (structured fields: from, to, task, state, constraints).
+  - **D18 (Subagent Isolation):** Verify each agent in `agents/*.md` is a distinct file with its own identity. No agent definition is inlined in SQUAD.md.
+- **Per-agent validation:** Iterate every `agents/*.md` file and verify individually:
+  - D1: Has activation protocol or identity section
+  - D2: Has anti-patterns section with ≥3 items
+  - D4: Has quality gate with ≥2 verifiable criteria
+  - D14: Has when-not-to-use or degradation section
+- **Routing completeness:** Verify `config/routing-table.md` covers all agents listed in SQUAD.md roster. Every agent in roster must appear in at least one routing rule.
+- **Task registry coherence:** If `tasks/task-registry.yaml` exists, verify each task references an agent that exists in `agents/`.
+- **Chain registry coherence:** If `chains/chain-registry.yaml` exists, verify each chain references only agents that exist in `agents/`.
 
 Stage 9 (Voice Coherence) is the last stage at every level. Advisory — never blocks publish. Stage 9 audits the product against the myClaude voice contract (P10 Touch Integrity anchor).
 

@@ -67,11 +67,44 @@ specificity.** Generic answers produce generic products.
 
 ## Squads
 
-1. What is the squad's mission?
-2. How many agents are needed and what roles?
-3. What is the routing logic? (who handles what?)
-4. What workflows does the squad execute?
-5. What are the handoff protocols between agents?
+**IMPORTANT:** Squads are organism-level products. Ask archetype FIRST — it determines the coordination pattern, template structure, and routing shape. Select example pairs that match `creator.profile.type`. Show BOTH if hybrid.
+
+1. What coordination archetype fits your squad?
+   - Show options: **Sequential Pipeline** (A→B→C, assembly line), **Parallel Fan-Out** (all agents work simultaneously, synthesize), **Conditional Router** (orchestrator routes by intent), **Iterative Refinement** (loop until quality gate passes), **Hierarchical Delegation** (tiered specialists, Tier 0→1→2)
+   - Dev example: "Hierarchical delegation — data agents (Tier 0) establish baseline, strategy agents (Tier 1) architect, execution agents (Tier 2) implement"
+   - Non-dev example: "Sequential pipeline — research agent finds data, analysis agent interprets, writer agent produces the report"
+   - Weak: "They all work together" — HOW do they work together? that's the whole point
+
+2. What is the squad's mission? (what does the TEAM achieve that no single agent can?)
+   - Strong: "Transform raw business data into growth decisions — requires data analysis, strategic framing, execution planning, and measurement in coordinated sequence"
+   - Weak: "Help with marketing" — a single agent could do that; what needs COORDINATION?
+
+3. What specialists compose the squad? (name each role and its exclusive domain)
+   - Dev example: "security-scanner (finds vulns), threat-modeler (classifies risk), fix-generator (writes patches), reviewer (validates fixes) — 4 agents, zero overlap"
+   - Non-dev example: "researcher (gathers data), strategist (interprets patterns), writer (produces deliverables), editor (quality gate) — each owns one phase"
+   - Weak: "A few agents that help" — which agents? doing what? if roles overlap, it's not a squad
+
+4. What is the routing logic? (how does the orchestrator decide who handles what?)
+   - Strong: "IF input is raw data → data-compass. IF input is strategic question → brian-balfour. IF input is execution brief → paid-executor. Ambiguous → traffic-chief classifies first."
+   - Weak: "The system figures it out" — no, YOU define it; the orchestrator follows YOUR routing table
+
+5. What are the entity lifecycles? (what objects flow through the squad and how?)
+   - Strong: "A CAMPAIGN flows: hypothesis→architect→creative→build→launch→monitor→optimize→scale/kill→post-mortem — each phase mapped to a specialist"
+   - Non-dev: "A PROPOSAL flows: research→outline→draft→review→revise→finalize — each step owned by a different agent"
+   - Weak: "They pass stuff around" — what stuff? in what format? through what sequence?
+
+6. What handoff format do agents use to pass work?
+   - Strong: "XML envelope: <handoff><from>{agent}</from><task>{description}</task><state>{current data}</state><constraints>{rules}</constraints></handoff>"
+   - Weak: "They communicate" — communication without format specification produces drift and silent failures
+
+7. What does the kernel (orchestration intelligence) do beyond simple routing?
+   - Strong: "Scores which agents are most relevant per request, adapts the plan mid-flight, persists context between sessions, and learns from past decisions"
+   - Non-dev: "The coordinator remembers past sessions, scores which agents are most relevant, and adapts the plan mid-flight"
+   - Weak: "It coordinates" — that's the definition of orchestrator, not a design decision. What INTELLIGENCE does it add?
+
+8. What are the escalation rules? (when does the squad give up and ask the human?)
+   - Strong: "Escalate when: agent confidence < 60%, two agents disagree on strategy, any irreversible action (budget >$1K, public launch, data deletion)"
+   - Weak: "When it can't figure it out" — define the threshold
 
 ---
 

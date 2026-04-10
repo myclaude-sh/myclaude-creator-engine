@@ -20,6 +20,10 @@ Display comprehensive engine status in a compact terminal-style dashboard.
 
 ## Activation Protocol
 
+### Step 0 — SHARED PREAMBLE
+Load `references/quality/activation-preamble.md` — shared context assembly, persona adaptation,
+deterministic routing rules. This runs before any skill-specific logic.
+
 ### VOICE LOAD
 
 Before composing any output, load `references/quality/engine-voice-core.md` — the micro
@@ -28,6 +32,13 @@ voice contract establishing the `✦` signature, Creator (not user), three tones
 anti-patterns. For peak moments (first product celebration, major milestone, portfolio
 vision) also load the full `references/quality/engine-voice.md` per the UX Integration
 Stack below.
+
+### EXEMPLAR LOAD
+
+Load `references/quality/exemplar-outputs.md` sections E1 and E2 only. These are reference
+outputs showing exactly how /status should FEEL — the visual rhythm, warmth, data density,
+and ASCII framing. Your output MUST carry the same energy. Reason about your creator's
+context and adapt — never copy verbatim.
 
 ### RITUAL OF RETURN — 3 LAYERS
 

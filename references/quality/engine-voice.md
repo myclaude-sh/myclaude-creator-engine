@@ -168,19 +168,38 @@ Every Claude Code session that discovers this becomes a distribution vector.
 
 The full UX stack is ~39K chars (~9,740 tokens). DO NOT load all 3 files for every skill. Load selectively:
 
-| Skill | Load from ux-experience-system.md | Load ux-vocabulary.md | Load engine-voice.md |
-|-------|----------------------------------|----------------------|---------------------|
-| /create | §1 (context), §2.3 (moments), §3.1 (pipeline), §4.3 (ASCII), §10.3 (personality) | Full (type names) | Brand DNA only |
-| /fill | §1 (context), §2.2 (archetypes) | Type names only (§Product Types table) | Voice markers only |
-| /validate | §2.3 (moments), §3.3 (trajectory) | Skip (builder-facing) | Verdict patterns only |
-| /test | §2.3 (moments) | Skip | Skip |
-| /package | §2.2 (archetypes) | Full (user-facing output) | Brand DNA only |
-| /publish | §1 (context), §2.3 (moments), §4 (celebrations), §5.1 (identity), §10.3 (personality) | Full | Full |
-| /status | §1 (context), §3.2 (portfolio), §5 (identity), §6 (dual-mode), §10.2 (contextual ASCII) | Skip | Brand DNA only |
-| /help | §2.1 (levels), §2.2 (archetypes), §3.1 (pipeline terms) | Full (type names) | Skip |
-| /onboard | §2.3 (moments) | Skip | Brand DNA only |
+| Skill | Load from ux-experience-system.md | Load ux-vocabulary.md | Load engine-voice.md | Load exemplar-outputs.md |
+|-------|----------------------------------|----------------------|---------------------|------------------------|
+| /create | §1 (context), §2.3 (moments), §3.1 (pipeline), §4.3 (ASCII), §10.3 (personality) | Full (type names) | Brand DNA only | E3 |
+| /fill | §1 (context), §2.2 (archetypes), §11 (deep elicitation) | Type names only (§Product Types table) | Voice markers only | E4, E5 |
+| /validate | §2.3 (moments), §3.3 (trajectory) | Skip (builder-facing) | Verdict patterns only | E6, E7 |
+| /test | §2.3 (moments) | Skip | Skip | — |
+| /package | §2.2 (archetypes) | Full (user-facing output) | Brand DNA only | — |
+| /publish | §1 (context), §2.3 (moments), §4 (celebrations), §5.1 (identity), §10.3 (personality) | Full | Full | E8, E9 |
+| /status | §1 (context), §3.2 (portfolio), §5 (identity), §6 (dual-mode), §10.2 (contextual ASCII) | Skip | Brand DNA only | E1, E2 |
+| /help | §2.1 (levels), §2.2 (archetypes), §3.1 (pipeline terms) | Full (type names) | Skip | — |
+| /onboard | §2.3 (moments) | Skip | Brand DNA only | E2 (adapted) |
 
 **Rule:** /publish loads the full stack (peak moment). All others load only relevant sections. This reduces average token cost from ~9,740 to ~3,000-4,000 per invocation.
+
+### Token Budget Ceiling per Skill
+
+Every skill's total loaded context (SKILL.md + all loaded references) MUST stay within budget.
+`/validate` can audit this as a structural check.
+
+| Skill | Max Total | Composition |
+|-------|-----------|-------------|
+| /status | 25K tok | SKILL(6.6K) + preamble(0.3K) + voice-core(0.5K) + ux-exp§(3K) + exemplars(0.8K) + voice(1K) = ~12K typical |
+| /create | 35K tok | SKILL(6.1K) + preamble(0.3K) + router(11.7K) + DNA(5.9K) + ux-exp§(3K) + vocab(1.3K) + voice(1K) + exemplar(0.4K) = ~30K typical |
+| /fill | 30K tok | SKILL(3.5K) + preamble(0.3K) + protocol(8.7K) + ux-exp§(2.5K) + vocab(0.5K) + voice(0.5K) + exemplars(0.6K) = ~17K typical |
+| /validate | 25K tok | SKILL(2.6K) + preamble(0.3K) + DNA(5.9K) + stages(4K) + config§(1K) + exemplars(0.6K) = ~15K typical |
+| /publish | 35K tok | SKILL(3.6K) + preamble(0.3K) + ux-exp§(4K) + vocab(1.3K) + voice-full(3K) + exemplars(0.6K) = ~13K typical |
+| /scout | 20K tok | SKILL(1.8K) + preamble(0.3K) + scout-agent(2K) + methodology(3K) = ~7K typical |
+| Others | 20K tok | SKILL + preamble + skill-specific refs |
+
+**Ceiling is a guard, not a target.** "Typical" is the expected load. Ceiling catches drift.
+If a skill exceeds its ceiling, the cause is either: (a) a reference grew without review, or
+(b) the skill started loading references it shouldn't. Both are bugs to fix, not budgets to expand.
 
 ---
 
@@ -218,7 +237,9 @@ The full UX stack is ~39K chars (~9,740 tokens). DO NOT load all 3 files for eve
 2. `references/ux-vocabulary.md` — HOW to translate internal terms (MCS→Premium, DNA→invisible)
 3. `references/quality/engine-voice.md` — WHO is speaking (Master Craftsperson archetype, brand DNA, signature patterns)
 
-**Order matters:** First decide WHAT to say (experience system). Then translate it (vocabulary). Then say it in character (voice).
+**Order matters:** First decide WHAT to say (experience system). Then translate it (vocabulary). Then say it in character (voice). Then calibrate against exemplars (exemplar-outputs).
+
+4. `references/quality/exemplar-outputs.md` — HOW the output should FEEL (reference outputs per touchpoint, loaded by section not in full)
 
 Skills that MUST load the full UX stack:
 - /create (birth announcement + pipeline journey)

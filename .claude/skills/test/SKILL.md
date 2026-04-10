@@ -25,6 +25,7 @@ Run sandbox tests on a product in an isolated environment.
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Identify target product:
    - If `$ARGUMENTS` provided, use as slug → `workspace/{slug}/`
    - If not, list products in workspace/ and ask

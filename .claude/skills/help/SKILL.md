@@ -18,6 +18,7 @@ Display all available commands and quick start guide.
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` — load name, profile.type, technical_level, workflow_style, language
 2. Read `STATE.yaml` — version, products count
 3. Detect edition: glob `.claude/skills/forge-master/SKILL.md` → PRO or LITE

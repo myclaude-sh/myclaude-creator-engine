@@ -27,11 +27,14 @@ allowed-tools:
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` → adapt to profile.type and technical_level
 2. If a product is active (workspace/{slug}/ exists), read `.meta.yaml` → understand current context
 3. Parse `$ARGUMENTS` or conversation context to identify the thinking need
 4. Route to the appropriate thinking mode
 5. **Load voice identity:** Load `references/quality/engine-voice-core.md`. Every user-facing line in this skill honors the ✦ signature, three tones, and six anti-patterns.
+5b. **Load UX vocabulary:** Load `references/ux-vocabulary.md` — translate all internal terms before creator-facing output.
+5c. **Load proactives:** Load `references/engine-proactive.md` — wire #17 (lost creator detection: if the creator has been in /think for 3+ questions without resolution, suggest concrete next step or /scout).
 
 ---
 

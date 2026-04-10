@@ -25,6 +25,7 @@ Stage a product for distribution with triple manifests (MyClaude + Anthropic Plu
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Identify product: `$ARGUMENTS` as slug → `workspace/{slug}/`
 1b. **Mode selection (Express vs Guided).** Read `creator.yaml → preferences.workflow_style`. Resolve the flow mode:
     - `--express` flag OR `workflow_style == "autonomous"` → **Express mode**. Skip the "confirm before stage" prompt, skip the manifest preview step, and produce a single post-stage summary. The safety invariants below still hold — only the conversational confirmations are trimmed.
@@ -34,6 +35,7 @@ Stage a product for distribution with triple manifests (MyClaude + Anthropic Plu
 4. **Maintain creator persona**: Adapt language, depth, and examples to `profile.type` and `technical_level` throughout this skill's execution. A developer gets code examples; a domain expert gets plain language.
 5. Load `product-dna/{type}.yaml` → get install_target
 6. Load `config.yaml` → vault_defaults for missing fields
+6b. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after package, guide to /publish), #20 (test mandate: if MCS-2+ and `.meta.yaml.test_result != "pass"`, block packaging with message "Run /test first").
 7. **Load voice identity:** Load `references/quality/engine-voice-core.md`. Every user-facing line in this skill honors the ✦ signature, three tones, and six anti-patterns.
 8. **CLI contract:** Load `references/cli-contract.md` for unified error handling. This skill has conditional severity based on pricing model. Severity map:
    - **Blocking (paid products only):** `stripe status` — if product price > 0 and Stripe not connected, halt packaging

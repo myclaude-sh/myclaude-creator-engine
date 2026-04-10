@@ -25,10 +25,13 @@ Generate complete, MCS-1-valid project structure for any product type with guida
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` — load defaults. Check `schema_version`:
    - **`< 3`** → invoke `/onboard` skill to run Phase 2.5d silent migration first. Migration is atomic + backed up to `creator.yaml.bak.v2`. After migration succeeds, re-read the v3 file and continue.
    - **Missing** → **micro-onboard**: scan silently, infer defaults, ask ONE name question, generate minimal `creator.yaml` (v3). Never block.
 2. **Persona**: Adapt to `profile.type` + `technical_level`. Load `references/quality/engine-voice-core.md`. Load the full `references/quality/engine-voice.md` only when composing peak moments (scaffold celebration, Step 10 proposal rendering, first-product WOW).
+2c. **Exemplar load:** Load `references/quality/exemplar-outputs.md` section E3 only — the scaffold celebration reference. Your scaffold announcement MUST carry the same visual rhythm (Frame + pipeline position + portfolio context + 🎯 next action). Adapt to this creator's language and journey position.
+2d. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after scaffold, guide to /fill), #18 (WOW moment for first product scaffold), #21 (portfolio pattern detection on brownfield check).
 2b. **Load architectural DNA:** Read `structural-dna.md`. The 10 architectural principles and the Tier 1 DNA patterns (D1-D4, D13, D14) govern every scaffold — the skill applies them during Step 11 template generation and flags any violation before the scaffold is written to disk.
 3. **Discovery Mode Routing (W3.2 — PRIMARY ROUTER):** Load `${CLAUDE_SKILL_DIR}/references/create-router.md` **Section 0** — the 12-step discovery walk. Apply the Mode Selection table (Express vs Guided) based on `creator.profile.technical_level` + `creator.preferences.workflow_style` + any `--express`/`--discovery` flag.
    - **Express mode** → run the "12 Steps — Express Mode Fast Path" section of create-router.md Section 0. Reads type + sub-type flags, applies defaults from `config.yaml routing.{type}.intent_topology`, skips interactive questions, derives the full 19-field `intent_declaration` in one pass, and writes it at Step 11 of the walk.

@@ -57,7 +57,7 @@ and records `defaults_applied` for every field that fell back to a type default.
 
 | Step | Express behavior |
 |---|---|
-| 1 PARSE_INTENT | Skip — set `engine_parsed.verb_family` from type → nature mapping in `config.yaml routing.{type}.intent_topology.archetype_to_nature_mapping` (agent) or from type defaults (skill, minds, etc). Set `creator_said: "(express mode)"`. |
+| 1 PARSE_INTENT | Skip — set `engine_parsed.verb_family` from type → nature mapping in `config.yaml routing.{type}.intent_topology.archetype_to_nature_mapping` (agent) or from type defaults (skill, minds, squad→`coordinate_X`, etc). Set `creator_said: "(express mode)"`. For squad: also load `discovery-questions.md § Squads` and ask archetype question (Q1) even in Express — archetype determines template shape. |
 | 2 APPLY_CONTINUITY_TEST | Derive from `routing.{type}.intent_topology.delivery_mechanism_default`. `ambient_*` or `invoked_slash_command` → `parent`. `invoked_task_spawn` → `isolated`. |
 | 3 APPLY_INVOCATION_TEST | Read `creator.intent_profile.usage_frequency_expectation`. Default `weekly` if absent + record `defaults_applied: [usage_frequency_expectation]`. |
 | 4 APPLY_POLLUTION_TEST | Set `safe` by default (Express creators have already decided). Only `pollutes` if type is `agent` + flag `--adviser`. |
@@ -757,11 +757,31 @@ workspace/{slug}/
 **squad:**
 ```
 workspace/{slug}/
-├── SQUAD.md              # Squad definition + routing
-├── agents/               # Individual agent definitions
+├── SQUAD.md              # Squad orchestrator — routing, coordination, escalation
+├── agents/               # Individual agent definitions (min 2 .md files)
+│   ├── orchestrator.md   # Traffic chief / coordinator persona
+│   └── specialist-1.md   # First specialist (rename per domain)
+├── kernel/               # Orchestration intelligence layer
+│   ├── orchestration.md  # Orchestration protocol (custom decision cycle)
+│   ├── elicitation-engine.yaml  # Progressive elicitation / JtBD discovery
+│   └── intelligence-matrix.yaml # Dynamic scoring / workflow assembly
+├── minds/                # Cognitive models for mind-clone specialists (optional)
 │   └── .gitkeep
+├── tasks/                # Granular task definitions with I/O schemas
+│   └── task-registry.yaml
+├── chains/               # Multi-agent micro-workflows with cadences
+│   └── chain-registry.yaml
+├── workflows/            # Full pipeline definitions
+│   └── primary-workflow.md
 ├── config/               # Routing and handoff config
-│   └── routing.yaml
+│   ├── routing-table.md  # Declarative routing: intent → agent
+│   └── handoff-protocol.md # Handoff envelope format + contracts
+├── data/                 # Benchmarks, calibration, decision journal
+│   └── .gitkeep
+├── references/           # Domain knowledge files
+│   └── .gitkeep
+├── tests/                # Integration test scenarios
+│   └── .gitkeep
 └── README.md
 ```
 

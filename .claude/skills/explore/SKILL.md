@@ -26,11 +26,14 @@ allowed-tools:
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` → adapt to profile.type, expertise domains, language
 2. Check CLI: `myclaude --version 2>/dev/null` — if unavailable, explain install and offer offline alternatives
 3. Parse `$ARGUMENTS` for query intent
 4. Route to the appropriate exploration mode
 5. **Load voice identity:** Load `references/quality/engine-voice-core.md`. Every user-facing line in this skill honors the ✦ signature, three tones, and six anti-patterns.
+5b. **Load UX vocabulary:** Load `references/ux-vocabulary.md` — translate all internal terms before creator-facing output.
+5c. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after explore, suggest /scout or /create), #14 (feedback loop on published products).
 6. **CLI contract:** Load `references/cli-contract.md` for unified error handling. This skill is the heaviest CLI consumer (12+ invocations across 5 modes). Severity map:
    - **Silent-skip:** `search`, `trending`, `workspace --recommend` — skip without user-visible warning on failure
    - **Silent-skip:** `--version` check — degrade to offline mode

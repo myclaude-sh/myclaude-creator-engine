@@ -330,8 +330,14 @@ routing:
     required_files:
       - "SQUAD.md"
       - "README.md"
-      - "references/"
       - "agents/"
+      - "kernel/"
+      - "tasks/task-registry.yaml"
+      - "chains/chain-registry.yaml"
+      - "workflows/"
+      - "config/routing-table.md"
+      - "config/handoff-protocol.md"
+      - "references/"
     install_target: ".claude/squads/{slug}/"
     dna_required: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 18]
     context_contract:
@@ -353,6 +359,7 @@ routing:
       delivery_mechanism_fixed: "invoked_task_spawn"
       operational_nature_fixed: "orchestrator"
       cognitive_depth_applicable: "per_sub_agent"
+      cognitive_depth_default: "procedural"  # squad coordination layer is always procedural; sub-agents carry their own depth
       runtime_host_derived: "[agent_spawn]"
       locale_adaptive_clause_required: true
       locale_adaptive_clause_propagates_to_sub_agents: true

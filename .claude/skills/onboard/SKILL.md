@@ -36,6 +36,7 @@ Discover and persist creator profile through intelligent scanning + minimal ques
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Check for `creator.yaml` in project root
 2. **Exists** → read `schema_version`:
    - **`schema_version < 3`** → run **Phase 2.5d Schema v2→v3 Silent Migration** (protocol → Phase 2.5d) BEFORE any other action. Migration is atomic + reversible via `creator.yaml.bak.v2`. After migration succeeds, continue with step 2 against the new v3 file.

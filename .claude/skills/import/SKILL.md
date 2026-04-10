@@ -24,6 +24,7 @@ Bring existing skills into the Studio Engine pipeline for validation, packaging,
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Parse arguments: `$ARGUMENTS` is either a skill slug or `--scan`
 2. If `--scan`: run inventory scan mode
 3. If slug: run single import mode

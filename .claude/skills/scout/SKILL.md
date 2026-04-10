@@ -34,8 +34,11 @@ For building products (use /create→/fill). For mapping YOUR expertise (use /ma
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. **Creator profile guard:** Read `creator.yaml` from project root. If missing → respond:
    "Profile not found. Run `/onboard` first (~3 min)." and **stop**.
+1b. **Load UX vocabulary:** Load `references/ux-vocabulary.md` — translate all internal terms (MCS, DNA, scaffold, forge) before any creator-facing output. Vocabulary guard applies to all output in this skill.
+1c. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after scout, suggest /create), #15 (research injection triggers), #16 (scout intelligence reuse).
 2. **Maintain creator persona:** Adapt language, depth, and examples to `profile.type` and
    `technical_level` throughout. Load `references/quality/engine-voice-core.md` at the start
    of every /scout invocation — every user-facing line honors the ✦ signature, three tones,

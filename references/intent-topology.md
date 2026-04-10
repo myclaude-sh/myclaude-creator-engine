@@ -209,7 +209,23 @@ The v1 set below is the full set of cells that `/create` in discovery mode route
 
 ---
 
-## §5 — Deferred Cells (v2 — 12 cells)
+### Cell 8 — `squad_coordinator`
+
+| Field | Value |
+|---|---|
+| delivery | `invoked_task_spawn` |
+| nature | `orchestrator` |
+| depth | `procedural` (squad-level; sub-agents carry their own depth) |
+| canonical form | squad |
+| type | squad |
+| archetype hint | sequential_pipeline, parallel_fan_out, conditional_router, iterative_refinement, hierarchical_delegation |
+| covered by | cognitive-fusion-lab (5 agents, fusion protocols), published squad products in workspace |
+
+**Why this cell.** Multi-agent coordination delivered as one installable organism. The orchestrator routes, delegates, and synthesizes — it never executes domain work directly (D9). Sub-agents carry their own cognitive depth (procedural, advisory, or cognitive minds). The squad's depth is always procedural at the coordination layer; intelligence lives in the specialists.
+
+---
+
+## §5 — Deferred Cells (v2 — 11 cells)
 
 The cells below are physically possible in the platform but lack v1 exemplar coverage. They are documented here for two reasons: (a) to make the deferral explicit and honest, instead of silently pretending they don't exist; (b) to give future waves a prioritized queue when promoting v2 cells to v1 as exemplars accumulate.
 
@@ -219,7 +235,7 @@ The cells below are physically possible in the platform but lack v1 exemplar cov
 |---|---|---|---|
 | `domain_advisor_agent` | task_spawn × advisor × advisory | advisory minds or agent adviser | Overlaps structurally with `code_reviewer_agent`; the ambiguous `type: [minds, agent]` needs cell↔form disambiguation first |
 | `general_purpose_agent` | task_spawn × executor × procedural | agent generalist | The general-purpose archetype is a native Claude Code built-in, not a forged product — discovery mode should not scaffold it |
-| `squad_coordinator` | task_spawn × orchestrator × procedural | squad | Squad forge already has a mature direct path via the certified squad codex; discovery mode adds no v1 value here |
+| `squad_coordinator` | task_spawn × orchestrator × procedural | squad | Promoted to v1 Cell 8. See §4. |
 | `event_reflex` | hook_binding × executor|observer × procedural | hooks product | Hooks forge has a mature direct path; discovery mode adds no v1 value |
 | `longitudinal_observer` | hook_binding × observer × cognitive | AgentHook spawning cognitive minds (composition) | **Orphan cell** — `/create` has no forge path for multi-type composition in v1. Blocked by GAP-COMPOSITION-1: multi-type composition forge path does not exist. Revisit in a future wave that designs type+type composition |
 | `procedural_workflow` | slash_command × executor × procedural | workflow | Workflow forge has a mature direct path; discovery mode adds no v1 value |

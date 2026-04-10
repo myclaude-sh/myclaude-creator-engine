@@ -29,6 +29,7 @@ Extract domain expertise from creator conversation and inject into product files
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Identify target product:
    - If `$ARGUMENTS` provided, use as product slug → look in `workspace/{slug}/`
    - If `workspace/{slug}/` does not exist → "Product `{slug}` not found in workspace/. Run `/create` first or check `workspace/` for available slugs."
@@ -49,7 +50,10 @@ Extract domain expertise from creator conversation and inject into product files
    - `references/ux-vocabulary.md` — translate terms in any creator-facing output
    **Vocabulary enforcement (mandatory):** Every question, section signal, sparring challenge, and progress message passes through ux-vocabulary.md translation before reaching the creator. Internal terms (Sparring, Pitfall, MCS, DNA tier, extraction mode) are replaced for non-dev creators. For dev/hybrid creators, terms may appear but always with context ("MCS-2 quality checks — these verify craft and expertise depth").
    - `references/quality/engine-voice.md` — full voice substrate. Load when composing section quality signals, sparring pressure, milestone celebrations, or brand moments.
+   - `references/quality/exemplar-outputs.md` sections E4 and E5 only — the section question and sparring exemplars. These show the exact visual rhythm and warmth your questions must carry: progress sandwich (bar → celebration → question → escape hatch), warm framing, 💡 scaffolding offers.
+   - `references/ux-experience-system.md` §11 Deep Elicitation Protocol — MANDATORY for all AskUserQuestion calls. Apply: experience-based questions (not abstractions), one question at a time, mirror to confirm, escalate progressively, offer scaffolding when stuck, celebrate depth.
    /fill is where the creator spends the MOST time. The experience must be warm coaching, not interrogation. Adapt: beginners get encouragement + examples. Experts get peer-level sparring. Celebrate section completions with progress visibility ("4/7 sections filled. Core identity locked in."). Hyper-personalize using creator.yaml fields — name, goals, expertise areas.
+4b. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after fill completes, guide to /validate), #17 (lost creator: if stuck on a section for 3+ questions, offer /think or skip), #19 (error recovery: if fill encounters malformed scaffold, suggest re-scaffolding).
 5. Load product spec from `references/product-specs/{type}-spec.md`
 6. Load product DNA from `product-dna/{type}.yaml`
 7. Load `domain-map.md` if it exists (from /map) → use as knowledge source
@@ -83,7 +87,40 @@ Extract domain expertise from creator conversation and inject into product files
     - After the SELF-CLONE walker completes, skip to Completion (step 13 standard flow is bypassed)
     - The Sparring, Checkpointing, and Progress phases from the standard flow still apply during the walker — checkpoint after every two dimensions
     - Record `fill_config.self_clone: true` in `.meta.yaml`
-    - **Do not run this branch for non-SELF cognitive minds or non-minds products** — all other types continue to step 13 unchanged
+    - **Do not run this branch for non-SELF cognitive minds or non-minds products** — all other types continue to step 12c or 13
+12c. **SQUAD ORGANISM branch (type=squad only).**
+    If `.meta.yaml.product.type == "squad"`:
+    - **This branch replaces the standard section walker.** Squads are organism-level products — the standard single-file walk is insufficient. The squad walker iterates across the full directory tree.
+    - **Phase 1 — Composition Discovery** (if not already answered in /create):
+      - Ask archetype if not in `.meta.yaml`: Sequential Pipeline / Parallel Fan-Out / Conditional Router / Iterative Refinement / Hierarchical Delegation
+      - Ask specialist count and roles: "How many specialists does this squad need? Name each role and its exclusive domain."
+      - Ask entity lifecycles: "What objects flow through this squad? (e.g., a CAMPAIGN, a LEAD, an EXPERIMENT). Describe the lifecycle stages."
+    - **Phase 2 — Orchestrator Layer** (kernel/):
+      - Walk `kernel/orchestration.md` — fill orchestration protocol. Ask: "How does the coordinator decide what to do? Describe its decision cycle step by step."
+      - Walk `kernel/elicitation-engine.yaml` — fill progressive elicitation rules. Ask: "What questions does the squad ask the user before acting? How does it adapt based on answers?"
+      - Walk `kernel/intelligence-matrix.yaml` — fill scoring/routing intelligence. Ask: "How does the squad score which agents are most relevant for a given request?"
+    - **Phase 3 — Specialist Agents** (agents/):
+      - For EACH agent file in `agents/*.md`:
+        - Walk identity, role, tools, escalation rules
+        - If agent has a mind-clone source in `minds/`: load `minds/{name}/cognitive-model.md` and use as knowledge substrate
+        - Apply D1 (activation protocol), D2 (anti-patterns ≥5), D14 (graceful degradation) per agent
+        - Sparring: "What would this specialist REFUSE to do? What's outside its boundary?"
+    - **Phase 4 — Task Registry** (tasks/):
+      - Walk `tasks/task-registry.yaml` — for each specialist, define 3-10 granular tasks with:
+        - task_id, description, assigned_agent, input_schema, output_schema, quality_gate
+      - Ask per agent: "What are the 3-5 most important things {agent_name} does? For each, what input does it need and what output does it produce?"
+    - **Phase 5 — Chains & Workflows** (chains/, workflows/):
+      - Walk `chains/chain-registry.yaml` — define micro-workflows (2-4 agent sequences with cadences)
+      - Walk `workflows/*.md` — define full pipelines mapping lifecycle stages to agents
+      - Ask: "Walk me through the main workflow from start to finish. Which agent handles each step? What passes between them?"
+    - **Phase 6 — Routing & Handoff** (config/):
+      - Walk `config/routing-table.md` — fill declarative routing rules (IF intent → agent)
+      - Walk `config/handoff-protocol.md` — define handoff envelope format (XML or structured)
+      - Sparring: "What happens when the input doesn't match any route? What's the fallback?"
+    - **Phase 7 — Quality & Testing** (tests/):
+      - Walk test scenarios: happy path, edge case, adversarial, agent failure recovery
+    - **Completion:** After all phases, update `.meta.yaml` with `fill_metrics` and transition state to `content`.
+    - Record `fill_config.squad_organism: true` in `.meta.yaml`
 13. Begin section-by-section guided extraction (see fill-protocol.md → DISCOVERY PHASE)
 
 ---

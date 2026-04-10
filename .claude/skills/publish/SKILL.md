@@ -23,13 +23,16 @@ Publish a packaged product to the MyClaude marketplace via CLI delegation.
 
 ## Activation Protocol
 
+0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Identify product: `$ARGUMENTS` as slug → `workspace/{slug}/`
 2. Read `.meta.yaml` → verify state is "packaged"
 3. Verify `.publish/` exists with vault.yaml
 4. Check CLI: `which myclaude` — if not found, show install instructions
 5. Check CLI auth: run `myclaude whoami` — if "not logged in", show: "Not authenticated. Run `myclaude login` first." and stop.
 6. Read `creator.yaml` → load author metadata. If missing — "Creator profile not found. Run `/onboard` first." and stop.
+6b. **Load proactives:** Load `references/engine-proactive.md` — wire #1 (pipeline guidance: after publish, suggest /status to track installs), #14 (feedback loop: after publish, suggest checking install data next session), #18 (WOW moment for first publish).
 7. **Load voice identity**: Load `references/quality/engine-voice-core.md`. Load the full `references/quality/engine-voice.md` only when composing the publish celebration (Step 6) — that is a peak moment. Use publish celebration format: "Published to myclaude.sh — live now." + install command + distribution vector note. Brief, proud, specific.
+7b. **Exemplar load:** Load `references/quality/exemplar-outputs.md` sections E8 and E9 only — the first-publish celebration and nth-publish compact. Your celebration MUST carry the same Frame + emotion calibration: full ceremony for first/significant publishes, compact ✦ line for expert nth publishes. Adapt to creator journey position.
 8. **CLI contract:** Load `references/cli-contract.md` for unified error handling. This skill has mixed severity — the most critical CLI surface in the pipeline. Severity map:
    - **Blocking:** `validate --json` (Step 3) — abort publish if validation fails or CLI unavailable
    - **Blocking:** `publish` (Step 4) — cannot proceed without CLI. Show manual alternative: `myclaude.sh/publish`
