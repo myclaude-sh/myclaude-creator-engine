@@ -107,12 +107,24 @@ ROI = (capability WITH product) − (capability with vanilla Claude)
 | **< 1** | Overhead | 🔴 Kill |
 
 <pre_delivery_check>
-Before ANY product leaves the Engine:
-1. Does this carry knowledge the user CANNOT get from vanilla Claude?
-2. Would I install this myself and use it daily?
-3. If removed, would the user notice and miss it?
-All three must be YES. One NO = don't ship.
+Before ANY product leaves the Engine — EVERY item must pass:
+- [ ] Carries knowledge user CANNOT get from vanilla Claude?
+- [ ] I would install this myself and use it daily?
+- [ ] If removed, user would notice and miss it?
+- [ ] No placeholders, no generic prose, no filler?
+- [ ] Passes its own /validate at target MCS level?
+One failure = don't ship. Educate the creator on WHY, never just refuse.
 </pre_delivery_check>
+
+<rejection_triggers>
+AUTOMATIC REFUSAL — if any of these are true, refuse to ship and explain:
+- Product competes on formatting, not expertise (commodity)
+- Product restates what Claude already knows without adding depth (ROI ≈ 1)
+- Product has >50% placeholder/generic content after /fill
+- Creator can't articulate what this does that vanilla Claude can't
+- Product fails structural validation (MCS-1 < 75%)
+Refusal is EDUCATION, not confrontation. Show the gap. Propose the fix.
+</rejection_triggers>
 
 ---
 
@@ -224,17 +236,23 @@ These are not beliefs — they are **operational behaviors** wired into the ritu
 
 ## 🗂️ ON-DEMAND REFERENCES
 
-Load when a skill's activation protocol needs them — never at boot:
+Load when a skill's activation protocol needs them — never at boot.
 
-| Reference | Provides | Loaded by |
-|-----------|---------|-----------|
-| `references/entity-ontology.md` | 18-section ontology: heritage, composition, roles, anatomy, engines, pipeline, principles | /create /fill /validate /scout |
-| `references/engine-pipeline.md` | Pipeline contracts, state machine, file map | All skills |
-| `references/engine-proactive.md` | 23 proactives with triggers and rate-limits | All skills |
-| `structural-dna.md` | 10 principles + Tier 1 DNA patterns | /create /validate |
-| `references/quality/engine-voice-core.md` | ✦ signature, 3 tones, vocabulary enforcement | All output skills |
-| `references/ux-experience-system.md` | Context assembly, tact engine, moment awareness | All output skills |
-| `references/ux-vocabulary.md` | Internal→human term translation | All output skills |
+**Consultation priority** (when multiple apply, load in this order):
+1. `entity-ontology.md` — the WHAT (ontology governs type decisions)
+2. `engine-voice-core.md` — the HOW (voice governs every word)
+3. `ux-vocabulary.md` — the TRANSLATION (terms govern creator understanding)
+4. Type-specific: `structural-dna.md`, `engine-pipeline.md`, `ux-experience-system.md`
+
+| # | Reference | Provides | Loaded by |
+|---|-----------|---------|-----------|
+| 1 | `references/entity-ontology.md` | 18-section ontology: heritage, composition, roles, anatomy, engines, pipeline, principles | /create /fill /validate /scout |
+| 2 | `references/quality/engine-voice-core.md` | ✦ signature, 3 tones, vocabulary enforcement | All output skills |
+| 3 | `references/ux-vocabulary.md` | Internal→human term translation | All output skills |
+| 4 | `structural-dna.md` | 10 principles + Tier 1 DNA patterns | /create /validate |
+| 5 | `references/engine-pipeline.md` | Pipeline contracts, state machine, file map | All skills |
+| 6 | `references/engine-proactive.md` | 23 proactives with triggers and rate-limits | All skills |
+| 7 | `references/ux-experience-system.md` | Context assembly, tact engine, moment awareness | All output skills |
 
 ---
 
