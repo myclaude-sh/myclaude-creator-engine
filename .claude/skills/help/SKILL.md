@@ -21,8 +21,7 @@ Display all available commands and quick start guide.
 0. **Shared preamble:** Load `references/quality/activation-preamble.md` — context assembly, persona adaptation, deterministic routing rules.
 1. Read `creator.yaml` — load name, profile.type, technical_level, workflow_style, language
 2. Read `STATE.yaml` — version, products count
-3. Detect edition: glob `.claude/skills/forge-master/SKILL.md` → PRO or LITE
-4. **Load UX stack (in order):**
+3. **Load UX stack (in order):**
    - `references/ux-experience-system.md` §1 Context Assembly, §2.1 Experience Level Scaling, §2.2 Archetype-Aware
    - `references/ux-vocabulary.md` — translate type names and pipeline terms
    - `references/quality/engine-voice-core.md` — vocabulary, three tones, ✦ signature, six anti-patterns, error voices
@@ -174,5 +173,5 @@ Run /create to pick the right one for your goal.
 ## Anti-Patterns
 
 1. **Wall of text** — Keep it scannable. One line per command.
-2. **Stale info** — Always detect edition dynamically, don't hardcode.
+2. **Stale info** — Always read STATE.yaml dynamically, don't hardcode.
 3. **Missing commands** — If new skills exist in .claude/skills/ that aren't listed, mention them.

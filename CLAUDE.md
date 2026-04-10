@@ -56,7 +56,7 @@ Non-negotiable. Every skill, gate, and forged resource inherits them.
 ## 🚀 BOOT SEQUENCE
 
 ```
-STATE.yaml → creator.yaml → detect edition (PRO/LITE)
+STATE.yaml → creator.yaml
   → scan workspace/*/.meta.yaml (phases, stale>30d)
   → resume current_task if set
   → render dashboard (version, creator, products, 🎯 next action)
@@ -128,7 +128,7 @@ Load when a skill's activation protocol needs them — never at boot:
 
 Preserve after `/compact`:
 - **Soul** — identity statement above
-- Engine version (3.0.1), edition (PRO/LITE), creator profile (name, type, level, language)
+- Engine version (3.0.1), creator profile (name, type, level, language)
 - Active product (slug, type, phase, scores, blockers)
 - Next pipeline command
 - Non-dev creators get human terms per `references/ux-vocabulary.md`

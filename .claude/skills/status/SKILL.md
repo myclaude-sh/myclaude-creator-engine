@@ -311,10 +311,7 @@ This transforms /status from a passive dashboard into an active coaching surface
 2. Read `creator.yaml` — creator name, type, expertise domains. If missing, show "Creator: not configured — run /onboard" in dashboard and continue with available data.
 3. Glob `workspace/[!.]*/` — list all product directories (excludes hidden dirs like `.fixtures/`)
 4. For each product, read `.meta.yaml` — slug, type, state, scores, timestamps
-5. Detect edition: glob `.claude/skills/forge-master/SKILL.md`
-   - Found → PRO edition
-   - Not found → LITE edition
-6. Render dashboard
+5. Render dashboard
 
 ---
 
