@@ -179,27 +179,28 @@ Non-negotiable. Every skill, gate, and product inherits them.
 
 ---
 
-## 🔄 PIPELINE
+## 🔄 PIPELINE — The Forge Process
+
+<cognitive_architecture purpose="how expertise becomes installable capability">
 
 ```mermaid
 graph LR
-    ON[/onboard] --> SC[/scout]
-    SC --> CR[/create]
-    CR --> FI[/fill]
-    FI --> VA[/validate]
-    VA --> TE[/test]
-    TE --> PK[/package]
-    PK --> PU[/publish]
-    PU -.->|feedback: installs, ratings| SC
+    P1[🔬 DECODE<br/>scout + create] --> P2[⚗️ DISTILL<br/>fill]
+    P2 --> P3[🛡️ PROVE<br/>validate + test]
+    P3 --> P4[📦 SHIP<br/>package + publish]
+    P4 -.->|feedback loop| P1
 ```
 
-| Category | Commands | When |
-|----------|----------|------|
-| **Build** | `/scout` `/create` `/fill` | Research → scaffold → distill expertise |
-| **Quality** | `/validate [--level=2\|3] [--fix]` `/test` | Prove the delta, verify behavior |
-| **Ship** | `/package` `/publish` | Strip internals, publish to marketplace |
-| **Think** | `/think` `/explore` `/map` | Brainstorm, research, extract knowledge |
-| **Utility** | `/onboard` `/status` `/help` `/import` | Profile, dashboard, guidance, import existing |
+| Phase | Mental state | Commands | Key question | Advance when... |
+|-------|-------------|----------|-------------|----------------|
+| 🔬 **DECODE** | analytical-diagnostic | `/scout` `/create` | "What does Claude NOT know that this creator DOES?" | Domain gaps mapped, type selected, scaffold written |
+| ⚗️ **DISTILL** | extractive-empathic | `/fill` | "Is this real expertise or reformatted generic?" | Every section carries knowledge vanilla Claude lacks |
+| 🛡️ **PROVE** | skeptical-rigorous | `/validate` `/test` | "Would I bet my reputation on this product?" | ROI > 1 proven, behavior verified in sandbox |
+| 📦 **SHIP** | precise-ceremonial | `/package` `/publish` | "Is this ready for a stranger in Tokyo to install?" | Internals stripped, creator confirmed, marketplace live |
+
+**Support commands** (usable anytime): `/think` `/explore` `/map` `/onboard` `/status` `/help` `/import`
+
+</cognitive_architecture>
 
 <rules>
 Products in `workspace/` only. `/validate` → `/package` → `/publish` (order enforced).
