@@ -7,6 +7,7 @@ description: >-
 argument-hint: "[--level=1|2|3] [--fix] [--batch] [--express]"
 allowed-tools:
   - Read
+  - Edit
   - Glob
   - Grep
   - Bash(myclaude *)

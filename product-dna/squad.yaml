@@ -640,8 +640,8 @@ lifecycle:
     - creator.yaml missing AND micro-onboard fails
     - archetype not selected
     - specialist_roster has fewer than 2 entries (orchestrator + at least 1 specialist)
-    consumer_status: partial
-    consumer_status_reason: "/create reads product-dna.squad today and scaffolds SQUAD.md + README.md + references/ + agents/. It does not yet scaffold routing.yaml, install-manifest.yaml, or orchestrator.md with tool boundary enforcement — the activates_templates list below names the full set the scaffold must produce once its squad branch is extended."
+    consumer_status: wired
+    consumer_status_reason: "S132 upgraded scaffold to 10-directory organism structure with archetype-first discovery. S133 wired entity-ontology.md (step 7b) with role selection from 7 archetypes, anatomy verification for all 8 components, and type-specific scaffold instructions for squad/agent/workflow/system. Remaining gap: routing.yaml and install-manifest.yaml templates need content defaults, orchestrator tool boundary not enforced in Express mode."
     next_action: "/fill {slug}"
     optional: false
     type_specific:
@@ -689,8 +689,8 @@ lifecycle:
     outputs:
     - All files filled
     - "workspace/{slug}/.meta.yaml (state: content, fill_progress updated)"
-    consumer_status: partial
-    consumer_status_reason: "/fill does not yet walk multiple agent files in sequence within one squad. The sections_walked list below names the full walker sequence that the extended /fill squad branch must honor once iteration across specialists is wired."
+    consumer_status: wired
+    consumer_status_reason: "S132 added branch 12c: 7-phase multi-file organism walker (composition discovery, orchestrator layer, specialist agents, task registry, chains/workflows, routing/handoff, quality/testing). S133 wired entity-ontology.md (step 6b) with role-aware composition from §AGENT_ROLES, role→tool boundary mapping in Phase 3, §WORKFLOW_VS_SQUAD routing calibration in Phase 6, §SQUAD_ANATOMY completeness check before completion, and branches 12d (agent) + 12e (workflow). Remaining gap: active intelligence injection from scout report is documented in §INTELLIGENCE_PIPELINE but not yet enforced as mandatory step."
     next_action: "/validate {slug}"
     optional: false
     blocks_when: []
@@ -734,8 +734,8 @@ lifecycle:
     outputs:
     - "workspace/{slug}/.meta.yaml (state: validated, scores, intelligence)"
     - Validation report
-    consumer_status: partial
-    consumer_status_reason: "/validate reads dna_patterns per type but does not yet enforce squad-specific checks — routing.yaml schema validation, install_manifest schema validation, and handoff_format_spec presence in orchestrator body are declared above but not yet consumed. The per_stage_hooks block below names each check the extended validator must run once its squad branch is wired."
+    consumer_status: wired
+    consumer_status_reason: "S132 added squad-specific D9/D10/D18 at MCS-2 (not PRO-gated), per-agent D1/D2/D4/D14 validation, routing completeness check, task registry coherence, chain registry coherence. S133 wired entity-ontology.md (step 5b) with heritage coherence, composition coherence, role coherence (task↔agent role), §SQUAD_ANATOMY completeness (8 components), type fitness heuristics (promotion/demotion), agent role-tool coherence, and for systems: §SYSTEM_ENGINES gear verification. Remaining gap: routing.yaml schema validation and install_manifest schema validation are structural checks not yet implemented as grep/parse rules."
     optional: false
     blocks_when: []
     next_action: "/test {slug} (required for MCS-2+) OR /package {slug}"
