@@ -211,6 +211,7 @@ Default severity per command. Skills may **escalate** (never downgrade) based on
 1. **All marketplace queries append `2>/dev/null`** — stderr is never shown to the creator.
 2. **All marketplace queries append `--json`** — structured output for parsing.
 3. **Working directory for validate/publish**: `cd workspace/{slug}/.publish` before invocation.
-4. **No CLI calls during /fill or /map** — these are content-only skills.
+4. **No CLI calls during /fill, /map, /import, /help, /test** — these are content-only or internal-only skills.
 5. **Scout declares `Bash(myclaude *)` permission** but delegates marketplace queries to /explore.
 6. **First-product guard** (/create step 1.5): skip marketplace scan for first-time creators.
+7. **Think uses CLI conditionally** — only for product strategy questions (search + trending), both silent-skip.

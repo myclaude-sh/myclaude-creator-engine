@@ -169,7 +169,7 @@ each subsequent threshold worth acknowledging without becoming noise.
 |---|---|---|
 | M1 | `count(products where any forge event exists) == 5` — measured by counting `.meta.yaml` files under `workspace/[!.]*/` that contain an `intent_declaration` block OR by counting entries in `STATE.yaml decisions_history` with a unique `slug`, whichever is larger | `"5th forge — {newest_slug} joins a growing portfolio of 5 products"` |
 | M2 | `count(products where state.phase == "published") == 10` | `"10th publish — {newest_slug} is the 10th product shipped"` |
-| M3 | `any published product has user_rating >= 5 AND no prior rating >= 5 has been recorded in milestones` — read `outcome_30d.user_rating` from each decisions_history entry OR fetch `myclaude stats --json` for each published product if available | `"First ★5 — {slug} received its first perfect rating"` |
+| M3 | `any published product has user_rating >= 5 AND no prior rating >= 5 has been recorded in milestones` — read `outcome_30d.user_rating` from each decisions_history entry OR fetch `myclaude stats --json 2>/dev/null` for each published product if available | `"First ★5 — {slug} received its first perfect rating"` |
 | M4 | `count(products where intelligence.domain == X) >= 3` for some X AND no existing bundle product exists for domain X AND this condition was NOT true before the most recent forge | `"3 products in {domain} — {domain} is now a portfolio cluster, bundle candidate"` |
 
 **Deferred triggers.** Sessions_total milestones (100, 500, 1000) depend on the Stop hook

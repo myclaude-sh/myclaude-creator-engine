@@ -10,6 +10,7 @@ allowed-tools:
   - Read
   - Glob
   - Grep
+  - Bash(myclaude *)
   - WebSearch
   - AskUserQuestion
 ---
@@ -80,7 +81,7 @@ Then: "Ready to act on this? Here's the command: {next_command}"
 Investigate the question using available context:
 - Search workspace/ for related patterns
 - Check product-dna/ for type-specific guidance
-- Search marketplace via `myclaude search --json` if relevant
+- Search marketplace via `myclaude search --json 2>/dev/null` if relevant (silent-skip on failure per `references/cli-contract.md`)
 - Read references/ for best practices
 
 Synthesize findings, then suggest actionable next steps.
@@ -114,6 +115,8 @@ If invoked with a product slug:
 ---
 
 ## Marketplace Intelligence
+
+**CLI contract:** Load `references/cli-contract.md` for unified error handling. Both commands are **silent-skip** severity — thinking proceeds without marketplace data if CLI is unavailable.
 
 If the thinking question is about product strategy ("should I build X?", "is there demand for Y?"):
 
