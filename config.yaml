@@ -255,8 +255,8 @@ routing:
         target_lines: "<500 primary"
         mcs_ceiling: 3
       advisory:
-        template: "templates/skill/"   # shared base template; advisory subtype has no dedicated template yet
-        template_status: "base_template_fallback"
+        template: "templates/skill/"   # shared base template; advisory subtype uses procedural template with advisory DNA additions
+        template_status: "base_template_fallback"  # known limitation v3.0.0 — advisory products scaffold correctly but template is not depth-optimized; dedicated advisory template planned for v3.1
         required_files: ["SKILL.md", "README.md", "references/"]
         dna_required: [1, 2, 3, 4, 6, 13, 14, 19]
         dna_recommended: [5, 11, 15]

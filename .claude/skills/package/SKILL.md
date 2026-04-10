@@ -42,16 +42,7 @@ Stage a product for distribution with triple manifests (MyClaude + Anthropic Plu
 
 ### PACKAGING PIPELINE
 
-### SAFETY INVARIANTS (inspired by CC source safety-first pattern)
-[SOURCE: CC commit handling — never --amend, --no-verify, force push]
-
-These are ABSOLUTE rules that cannot be overridden:
-1. **Never overwrite .publish/ without confirmation** — if .publish/ already exists, ask before replacing
-2. **Never include secrets** — re-run secrets scan from /validate Stage 2 on .publish/ contents AFTER stripping
-3. **Never strip creator content** — only strip WHY comments, _prefixed JSON keys, and .meta.yaml. All content the creator wrote must survive packaging intact
-4. **Never modify workspace originals** — all transformations happen on the .publish/ copy
-5. **Verify frontmatter completeness** — check `product-dna/{type}.yaml → frontmatter.required[]`. Missing required fields in .publish/ → block with: "Required frontmatter field '{field}' missing. Add it to your product file, then re-run /package." [SOURCE: cc-platform-contract.md §2.1]
-6. **Compact Instructions preservation** — if the workspace file has `## Compact Instructions`, it MUST survive into .publish/. This section is NOT a WHY comment — it's functional product content read by Claude Code's compact system [SOURCE: compact/prompt.ts:133-143]
+**SAFETY INVARIANTS — see end of file (positioned per D19 attention-aware authoring for maximum model compliance).**
 
 **Step 1 — Verify Validation**
 
@@ -416,6 +407,19 @@ state:
 
 Technical: {N} files, {size}, {checksum_short}...
 ```
+
+---
+
+## SAFETY INVARIANTS (D19 — critical constraints in high-attention zone)
+[SOURCE: CC commit handling — never --amend, --no-verify, force push]
+
+These are ABSOLUTE rules that cannot be overridden:
+1. **Never overwrite .publish/ without confirmation** — if .publish/ already exists, ask before replacing
+2. **Never include secrets** — re-run secrets scan from /validate Stage 2 on .publish/ contents AFTER stripping
+3. **Never strip creator content** — only strip WHY comments, _prefixed JSON keys, and .meta.yaml. All content the creator wrote must survive packaging intact
+4. **Never modify workspace originals** — all transformations happen on the .publish/ copy
+5. **Verify frontmatter completeness** — check `product-dna/{type}.yaml → frontmatter.required[]`. Missing required fields in .publish/ → block with: "Required frontmatter field '{field}' missing. Add it to your product file, then re-run /package." [SOURCE: cc-platform-contract.md §2.1]
+6. **Compact Instructions preservation** — if the workspace file has `## Compact Instructions`, it MUST survive into .publish/. This section is NOT a WHY comment — it's functional product content read by Claude Code's compact system [SOURCE: compact/prompt.ts:133-143]
 
 ---
 
