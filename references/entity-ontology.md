@@ -1,5 +1,5 @@
 # Entity Ontology — Operational Reference
-<!-- Loaded by /create, /fill, /validate, /scout when type ∈ {squad, system, agent, workflow} -->
+<!-- Loaded by /create, /fill, /validate, /scout when type ∈ {squad, system, agent, minds, workflow} -->
 <!-- Source: S100-uemf-product-taxonomy + S118b-uemf-epistemic-map + S100-ecosystem-anatomy -->
 <!-- Budget: ~300 lines, ~3K tokens. On-demand only — zero ambient cost. -->
 <!-- Update policy: when source docs change, this extract must be updated in the same session. -->
