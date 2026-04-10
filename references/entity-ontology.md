@@ -1,8 +1,21 @@
 # Entity Ontology — Operational Reference
 <!-- Loaded by /create, /fill, /validate, /scout when type ∈ {squad, system, agent, minds, workflow} -->
 <!-- Source: Engine internal ontology research (docs/briefs/ + docs/research/). Do not distribute. -->
-<!-- Budget: ~300 lines, ~3K tokens. On-demand only — zero ambient cost. -->
+<!-- Budget: ~420 lines, ~4.5K tokens. On-demand only — zero ambient cost. -->
 <!-- Update policy: when source docs change, this extract must be updated in the same session. -->
+
+---
+
+## §FOUNDATIONAL_THESIS — Why Restrictions Generate Intelligence
+
+A cognitive system is NOT defined by what it CAN do — it's defined by what it physically CANNOT do and what useful flow that impossibility channels. `disallowedTools` is not a wall — it's a mitral valve. `omitClaudeMd` is not deprivation — it's focus. Every restriction in Claude Code (`tools: ∩ disallowedTools:`, `denied-tools`, `context: fork`, `paths:` scoping) generates a specific cognitive flow:
+
+- Agent denied Write → forced to reason and advise (ADVISOR flow)
+- Agent denied all except Agent tool → forced to coordinate (ORCHESTRATOR flow)
+- Skill with `paths:` scoping → activates only in relevant context (METABOLIC efficiency)
+- Fork with `omitClaudeMd` → focused specialist uncorrupted by parent constitution
+
+**Design principle:** When creating any product, ask: "What should this NEVER be able to do?" — the answer generates the intelligence flow. Capability without restriction is noise. Restriction without capability is paralysis. The dance between both IS the system.
 
 ---
 
@@ -153,6 +166,22 @@ on event        procedural   sequence      autonomous    perspective   organism
 
 ---
 
+## §TRANSVERSAL_AXES — Beyond Linear Hierarchy
+
+Product type is NOT the only dimension. Three orthogonal axes cut across all types:
+
+| Axis | Values | What it determines |
+|------|--------|-------------------|
+| **Delivery** | slash-command (skill/workflow) · agent-spawn (agent/minds/squad) · ambient (claude-md/hooks) · install-only (bundle) | HOW the product activates at runtime |
+| **Nature** | procedural (no judgment) · advisory (judgment, no action) · executive (judgment + action) · orchestrative (judgment + delegation) | WHAT kind of cognition the product applies |
+| **Depth** | surface (~100 lines, one concern) · functional (~500 lines, domain slice) · cognitive (~1000+ lines, deep model) | HOW MUCH intelligence the product carries |
+
+**Why this matters:** A skill CAN be cognitive-depth (e.g., Kairo has deep reasoning despite being a skill). A minds CAN be procedural (e.g., a simple Q&A advisor). The type determines the delivery mechanism and tool boundary — but Nature and Depth are chosen by the creator. Don't assume skill=shallow or minds=deep.
+
+**Use during /create:** After type selection, calibrate Nature and Depth: "Your tool will be [procedural/advisory/cognitive]. How deep should the expertise go?"
+
+---
+
 ## §WORKFLOW_VS_SQUAD — The Boundary
 
 | Dimension | Workflow | Squad |
@@ -251,7 +280,7 @@ A system is NOT a "squad with extras." It is an **organism** with 13 functional 
 | E8 | **Voz externa** | Identity signature to the world — how the system presents itself | output-style composition across agents | E2 (voice without constitution = empty performance) | No recognizable identity |
 | E9 | **Integridade recursiva** | System passes its own validator pointed at itself (Clause VII) | `/validate --target=self`, AgentHook as verifier | E11 (point vs continuous recursion) | Hypocrisy — preaches but doesn't practice |
 | E10 | **Estado persistente** | Serialized artifacts that survive /compact, reinstall, update | STATE.yaml, .meta.yaml, install_manifest, .manifest-lock, memory scopes | E1 (IO has cost) | Amnesia between sessions |
-| E11 | **Auto-observação longitudinal** | Observer agent building semantic dossier on system's own operation over time | PostToolUse hook + AgentHook + memory:project | E3 (bidirectional) + E9 (continuous vs point) | Self-blindness — no learning from own behavior |
+| E11 | **Auto-observação longitudinal** | Observer agent building semantic dossier on system's own operation over time | PostToolUse hook → AgentHook spawns observer → observer reads recent context → writes narrative to memory:project → next session's agents read accumulated narrative → creator reviews dossier → updates criticalSystemReminder. This is a SECOND-ORDER recursion loop: the system observes itself observing. | E3 (bidirectional) + E9 (continuous vs point) | Self-blindness — no learning from own behavior |
 | E12 | **Ciclo de vida reversível** | Install → operate → uninstall, all auditable and reversible via hash-verified manifest | install_manifest, .manifest-lock, `myclaude install/uninstall` | E1 (install cost) | Can't coexist ecologically with other systems |
 | META | **Acoplamento declarado** | For each active gear, creator declares its counterpart and why | `coupling_declaration:` field in system codex | ALL gears | Pile of drawers, not organism |
 
@@ -270,6 +299,34 @@ A system is NOT a "squad with extras." It is an **organism** with 13 functional 
 - AP-S7: Free-text routing — E7 coordination without structured handoffs
 - AP-S9: Structural hypocrisy — claims P9 but can't pass own validator
 - AP-S11: Self-blindness — no E11, system can't learn from own behavior
+
+**Orthogonal dimensions of coupling (how gears connect across time):**
+1. **Dual temporal homeostasis** — system must wake up correct (SessionStart hook → verifier) AND stay correct per-turn (criticalSystemReminder re-injection). Two clocks, one identity.
+2. **Dual plasticity** — habitat adapts at install time (install_manifest places files) AND moment-to-moment at operation (paths: scoping, conditional skill activation). Structure AND behavior adapt.
+3. **Dual cognition (spinal cord + brain)** — stigmergic reflexes (hooks fire without thinking) AND deliberate orchestration (agents reason about routing). Medulla AND cortex. Fast AND deep.
+4. **Triple memory** — hereditary (skills: frontmatter preloads knowledge), procedural (STATE.yaml tracks what happened), declarative (memory:project stores narrative understanding). DNA AND habits AND autobiography.
+
+---
+
+## §CONSTITUTIONAL_PRIMITIVES — Identity Enforcement at Runtime
+
+`criticalSystemReminder_EXPERIMENTAL` is the most powerful and least documented Claude Code primitive. It re-injects a constraint string at EVERY turn of an agent's conversation — making it physically impossible for the agent to "forget" its mandate over long conversations. This is D1 (Activation Protocol) + D14 (Graceful Degradation) made physical.
+
+**Use for:** Any agent/minds that must maintain identity over 50+ turns. The verification agent uses it to prevent mandate drift. Cognitive minds should use it to preserve their cognitive architecture.
+
+**How it works:** Declared in agent frontmatter or programmatically. Re-injected by Claude Code runtime before each assistant turn. The agent cannot remove or override it — it's constitutional, not conversational.
+
+---
+
+## §COMPOSITION_PRINCIPLES — How Products Think Together
+
+Beyond containment rules (§COMPOSITION), products compose with cognitive principles:
+
+1. **Convergence by independence** — Multi-mind analysis (e.g., Kairo + Leonardo + Lozano) produces apex insight when each mind reasons INDEPENDENTLY and results converge. Consensus is weak. Convergence from independent paths is strong. Design squads where specialists don't see each other's work until synthesis.
+
+2. **Symbiosis > aggregation** — mind + skill = advisor watches while hands work (1+1>2). mind + mind = debate without action (1+1<2 unless one orchestrates). hooks + claude-md = automatic enforcement of constitutional rules (immune system). Design compositions where each product fills a cognitive gap the other can't.
+
+3. **Intelligence gradient as composition axis** — Compose along the gradient: hooks (reactive) → skill (procedural) → workflow (sequential) → agent (autonomous) → squad (collaborative). A complete setup has products at MULTIPLE points on the gradient, not all at the same level.
 
 ---
 
@@ -305,6 +362,14 @@ OUTPUT: Installable tool that carries a domain's intelligence
 
 **The discriminator:** A product from the Engine should contain knowledge that the user CANNOT get from vanilla Claude. If `/validate` can't demonstrate this delta, the product is commodity.
 
+**Hermeneutic spiral (for apex products — systems, cognitive minds):**
+For complex products where a simple scout isn't enough, the Engine can run a deeper intelligence cycle:
+1. **Raw observation** — multiple independent observers (Leonardo, Kairo, domain expert) examine the domain without structure
+2. **Rigorous audit** — a second pass where the auditor DISAGREES with the first observer, finding what was missed
+3. **Latent breaches** — surface patterns that no single observer caught but that emerge from the disagreements
+4. **Relational map** — synthesize into a UEMF-grade epistemic map that becomes the product's knowledge substrate
+This spiral is optional (scout alone suffices for most products) but produces orders-of-magnitude deeper intelligence for MCS-3 targets.
+
 **How /fill should actively inject intelligence (not passively read):**
 1. Load scout report findings
 2. For each product section, check: "Does the scout report have relevant research for this section?"
@@ -332,3 +397,13 @@ USER INSTALL
 ```
 
 **The Engine's ultimate output is not "a product." It's "a setup that makes someone superhuman in domain X."**
+
+**Feedback loop (publish → learn → improve):**
+When a product is published and used, its performance data (installs, ratings, usage patterns) feeds back into the Engine's intelligence:
+- Low substance score on published product → /fill increases sparring intensity for same domain
+- Unroutable intent during /create → logged with reason enum (no_match / composition_gap / ambiguous) → informs what to build next
+- Products that survive daily use teach the Engine what patterns work — products that fail teach what doesn't
+
+**Confidence discipline:**
+- **Spec confidence** (is the design sound?) ≠ **execution confidence** (is the implementation correct?). Never collapse these — a brilliant spec badly implemented is worse than no spec.
+- When /validate reports scores, distinguish: structural score (is it built right?) vs substance score (does it carry real intelligence?) vs delta score (is it better than vanilla?).

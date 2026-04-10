@@ -61,6 +61,9 @@ For building products (use /create→/fill). For mapping YOUR expertise (use /ma
     - Use §COMPOSITION to suggest how recommended products compose: "The skill handles execution while the mind advises."
     - Use §HEURISTICS to guard against over-recommendation: if a single skill suffices, don't recommend a squad
     - Use §ISOMORPHIC for creator-friendly explanations: "You need an advisor (minds) for thinking and a skill for doing."
+    - Use §COMPOSITION_PRINCIPLES to suggest how recommended products compose: convergence-by-independence for squads, symbiosis for mind+skill pairs
+    - Use §TRANSVERSAL_AXES to calibrate Nature and Depth per recommended product
+    - For MCS-3 targets, consider §INTELLIGENCE_PIPELINE hermeneutic spiral as pre-forge method
 7. **Gate check:** Read `config.yaml` → `gates.confirm_create` (default: true).
    If true → "I'll research '{domain}'. This involves generating a baseline, analyzing gaps,
    searching the marketplace, and running web research. Takes 2-5 minutes. Continue?"

@@ -54,6 +54,9 @@ Generate complete, MCS-1-valid project structure for any product type with guida
     - Isomorphic human↔CC mapping for creator-facing explanations (§ISOMORPHIC)
     - For type=system ONLY: the 13 functional gears (§SYSTEM_ENGINES) — ask which gears the creator wants active, scaffold coupling declarations
     - The intelligence pipeline that governs how scout research enters the product (§INTELLIGENCE_PIPELINE)
+    - The foundational thesis: restrictions generate intelligence flow — ask "What should this NEVER do?" (§FOUNDATIONAL_THESIS)
+    - Transversal axes: after type selection, calibrate Delivery × Nature × Depth (§TRANSVERSAL_AXES)
+    - Composition principles: how products think together — convergence by independence, symbiosis > aggregation (§COMPOSITION_PRINCIPLES)
 8. Load `${CLAUDE_SKILL_DIR}/references/discovery-questions.md` → category questions.
 9. Load `references/product-specs/{category}-spec.md` + `templates/{category}/`.
 10. Load `workspace/domain-map.md` if exists → prefill scaffold sections.

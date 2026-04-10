@@ -68,6 +68,10 @@ Extract domain expertise from creator conversation and inject into product files
     - §ISOMORPHIC: use human cognitive analogies to explain product role to non-dev creators
     - For type=system ONLY: §SYSTEM_ENGINES — the 13 functional gears. Walk each active gear during fill, ask for concrete implementation decisions, verify counterpart coupling
     - §INTELLIGENCE_PIPELINE — governs how scout research ACTIVELY enters product content (not passively). For EVERY section: check if scout report has relevant findings → propose content from research → creator validates/refines → sparring challenges generic answers. This is the soul of the Engine — condensing intelligence, not just filling templates.
+    - §FOUNDATIONAL_THESIS — for EVERY product, ask: "What should this NEVER be able to do?" The answer generates the intelligence flow. Use to guide frontmatter restrictions (denied-tools, paths: scoping).
+    - §TRANSVERSAL_AXES — calibrate Nature (procedural/advisory/executive/orchestrative) and Depth (surface/functional/cognitive) during fill. A skill CAN be cognitive-depth. Don't assume type=depth.
+    - §CONSTITUTIONAL_PRIMITIVES — for agents and minds, suggest criticalSystemReminder when the product must maintain identity over long conversations (50+ turns). Especially for cognitive minds.
+    - §COMPOSITION_PRINCIPLES — when filling a squad or system, apply convergence-by-independence (specialists don't see each other's work until synthesis) and symbiosis rules.
 7. Load `domain-map.md` if it exists (from /map) → use as knowledge source
 8. **Load scout report** if `.meta.yaml` has `intent_declaration.scout_source` field (canonical location) OR `.meta.yaml` root-level `scout_source` field (legacy fallback) → read `workspace/{scout_source}` for research context. Extract: baseline (Section 1), gaps (Section 2), research findings (Section 4). This intelligence drives research injection in the section walk.
 8b. **Domain intelligence back-reference:** Read `STATE.yaml → workspace.products[]`. Find products in the same `intelligence.domain` as the current product. If any exist with `intelligence.value_score` populated:
