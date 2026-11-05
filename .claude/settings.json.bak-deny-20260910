@@ -1,0 +1,36 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(myclaude *)"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force*)",
+      "Bash(git push -f *)",
+      "Bash(*--no-verify*)",
+      "Bash(git reset --hard*)",
+      "Bash(git clean -f*)",
+      "Bash(git checkout -- .)",
+      "Bash(git restore .)",
+      "Read(./.env)",
+      "Read(./.env.*)",
+      "Read(./private/**)"
+    ]
+  },
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1"
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "V=$(grep 'version:' .engine-meta.yaml 2>/dev/null | head -1 | sed 's/.*: *\"\\{0,1\\}//;s/\"//g') && echo \"MyClaude Creator Studio Engine v${V:-3.0.0}\" && if test -f creator.yaml; then N=$(grep 'name:' creator.yaml 2>/dev/null | head -1 | sed 's/.*name: *//'); echo \"Creator: $N\"; P=$(ls workspace/*/.meta.yaml 2>/dev/null | wc -l); echo \"Products: $P in workspace\"; else echo \"New here? Run /onboard to get started.\"; fi",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}
